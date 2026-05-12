@@ -1,0 +1,63 @@
+
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:school/constant.dart';
+import 'package:school/core/assest.dart';
+import 'package:school/core/widget/Text/text_style.dart';
+
+class CoustumAppBarSignup extends StatelessWidget {
+  const CoustumAppBarSignup({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Row(
+          children: [
+            Image.asset(AssestData.Logo, width: 150.w),
+
+            const Spacer(),
+            Text(
+              "العودة لاختيار الدور",
+              style: TextSt.textstyle12.copyWith(color: KcolorGrey),
+            ),
+            IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward)),
+          ],
+        ),
+
+        SizedBox(height: 22.h),
+        Row(
+          children: [
+            Text(
+              "بيانات الحساب",
+              style: TextSt.textstyle16.copyWith(color: KcolorGrey),
+            ),
+            Image.asset(AssestData.circule),
+            Spacer(),
+            Image.asset(AssestData.Horizontal_Divider),
+            Spacer(),
+
+            Text(
+              "التحقق ",
+              style: TextSt.textstyle16.copyWith(color: kcolorOlive),
+            ),
+            Image.asset(AssestData.circule1),
+          ],
+        ),
+
+        SizedBox(height: 33.h),
+        Text(
+          "إنشاء حساب جديد",
+          style: TextSt.textstyle28.copyWith(color: kcolorNavyBlue),
+        ),
+        SizedBox(height: 4.h),
+        Text(
+          " يرجى إدخال البيانات الوظيفية لإكمال إعداد الحساب  ",
+          style: TextSt.textstyle14.copyWith(color: kcolorNavyBlue),
+        ),
+        Text(" .الخاص بك ", style: TextSt.textstyle14.copyWith(color: kcolorNavyBlue)),
+      ],
+    );
+  }
+}
