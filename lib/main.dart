@@ -22,8 +22,12 @@ class MyApp extends StatelessWidget {
         child: MaterialApp.router(
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.light().copyWith(
+          theme: ThemeData(fontFamily: 'Tajawal').copyWith(
            scaffoldBackgroundColor: kPrimaryColor,
-    )));
+         
+                 )
+                
+                 
+                 ));
   }
 }
