@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -17,12 +16,14 @@ class SignupStudentBodyView extends StatelessWidget {
     return ListView(
       children: [
         Padding(
-          padding: EdgeInsetsGeometry.symmetric(vertical: 16.h, horizontal: 18.w),
+          padding: EdgeInsetsGeometry.symmetric(
+            vertical: 16.h,
+            horizontal: 18.w,
+          ),
           child: Container(
-          
-                decoration: BoxDecoration(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-               color: Colors.white
+              color: Colors.white,
             ),
             child: Padding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
@@ -34,7 +35,7 @@ class SignupStudentBodyView extends StatelessWidget {
                   Text(
                     "ربط حساب ",
                     style: TextStyle(
-                      fontSize: MediaQuery.sizeOf(context).height*0.07,
+                      fontSize: MediaQuery.sizeOf(context).height * 0.07,
                       color: kcolorNavyBlue,
                       fontWeight: FontWeight.bold,
                     ),
@@ -42,7 +43,7 @@ class SignupStudentBodyView extends StatelessWidget {
                   Text(
                     "  الطالب ",
                     style: TextStyle(
-                      fontSize: MediaQuery.sizeOf(context).height*0.07,
+                      fontSize: MediaQuery.sizeOf(context).height * 0.07,
                       color: kcolorNavyBlue,
                       fontWeight: FontWeight.bold,
                     ),
@@ -50,7 +51,7 @@ class SignupStudentBodyView extends StatelessWidget {
                   Text(
                     "الرجاء إدخال البيانات المطلوبة لإتمام ",
                     style: TextStyle(
-                      fontSize: MediaQuery.sizeOf(context).height*0.025,
+                      fontSize: MediaQuery.sizeOf(context).height * 0.025,
                       color: KcolorGrey,
                       fontWeight: FontWeight.normal,
                     ),
@@ -58,7 +59,7 @@ class SignupStudentBodyView extends StatelessWidget {
                   Text(
                     ". عملية الربط الأكاديمي ",
                     style: TextStyle(
-                      fontSize:  MediaQuery.sizeOf(context).height*0.025,
+                      fontSize: MediaQuery.sizeOf(context).height * 0.025,
                       color: KcolorGrey,
                       fontWeight: FontWeight.normal,
                     ),
@@ -67,33 +68,22 @@ class SignupStudentBodyView extends StatelessWidget {
                   FieldSignupStudents(),
                   SizedBox(height: 30.h),
 
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Buttontext(
+                      onPressed: () {
+                        GoRouter.of(context).push(AppRouter.kaccountpendeing);
+                      },
+                      borderColor: KcolorGrey,
+                      width: 0.2.w,
+                      background: kcolorOlive,
+                      textColor: Colors.white,
 
+                      text: " تفعيل الحساب ",
 
-
-                  
-                     Directionality(
-                      textDirection: TextDirection.rtl,
-                       child: Buttontext(
-                        onPressed: () {
-                           GoRouter.of(context).push(AppRouter.kaccountpendeing)  ;
-                        }
-                                    ,
-                                           borderColor:KcolorGrey,
-                                           width: 0.2.w,
-                        background: kcolorOlive,
-                         textColor:Colors.white,
-                        
-                          text:  
-                      " تفعيل الحساب ",
-                  
-                          icons:  Icons.check_circle_outlined,
-                    
-                     ),
-                    
+                      icons: Icons.check_circle_outlined,
+                    ),
                   ),
-
-
-               
 
                   SizedBox(height: 16.h),
                   Row(
@@ -112,23 +102,24 @@ class SignupStudentBodyView extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 16),
-                
-                     Directionality(
-                      textDirection: TextDirection.rtl,
-                       child: Buttontext(
-                                           borderColor: Color(0XFFC4C6CD),
-                                           width: 0.2.w,
-                        background: Colors.white,
-                         textColor: Colors.black,
-                          text:  " إضافة طالب آخر  ",
-                          icons:   Icons.person_add_alt, onPressed: () {  GoRouter.of(context).push(AppRouter.kaccountpendeing);   },),
-                     ),
-                    
-                  
-                    
-                
+
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Buttontext(
+                      borderColor: Color(0XFFC4C6CD),
+                      width: 0.2.w,
+                      background: Colors.white,
+                      textColor: Colors.black,
+                      text: " إضافة طالب آخر  ",
+                      icons: Icons.person_add_alt,
+                      onPressed: () {
+                        GoRouter.of(context).push(AppRouter.kaccountpendeing);
+                      },
+                    ),
+                  ),
+
                   SizedBox(height: 30),
-                  
+
                   Divider(color: Color(0XFFC4C6CD), thickness: 0),
                   SizedBox(height: 16),
 
@@ -148,11 +139,9 @@ class SignupStudentBodyView extends StatelessWidget {
                         style: TextSt.textstyle14,
                       ),
                       Icon(Icons.help_outline_outlined, size: 16),
-
-                     
                     ],
                   ),
-                   SizedBox(height: 30)
+                  SizedBox(height: 30),
                 ],
               ),
             ),
