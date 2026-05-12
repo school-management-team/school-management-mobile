@@ -31,37 +31,34 @@ class SignupStudentBodyView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   CustomAppBarSignupStudents(),
-
+                  SizedBox(height: 16),
                   Text(
                     "ربط حساب ",
-                    style: TextStyle(
-                      fontSize: MediaQuery.sizeOf(context).height * 0.07,
+                    style:TextSt.textstyle28.copyWith(fontSize: 48.sp,
                       color: kcolorNavyBlue,
-                      fontWeight: FontWeight.bold,
+                    
                     ),
                   ),
                   Text(
                     "  الطالب ",
-                    style: TextStyle(
-                      fontSize: MediaQuery.sizeOf(context).height * 0.07,
+                    style: TextSt.textstyle28.copyWith(fontSize: 48.sp,
                       color: kcolorNavyBlue,
-                      fontWeight: FontWeight.bold,
+                      
                     ),
                   ),
+                  SizedBox(height: 8,),
                   Text(
                     "الرجاء إدخال البيانات المطلوبة لإتمام ",
-                    style: TextStyle(
-                      fontSize: MediaQuery.sizeOf(context).height * 0.025,
+                    style: TextSt.textstyle16.copyWith(fontWeight: FontWeight.w400,
                       color: KcolorGrey,
-                      fontWeight: FontWeight.normal,
+                      
                     ),
                   ),
                   Text(
                     ". عملية الربط الأكاديمي ",
-                    style: TextStyle(
-                      fontSize: MediaQuery.sizeOf(context).height * 0.025,
+                    style: TextSt.textstyle16.copyWith(fontWeight: FontWeight.w400,
                       color: KcolorGrey,
-                      fontWeight: FontWeight.normal,
+                      
                     ),
                   ),
                   SizedBox(height: 33.h),

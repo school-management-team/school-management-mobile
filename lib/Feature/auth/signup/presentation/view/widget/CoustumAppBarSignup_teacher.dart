@@ -33,7 +33,7 @@ class CoustumAppBarSignup extends StatelessWidget {
               "بيانات الحساب",
               style: TextSt.textstyle16.copyWith(color: KcolorGrey),
             ),
-            Image.asset(AssestData.circule),
+            Image.asset(AssestData.circule,width: 30,),
             Spacer(),
             Image.asset(AssestData.Horizontal_Divider),
             Spacer(),
@@ -42,7 +42,7 @@ class CoustumAppBarSignup extends StatelessWidget {
               "التحقق ",
               style: TextSt.textstyle16.copyWith(color: kcolorOlive),
             ),
-            Image.asset(AssestData.circule1),
+            Image.asset(AssestData.circule1,width: 30,),
           ],
         ),
 

@@ -16,7 +16,7 @@ class CustomAppBarSignupStudents extends StatelessWidget {
         children: [
           Text(
             "Academia Neo",
-            style: TextSt.textstyle16.copyWith(color: Colors.black),
+            style: TextSt.textstyle16.copyWith(fontWeight: FontWeight.w900,fontSize: 18),
           ),
           SizedBox(width: 16.w),
           Container(

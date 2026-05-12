@@ -10,7 +10,7 @@ abstract class TextSt {
   );
     static TextStyle textstyle10=TextStyle(
     fontSize: 10.sp,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w500,
   );
   static TextStyle textstyle16=TextStyle(
     fontSize: 16.sp,
