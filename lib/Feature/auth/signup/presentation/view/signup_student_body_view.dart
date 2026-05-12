@@ -7,6 +7,7 @@ import 'package:school/Feature/auth/signup/presentation/view/widget/textField_Si
 import 'package:school/constant.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
+import 'package:school/core/widget/custom_button.dart';
 
 class SignupStudentBodyView extends StatelessWidget {
   const SignupStudentBodyView({super.key});
@@ -66,29 +67,33 @@ class SignupStudentBodyView extends StatelessWidget {
                   FieldSignupStudents(),
                   SizedBox(height: 30.h),
 
-                  TextButton.icon(
-                    onPressed: () {
-                      GoRouter.of(context).push(AppRouter.kaccountpendeing);
-                      
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(12),
-                      ),
-                      fixedSize: Size(300, 55),
 
-                      backgroundColor: kcolorOlive,
-                    ),
-                    icon: Icon(
-                      Icons.check_circle_outlined,
-                      color: Colors.white,
-                      size: 25,
-                    ),
-                    label: Text(
+
+
+                  
+                     Directionality(
+                      textDirection: TextDirection.rtl,
+                       child: Buttontext(
+                        onPressed: () {
+                           GoRouter.of(context).push(AppRouter.kaccountpendeing)  ;
+                        }
+                                    ,
+                                           borderColor:KcolorGrey,
+                                           width: 0.2.w,
+                        background: kcolorOlive,
+                         textColor:Colors.white,
+                        
+                          text:  
                       " تفعيل الحساب ",
-                      style: TextSt.textstyle16.copyWith(color: Colors.white),
-                    ),
+                  
+                          icons:  Icons.check_circle_outlined,
+                    
+                     ),
+                    
                   ),
+
+
+               
 
                   SizedBox(height: 16.h),
                   Row(
@@ -107,34 +112,21 @@ class SignupStudentBodyView extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 16),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: TextButton.icon(
-                      onPressed: () {
-                        
-                      },
-                      //textDirection: TextDirection.rtl,
-                      style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Color(0XFFC4C6CD)),
-                          borderRadius: BorderRadiusGeometry.circular(12),
-                        ),
-                        fixedSize: Size(300, 55),
-
-                        backgroundColor: Colors.white,
-                      ),
-                      icon: Icon(
-                        Icons.person_add_alt,
-                        color: Colors.black,
-                        size: 25,
-                      ),
-
-                      label: Text(
-                        " إضافة طالب آخر  ",
-                        style: TextSt.textstyle16.copyWith(color: Colors.black),
-                      ),
-                    ),
-                  ),
+                
+                     Directionality(
+                      textDirection: TextDirection.rtl,
+                       child: Buttontext(
+                                           borderColor: Color(0XFFC4C6CD),
+                                           width: 0.2.w,
+                        background: Colors.white,
+                         textColor: Colors.black,
+                          text:  " إضافة طالب آخر  ",
+                          icons:   Icons.person_add_alt, onPressed: () {  GoRouter.of(context).push(AppRouter.kaccountpendeing);   },),
+                     ),
+                    
+                  
+                    
+                
                   SizedBox(height: 30),
                   
                   Divider(color: Color(0XFFC4C6CD), thickness: 0),

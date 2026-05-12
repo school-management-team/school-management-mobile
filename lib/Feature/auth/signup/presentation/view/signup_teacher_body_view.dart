@@ -73,7 +73,7 @@ class SignupTeacherBodyView extends StatelessWidget {
                color: Color(0Xff44474D).withOpacity(0.1),
             ),
           
-           height: 170.h,
+           height: 170.sp,
             child:Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -87,7 +87,7 @@ class SignupTeacherBodyView extends StatelessWidget {
                 style: TextSt.textstyle16.copyWith(color: Color(0XFF1C1C18)),
                 textAlign: TextAlign.right,
               ),
-                      SizedBox(height: 12),
+                      SizedBox(height: 12.h),
                       Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -99,7 +99,7 @@ class SignupTeacherBodyView extends StatelessWidget {
                Image.asset(AssestData.circule1,width: 16,),
               ],
                       ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 8.h),
               
                         Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -111,7 +111,7 @@ class SignupTeacherBodyView extends StatelessWidget {
                       ),
                        Icon(Icons.circle_outlined,size: 16,)
                 ]),
-                        SizedBox(height: 8),
+                        SizedBox(height: 8.h),
               
                        Row(
               mainAxisAlignment: MainAxisAlignment.end,
