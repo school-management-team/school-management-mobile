@@ -6,7 +6,7 @@ import 'package:school/Feature/auth/signup/presentation/view/widget/textField_Si
 import 'package:school/constant.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
-import 'package:school/core/widget/custom_button.dart';
+import 'package:school/core/widget/custom_buttom.dart';
 
 class SignupStudentBodyView extends StatelessWidget {
   const SignupStudentBodyView({super.key});
@@ -34,31 +34,31 @@ class SignupStudentBodyView extends StatelessWidget {
                   SizedBox(height: 16),
                   Text(
                     "ربط حساب ",
-                    style:TextSt.textstyle28.copyWith(fontSize: 48.sp,
+                    style: TextSt.textstyle28.copyWith(
+                      fontSize: 48.sp,
                       color: kcolorNavyBlue,
-                    
                     ),
                   ),
                   Text(
                     "  الطالب ",
-                    style: TextSt.textstyle28.copyWith(fontSize: 48.sp,
+                    style: TextSt.textstyle28.copyWith(
+                      fontSize: 48.sp,
                       color: kcolorNavyBlue,
-                      
                     ),
                   ),
-                  SizedBox(height: 8,),
+                  SizedBox(height: 8),
                   Text(
                     "الرجاء إدخال البيانات المطلوبة لإتمام ",
-                    style: TextSt.textstyle16.copyWith(fontWeight: FontWeight.w400,
+                    style: TextSt.textstyle16.copyWith(
+                      fontWeight: FontWeight.w400,
                       color: KcolorGrey,
-                      
                     ),
                   ),
                   Text(
                     ". عملية الربط الأكاديمي ",
-                    style: TextSt.textstyle16.copyWith(fontWeight: FontWeight.w400,
+                    style: TextSt.textstyle16.copyWith(
+                      fontWeight: FontWeight.w400,
                       color: KcolorGrey,
-                      
                     ),
                   ),
                   SizedBox(height: 33.h),

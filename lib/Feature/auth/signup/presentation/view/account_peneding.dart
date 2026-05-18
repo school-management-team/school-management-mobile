@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
+import 'package:school/core/router_app.dart';
+import 'package:school/core/widget/Text/bottomNavigatoionBar.dart';
 import 'package:school/core/widget/Text/text_style.dart';
-import 'package:school/core/widget/custom_button.dart';
+import 'package:school/core/widget/custom_buttom.dart';
 
 class AccountPending extends StatelessWidget {
   const AccountPending({super.key});
@@ -88,7 +91,9 @@ class AccountPending extends StatelessWidget {
                         textColor: KcolorGrey,
                         text: "التواصل مع الدعم الفني",
                         icons: Icons.support_agent_outlined,
-                        onPressed: () {},
+                        onPressed: () {
+                           GoRouter.of(context).push(AppRouter.kStudentDashboard);
+                        },
                       ),
                     ),
                   ),
@@ -101,7 +106,9 @@ class AccountPending extends StatelessWidget {
                         style: TextSt.textstyle14.copyWith(color: KcolorGrey),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          GoRouter.of(context).push(AppRouter.kroleselection);
+                        },
                         icon: Icon(
                           Icons.arrow_forward,
                           color: KcolorGrey,
@@ -110,7 +117,7 @@ class AccountPending extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // تقوم الإدارة الأكاديمية حالياً بالتحقق
+               
                 ],
               ),
             ),
