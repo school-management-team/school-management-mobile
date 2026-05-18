@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/CoustumAppBarSignup_teacher.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/textfield_Signup_teacher.dart';
 import 'package:school/constant.dart';
-import 'package:school/core/assest.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
@@ -23,7 +22,11 @@ class SignupTeacherBodyView extends StatelessWidget {
           TextfieldSignupTeacher(),
           SizedBox(height: 30.h),
 
-          Requirements_Password(),
+         
+      requeriedPassword(),
+      
+   
+
           SizedBox(height: 30.h),
 
           TextButton.icon(
@@ -49,72 +52,91 @@ class SignupTeacherBodyView extends StatelessWidget {
         ],
       ),
     );
-  }
+  }}
 
-  Padding Requirements_Password() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.black12, width: 1),
-          color: Color(0Xff44474D).withOpacity(0.1),
-        ),
+class requeriedPassword extends StatefulWidget {
+  const requeriedPassword({
+    super.key,
+  });
 
-        height: 170.sp,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+  @override
+  State<requeriedPassword> createState() => _requeriedPasswordState();
+}
 
-            children: [
-              Text(
-                " :متطلبات كلمة المرور",
-                style: TextSt.textstyle16.copyWith(color: Color(0XFF1C1C18)),
-                textAlign: TextAlign.right,
-              ),
-              SizedBox(height: 12.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    " 8 أحرف على الأقل",
-                    style: TextSt.textstyle14.copyWith(color: kcolorOlive),
-                    textAlign: TextAlign.right,
-                  ),
-                  Image.asset(AssestData.circule1, width: 16),
-                ],
-              ),
-              SizedBox(height: 8.h),
+class _requeriedPasswordState extends State<requeriedPassword> {
+   bool islenghth=false;
+  bool hasuppercase=false;
+  bool hasspecialchar=false;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(padding:  EdgeInsets.symmetric(horizontal: 10.w, vertical: 10),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.black12, width: 1),
+        color: Color(0Xff44474D).withOpacity(0.1),
+      ),
+    
+      height: 170.sp,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+    
+          children: [
+            Text(
+              " :متطلبات كلمة المرور",
+              style: TextSt.textstyle16.copyWith(color: Color(0XFF1C1C18)),
+              textAlign: TextAlign.right,
+            ),
+            SizedBox(height: 12.h),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "حرف كبير واحد على الأقل",
-                    style: TextSt.textstyle14.copyWith(color: KcolorGrey),
-                    textAlign: TextAlign.right,
-                  ),
-                  Icon(Icons.circle_outlined, size: 16),
-                ],
-              ),
-              SizedBox(height: 8.h),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "رقم واحد على الأقل أو رمز خاص",
-                    style: TextSt.textstyle14.copyWith(color: KcolorGrey),
-                    textAlign: TextAlign.right,
-                  ),
-                  Icon(Icons.circle_outlined, size: 16),
-                ],
-              ),
-            ],
-          ),
+            buildrequirementRow(
+             
+                  " 8 أحرف على الأقل",
+                  islenghth,() => setState(() {
+                    islenghth=! islenghth;
+                  }),
+              
+            ),
+            SizedBox(height: 8.h),
+    
+           buildrequirementRow(  
+                  "حرف كبير واحد على الأقل",
+                  hasuppercase ,()=>
+                  setState(() {
+                    hasuppercase=!hasuppercase;
+                  })),
+        
+            SizedBox(height: 8.h),
+    
+           buildrequirementRow(
+                  "رقم واحد على الأقل أو رمز خاص",
+                hasspecialchar,() => 
+                setState(() {
+                  hasspecialchar=!hasspecialchar;
+                }))
+             
+          ],
         ),
       ),
-    );
+      
+    ),);
   }
+}
+Widget buildrequirementRow(String text, bool ischecked,VoidCallback ontap){
+  return GestureDetector(
+    onTap: ontap,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text(text,style: TextSt.textstyle14.copyWith(color:ischecked?kcolorOlive:KcolorGrey),
+                  textAlign: TextAlign.right,),
+                   Icon(  ischecked?Icons.check_circle
+                   :Icons.circle_outlined, 
+                   color: ischecked?kcolorOlive:KcolorGrey,
+                   size: 16),
+      ],
+    ),
+  );
 }
