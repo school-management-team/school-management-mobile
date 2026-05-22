@@ -5,9 +5,9 @@ import 'package:lottie/lottie.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
 import 'package:school/core/router_app.dart';
-import 'package:school/core/widget/Text/bottomNavigatoionBar.dart';
+import 'package:school/core/widget/bottomNavigatoionBar.dart';
 import 'package:school/core/widget/Text/text_style.dart';
-import 'package:school/core/widget/custom_buttom.dart';
+import 'package:school/core/widget/Text/custom_buttom.dart';
 
 class AccountPending extends StatelessWidget {
   const AccountPending({super.key});

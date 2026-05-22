@@ -21,10 +21,10 @@ class _requeriedPasswordState extends State<requeriedPassword> {
   bool hasspecialchar=false;
   @override
   Widget build(BuildContext context) {
-    return Padding(padding:  EdgeInsets.symmetric(horizontal: 10.w, vertical: 10),
+    return Padding(padding:  EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
     child: Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         border: Border.all(color: Colors.black12, width: 1),
         color: Color(0Xff44474D).withOpacity(0.1),
       ),
@@ -88,7 +88,7 @@ Widget buildrequirementRow(String text, bool ischecked,VoidCallback ontap){
                    Icon(  ischecked?Icons.check_circle
                    :Icons.circle_outlined, 
                    color: ischecked?kcolorOlive:KcolorGrey,
-                   size: 16),
+                   size: 16.sp),
       ],
     ),
   );

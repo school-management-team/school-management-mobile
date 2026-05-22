@@ -45,19 +45,20 @@ class RoleSelectionBodyView extends StatelessWidget {
               text2: " .والإعدادات الأكاديمية والمالية",
             ),
             SizedBox(height: 16),
-                containerRoles(
+            containerRoles(
               image: AssestData.roleTeacher,
               textmain: "معلم / أكاديمي ",
               text: "إدارة الفصول الدراسية، رصد الدرجات",
               text2: ".والتواصل المباشر مع الطلاب",
-            ),SizedBox(height: 16),
-                containerRoles(
+            ),
+            SizedBox(height: 16),
+            containerRoles(
               image: AssestData.roleStudent,
               textmain: "طالب / ولي أمر",
               text: "، متابعة التقدم الأكاديمي، سجل الحضور",
               text2: " .الجداول، والرسوم الدراسية",
             ),
-            SizedBox(height: 16,),
+            SizedBox(height: 16),
           ],
         ),
       ),
