@@ -10,6 +10,7 @@ class AssestData {
   static const roleSystem = "assest/images/role2.png";
   static const roleTeacher = "assest/images/role3.png";
   static const roleStudent = "assest/images/role4.png";
-  static const studentDashboard = "assest/images/StudentProfileImage.png";
+  static const studentDashboard ="assest/images/StudentProfileImage.png";
   static const trueCircle = "assest/images/truecirclue.png";
+  static const notification  = "assest/images/Notification.json";
 }
