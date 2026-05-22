@@ -10,12 +10,13 @@ class containerRoles extends StatelessWidget {
     required this.text,
     required this.image,
     required this.textmain,
-    required this.text2,
+    required this.text2, required this.ontap,
   });
   final String textmain;
   final String text;
   final String text2;
   final String image;
+  final VoidCallback ontap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,7 +67,7 @@ class containerRoles extends StatelessWidget {
             left: 12,
             bottom: 12,
             child: IconButton(
-              onPressed: () {},
+              onPressed: ontap,
               icon: Icon(Icons.arrow_back, color: Color(0Xff74777D), size: 40),
             ),
           ),
