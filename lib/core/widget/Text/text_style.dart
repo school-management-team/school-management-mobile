@@ -5,7 +5,7 @@ abstract class TextSt {
 
   static TextStyle textstyle28=TextStyle(
     fontSize: 28.sp,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w800,
     
   );
   
@@ -34,6 +34,6 @@ abstract class TextSt {
 
   static TextStyle textstyle12=TextStyle(
     fontSize: 12.sp,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w400,
   );
 } 
