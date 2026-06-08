@@ -1,4 +1,12 @@
 class AssestData {
+  static const backgroundIcon = "assest/Icons/Background.png";
+  static const achievementIcon = "assest/Icons/achivment.png";
+  static const modernSchool   = "assest/Icons/Modern School.png";
+  static const scienceIcon    = "assest/Icons/sience.png";
+  static const mathIcon       = "assest/Icons/math.png";
+  static const languageIcon   = "assest/Icons/language.png";
+  static const arrowIcon      = "assest/Icons/arrow.png";
+  static const checkmarkIcon  = "assest/Icons/checkmark.png";
   static const Logo = "assest/images/Mobile Logo.png";
   static const Horizontal_Divider = "assest/images/Horizontal Divider.png";
   static const circule = "assest/images/cir.png";

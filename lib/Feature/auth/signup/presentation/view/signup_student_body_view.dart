@@ -6,7 +6,8 @@ import 'package:school/Feature/auth/signup/presentation/view/widget/textField_Si
 import 'package:school/constant.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
-import 'package:school/core/widget/custom_buttom.dart';
+import 'package:school/core/widget/custom_button.dart';
+
 
 class SignupStudentBodyView extends StatelessWidget {
   const SignupStudentBodyView({super.key});
