@@ -44,7 +44,7 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
             onPressed: () async {
               DateTime? pickedDate = await showDatePicker(
                 context: context,
-                firstDate: DateTime(2008),
+                firstDate: DateTime(1960),
                 lastDate: DateTime.now(),
                 builder: (context, child) {
                   return Theme(
@@ -173,6 +173,17 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
                 onSelected: (String? value) {},
               ),
             ],
+          ),
+            SizedBox(height: 20.h),
+          Text("البريد الإلكتروني للعمل ", style: TextSt.textstyle14),
+          SizedBox(height: 16),
+          TextFieldStyle(
+            filledcolor: Color(0XFFFFFFFF),
+            hinit: " name@school.edu",
+            icontext: Icon(
+              Icons.email_outlined,
+              color: kcolordarkBlue,
+            ),
           ),
           SizedBox(height: 20.sp),
           Text(" رقم الهاتف  ", style: TextSt.textstyle14),

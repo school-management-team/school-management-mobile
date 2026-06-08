@@ -90,10 +90,7 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        "السيرة الذاتية / نبذة تعريفية",
-                        style: TextSt.textstyle14,
-                      ),
+                    
                       SizedBox(height: 16.sp),
 
                       GestureDetector(
@@ -120,7 +117,7 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12.r),
-                            border: Border.all(color: Colors.grey),
+                            border: Border.all(color: Colors.grey,style: BorderStyle.solid),
                           ),
                           child: selectedFilePath != null
                               ? ClipRRect(
