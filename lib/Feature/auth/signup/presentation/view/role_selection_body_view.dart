@@ -7,6 +7,7 @@ import 'package:school/core/assest.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
+
 class RoleSelectionBodyView extends StatelessWidget {
   const RoleSelectionBodyView({super.key});
 
@@ -42,12 +43,13 @@ class RoleSelectionBodyView extends StatelessWidget {
             SizedBox(height: 16),
             containerRoles(
               ontap: () {
-                 GoRouter.of(context).push(AppRouter.kStudentDashboard);
+                 GoRouter.of(context).push(AppRouter.kOnBoarding);
               },
               image: AssestData.roleSystem,
               textmain: "مدير النظام",
               text: "،إدارة شاملة للنظام، صلاحيات المستخدمين",
               text2: " .والإعدادات الأكاديمية والمالية",
+            
             ),
             SizedBox(height: 16),
             containerRoles(
@@ -58,6 +60,7 @@ class RoleSelectionBodyView extends StatelessWidget {
               textmain: "معلم / أكاديمي ",
               text: "إدارة الفصول الدراسية، رصد الدرجات",
               text2: ".والتواصل المباشر مع الطلاب",
+           
             ),
             SizedBox(height: 16),
             containerRoles(
@@ -68,6 +71,7 @@ class RoleSelectionBodyView extends StatelessWidget {
               textmain: "طالب / ولي أمر",
               text: "، متابعة التقدم الأكاديمي، سجل الحضور",
               text2: " .الجداول، والرسوم الدراسية",
+            
             ),
             SizedBox(height: 16),
           ],
