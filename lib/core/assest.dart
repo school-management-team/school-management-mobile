@@ -10,7 +10,25 @@ class AssestData {
   static const roleSystem = "assest/images/role2.png";
   static const roleTeacher = "assest/images/role3.png";
   static const roleStudent = "assest/images/role4.png";
-  static const studentDashboard ="assest/images/StudentProfileImage.png";
+  static const studentDashboard = "assest/images/StudentProfileImage.png";
   static const trueCircle = "assest/images/truecirclue.png";
-  static const notification  = "assest/images/Notification.json";
+  static const notification = "assest/images/Notification.json";
+  static const background = "assest/images/background.png";
+  static const google = "assest/images/google.png";
+  static const microsoft = "assest/images/microsoft.png";
+  static const profile = "assest/images/profile.png";
+  static const progress = "assest/images/Icon.png";
+  static const icon = "assest/images/iconn.png";
+  static const avater = "assest/images/parentavat.png";
+  static const studprofile = "assest/images/studentprof.png";
+  static const iicon = 'assest/images/iicon.png';
+  static const iiicon = 'assest/images/iiicon.png';
+  static const buy = 'assest/images/buy.png';
+  static const calender = 'assest/images/calender.png';
+  static const classes = 'assest/images/iconclasses.png';
+  static const pendingT = 'assest/images/pendingtask.png';
+  static const newM = 'assest/images/newmessages.png';
+  static const sendmessage = 'assest/images/sendmessage.png';
+  static const grade = 'assest/images/grade.png';
+  static const newtask = 'assest/images/newtask.png';
 }
