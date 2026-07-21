@@ -1,6 +1,14 @@
 class AssestData {
-  static const Logo = "assest/images/Mobile Logo.png";
-  static const Horizontal_Divider = "assest/images/Horizontal Divider.png";
+  static const Logo = "assest/images/MobileLogo.png";
+  static const Horizontal_Divider = "assest/images/HorizontalDivider.png";
+  static const backgroundIcon = "assest/Icons/Background.png";
+  static const achievementIcon = "assest/Icons/achivment.png";
+  static const modernSchool = "assest/Icons/Modern School.png";
+  static const scienceIcon = "assest/Icons/sience.png";
+  static const mathIcon = "assest/Icons/math.png";
+  static const languageIcon = "assest/Icons/language.png";
+  static const arrowIcon = "assest/Icons/arrow.png";
+  static const checkmarkIcon = "assest/Icons/checkmark.png";
   static const circule = "assest/images/cir.png";
   static const circule1 = "assest/images/c1.png";
   static const Mainlogo = "assest/images/logoicon.png";
@@ -31,4 +39,7 @@ class AssestData {
   static const sendmessage = 'assest/images/sendmessage.png';
   static const grade = 'assest/images/grade.png';
   static const newtask = 'assest/images/newtask.png';
+  static const notificationn = "assest/images/Notification.json";
+  static const studentPortrait = "assest/images/StudentPortrait.png";
+  static const check = "assest/images/check.png";
 }

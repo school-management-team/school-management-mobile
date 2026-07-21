@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:school/Feature/home/presentation/view/StudentDashboard_body_view.dart';
+import 'package:school/Feature/attendance_Management/presentation/view/magagement_body_view.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
-import 'package:school/core/widget/bottomNavigatoionBar.dart';
 import 'package:school/core/widget/Text/text_style.dart';
+import 'package:school/core/widget/bottomnavigator/Bottomnvigationhome.dart';
+import 'package:school/core/widget/bottomnavigator/bottomNavigatoionBar.dart';
 
-class StudentdashboardView extends StatelessWidget {
-  const StudentdashboardView({super.key});
+class ManagementView extends StatefulWidget {
+  const ManagementView({super.key});
 
+  @override
+  State<ManagementView> createState() => _ManagementViewState();
+}
+
+class _ManagementViewState extends State<ManagementView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+       appBar: AppBar(
+        elevation: 0.5,
         actionsPadding: EdgeInsets.symmetric(horizontal: 20.sp),
 
-        backgroundColor: Colors.white,
+        backgroundColor:kPrimaryColor,
         leading: CircleAvatar(
           radius: 30.sp,
           backgroundImage: AssetImage(AssestData.studentDashboard),
           backgroundColor: Colors.white,
         ),
         title: Text(
-          "Academic Portal",
+          "تحضير الطلاب",
           style: TextSt.textstyle28.copyWith(
             color: kcolorgreen,
             fontWeight: FontWeight.w900,
-            fontSize: 22.sp,
+            fontSize: 28.sp,
             fontFamily: 'normal',
           ),
         ),
@@ -40,10 +47,13 @@ class StudentdashboardView extends StatelessWidget {
           ),*/
           Lottie.asset(AssestData.notification,width: 55.sp)
         ],
+      ),  bottomNavigationBar:   
+           Bottomnvigationhome(select: 1),
+      body: 
+      SafeArea(child:
+       
+      MagagementBodyView()
       ),
-      bottomNavigationBar:   
-           Bottomnavigatoion(select: 0,),
-      body: StudentdashboardBodyView(),
     );
   }
 }

@@ -44,10 +44,10 @@ class containerStudySchedule extends StatelessWidget {
 class SimpleSchedule extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api
-  _SimpleScheduleState createState() => _SimpleScheduleState();
+  SimpleScheduleState createState() => SimpleScheduleState();
 }
 
-class _SimpleScheduleState extends State<SimpleSchedule> {
+class SimpleScheduleState extends State<SimpleSchedule> {
   int selectedIndex = 1;
 
   @override

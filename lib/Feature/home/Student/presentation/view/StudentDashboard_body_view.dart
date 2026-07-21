@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:school/Feature/home/presentation/view/widget/AcademicPerformanceRing.dart';
-import 'package:school/Feature/home/presentation/view/widget/SimpleSchedule.dart';
-import 'package:school/Feature/home/presentation/view/widget/inforcontaner.dart';
-import 'package:school/Feature/home/presentation/view/widget/informationStudent.dart';
+import 'package:school/Feature/home/Student/presentation/view/widget/AcademicPerformanceRing.dart';
+import 'package:school/Feature/home/Student/presentation/view/widget/SimpleSchedule.dart';
+import 'package:school/Feature/home/Student/presentation/view/widget/inforcontaner_studentDash.dart';
+import 'package:school/Feature/home/Student/presentation/view/widget/informationStudent.dart';
 import 'package:school/constant.dart';
 
 import 'package:school/core/widget/Text/text_style.dart';
@@ -22,7 +22,7 @@ class StudentdashboardBodyView extends StatelessWidget {
             SizedBox(height: 16.h),
             containerStudySchedule(),
             SizedBox(height: 16.h),
-            AcademicPerformanceRing(percentageInt: 85),
+            AcademicPerformanceRing(percentageInt: 5),
             SizedBox(height: 16.h),
             Container(
               height: 300.sp,
