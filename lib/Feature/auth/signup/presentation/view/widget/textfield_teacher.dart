@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:school/Feature/auth/signup/presentation/view/widget/requeriedPassword.dart';
+import 'package:school/Feature/auth/signup/presentation/view_Models/signup_teacher_textEditing.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/widget/Text/text_from_field.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class TextfieldTeacher extends StatefulWidget {
-  const TextfieldTeacher({super.key});
+  TextfieldTeacher({super.key, required this.formKey});
 
+  final GlobalKey<FormState> formKey;
   @override
   State<TextfieldTeacher> createState() => _ListView_SignupState();
 }
@@ -15,212 +18,300 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
   bool isObscure = true;
   bool isObscure2 = true;
   String? gender = 'ذكر';
-  final TextEditingController brithdayController = TextEditingController();
+  String selectedRequirement = 'lenght';
+
+  bool islength = false;
+  bool hasuppercase = false;
+  bool hasspecialchar = false;
+  DateTime? selectedDate;
   String? selectedSelection;
+  final viewModel = SignupTeacherTextediting();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: Form(
+        key: widget.formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
 
-        children: [
-          Text("الاسم بالكامل ", style: TextSt.textstyle14),
-          SizedBox(height: 16.h),
-          TextFieldStyle(
-            filledcolor: Color(0XFFFFFFFF),
-            hinit: "أدخل اسمك الثلاثي ",
-            textAlign: TextAlign.end,
-          ),
+          children: [
+            Text("الاسم بالكامل ", style: TextSt.textstyle14),
+            SizedBox(height: 16.h),
+            TextFieldStyle(
+              textEditingController: viewModel.nameController,
+              keyboardytype: TextInputType.text,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return ("لا بجب ان يكون الحقل فارغ");
+                }
+                return null;
+              },
+              filledcolor: Color(0XFFFFFFFF),
+              hinit: "أدخل اسمك الثلاثي ",
+              textAlign: TextAlign.end,
+            ),
 
-          SizedBox(height: 20.sp),
-          Text(" المواليد", style: TextSt.textstyle14),
-          SizedBox(height: 16.sp),
-          TextFieldStyle(
-            textEditingController: brithdayController,
-            readonly: true,
-            filledcolor: Color(0XFFFFFFFF),
-            hinit: " mm/dd/yyyy",
-            onPressed: () async {
-              DateTime? pickedDate = await showDatePicker(
-                context: context,
-                firstDate: DateTime(1960),
-                lastDate: DateTime.now(),
-                builder: (context, child) {
-                  return Theme(
-                    data: Theme.of(context).copyWith(
-                      colorScheme: ColorScheme.light(
-                        primary: kcolorOlive,
-                        onPrimary: KcolorGrey,
-                      ),
-                      datePickerTheme: DatePickerThemeData(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(16.sp),
-                          side: BorderSide(color: kcolorOlive, width: 3.sp),
+            SizedBox(height: 20.sp),
+            Text(" المواليد", style: TextSt.textstyle14),
+            SizedBox(height: 16.sp),
+            TextFieldStyle(
+              keyboardytype: TextInputType.datetime,
+              textEditingController: viewModel.brithdayController,
+
+              validator: (value) {
+            
+                if (value == null || value.isEmpty) {
+                  return ("لا بجب ان يكون الحقل فارغ");
+                }
+                return null;
+              },
+              readonly: true,
+              filledcolor: Color(0XFFFFFFFF),
+              hinit: " mm/dd/yyyy",
+              onPressed: () async {
+                DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(1950),
+                  lastDate: DateTime(2005),
+                  builder: (context, child) {
+                    return Theme(
+                      data: Theme.of(context).copyWith(
+                        colorScheme: ColorScheme.light(
+                          primary: kcolorOlive,
+                          onPrimary: KcolorGrey,
+                        ),
+                        datePickerTheme: DatePickerThemeData(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(16.sp),
+                            side: BorderSide(color: kcolorOlive, width: 3.sp),
+                          ),
                         ),
                       ),
-                    ),
 
-                    child: child!,
-                  );
-                },
-              );
-              if (pickedDate != null) {
-                String fromatDate =
-                    "${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.day.toString().padRight(2, '0')}/${pickedDate.year}";
+                      child: child!,
+                    );
+                  },
+                );
+                if (pickedDate != null) {
+                  String fromatDate =
+                      "${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.day.toString().padRight(2, '0')}/${pickedDate.year}";
 
-                setState(() {
-                  brithdayController.text = fromatDate;
-                });
-              }
-            },
-          ),
+                  setState(() {
+                    selectedDate = pickedDate;
+                    viewModel.brithdayController.text = fromatDate;
+                  });
+                }
+              },
+            ),
 
-          SizedBox(height: 20.h),
-          Text("  الجنس ", style: TextSt.textstyle14),
-          SizedBox(height: 16),
+            SizedBox(height: 20.h),
+            Text("  الجنس ", style: TextSt.textstyle14),
+            SizedBox(height: 16),
 
-          textfieldgender(),
-          SizedBox(height: 20.sp),
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(" الصف  ", style: TextSt.textstyle14),
-                  SizedBox(height: 16.sp),
-                  DropdownMenu<String>(
-                    width: 160.sp,
-                    hintText: "اختر الصف  ",
-                    textStyle: TextSt.textstyle12,
-                    textAlign: TextAlign.end,
-                    inputDecorationTheme: InputDecorationTheme(
-                      fillColor: Colors.white,
-                      filled: true,
+            textfieldgender(),
+            SizedBox(height: 20.sp),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(" الصف  ", style: TextSt.textstyle14),
+                    SizedBox(height: 16.sp),
+                    DropdownMenu<String>(
+                      controller: viewModel.gradeController,
+                      width: 160.sp,
+                      hintText: "اختر الصف  ",
+                      textStyle: TextSt.textstyle12,
+                      textAlign: TextAlign.end,
+                      inputDecorationTheme: InputDecorationTheme(
+                        fillColor: Colors.white,
+                        filled: true,
 
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.r),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
                       ),
+
+                      dropdownMenuEntries: ClassesEntries(),
+
+                      onSelected: (String? value) {},
                     ),
-
-                    dropdownMenuEntries: ClassesEntries(),
-
-                    onSelected: (String? value) {},
-                  ),
-                ],
-              ),
-
-              Spacer(),
-
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(" القسم  ", style: TextSt.textstyle14),
-                  SizedBox(height: 16.sp),
-                  DropdownMenu<String>(
-                    width: 160.sp,
-                    hintText: "اختر القسم  ",
-                    textStyle: TextSt.textstyle12,
-                    textAlign: TextAlign.end,
-                    inputDecorationTheme: InputDecorationTheme(
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.r),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
-
-                    dropdownMenuEntries: [
-                      DropdownMenuEntry(value: '1', label: " ابتدائي"),
-                      DropdownMenuEntry(value: '2', label: "إعدادي"),
-                      DropdownMenuEntry(value: '3', label: "(أدبي)ثانوي"),
-                      DropdownMenuEntry(value: '4', label: "(علمي)ثانوي"),
-                    ],
-                    onSelected: (String? value) {
-                      setState(() {
-                        selectedSelection = value;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 16.sp),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(" المادة  ", style: TextSt.textstyle14),
-              SizedBox(height: 16.sp),
-              DropdownMenu<String>(
-                width: double.infinity,
-                hintText: "اختر  المادة  ",
-                textStyle: TextSt.textstyle12,
-                textAlign: TextAlign.end,
-                inputDecorationTheme: InputDecorationTheme(
-                  fillColor: Colors.white,
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.r),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
+                  ],
                 ),
 
-                dropdownMenuEntries: SubjectEntries(),
+                Spacer(),
 
-                onSelected: (String? value) {},
-              ),
-            ],
-          ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(" القسم  ", style: TextSt.textstyle14),
+                    SizedBox(height: 16.sp),
+                    DropdownMenu<String>(
+                      width: 160.sp,
+                      controller: viewModel.departmentController,
+                      hintText: "اختر القسم  ",
+                      textStyle: TextSt.textstyle12,
+                      textAlign: TextAlign.end,
+                      inputDecorationTheme: InputDecorationTheme(
+                        fillColor: Colors.white,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
+                      ),
+
+                      dropdownMenuEntries: [
+                        DropdownMenuEntry(value: '1', label: " ابتدائي"),
+                        DropdownMenuEntry(value: '2', label: "إعدادي"),
+                        DropdownMenuEntry(value: '3', label: "(أدبي)ثانوي"),
+                        DropdownMenuEntry(value: '4', label: "(علمي)ثانوي"),
+                      ],
+                      onSelected: (String? value) {
+                        setState(() {
+                          selectedSelection = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 16.sp),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(" المادة  ", style: TextSt.textstyle14),
+                SizedBox(height: 16.sp),
+                DropdownMenu<String>(
+                  controller: viewModel.subjectController,
+                  width: double.infinity,
+                  hintText: "اختر  المادة  ",
+                  textStyle: TextSt.textstyle12,
+                  textAlign: TextAlign.end,
+                  inputDecorationTheme: InputDecorationTheme(
+                    fillColor: Colors.white,
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
+                  ),
+
+                  dropdownMenuEntries: SubjectEntries(),
+
+                  onSelected: (String? value) {},
+                ),
+              ],
+            ),
             SizedBox(height: 20.h),
-          Text("البريد الإلكتروني للعمل ", style: TextSt.textstyle14),
-          SizedBox(height: 16),
-          TextFieldStyle(
-            filledcolor: Color(0XFFFFFFFF),
-            hinit: " name@school.edu",
-            icontext: Icon(
-              Icons.email_outlined,
-              color: kcolordarkBlue,
+            Text("البريد الإلكتروني للعمل ", style: TextSt.textstyle14),
+            SizedBox(height: 16),
+            TextFieldStyle(
+              keyboardytype: TextInputType.emailAddress,
+              textEditingController: viewModel.emailController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return ("لا بجب ان يكون الحقل فارغ");
+                }
+                return null;
+              },
+              filledcolor: Color(0XFFFFFFFF),
+              hinit: " name@school.edu",
+              icontext: Icon(Icons.email_outlined, color: kcolordarkBlue),
             ),
-          ),
-          SizedBox(height: 20.sp),
-          Text(" رقم الهاتف  ", style: TextSt.textstyle14),
-          SizedBox(height: 16.sp),
-          TextFieldStyle(
-            filledcolor: Color(0XFFFFFFFF),
-            hinit: " 05XXXXXXXX",
-            icontext: Icon(
-              Icons.phone_outlined,
-              color: kcolordarkBlue,
-              size: 25.sp,
+            SizedBox(height: 20.sp),
+            Text(" رقم الهاتف  ", style: TextSt.textstyle14),
+            SizedBox(height: 16.sp),
+            TextFieldStyle(
+              keyboardytype: TextInputType.phone,
+              textEditingController: viewModel.phoneController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return ("لا بجب ان يكون الحقل فارغ");
+                }
+                return null;
+              },
+              filledcolor: Color(0XFFFFFFFF),
+              hinit: " 05XXXXXXXX",
+              icontext: Icon(
+                Icons.phone_outlined,
+                color: kcolordarkBlue,
+                size: 25.sp,
+              ),
             ),
-          ),
 
-          SizedBox(height: 20.sp),
-          Text(" كلمة المرور ", style: TextSt.textstyle14),
-          SizedBox(height: 16.sp),
-          textfieldPassword(
-            isObscure: isObscure,
-            ontap: () {
-              setState(() {
-                isObscure = !isObscure;
-              });
-            },
-          ),
-          SizedBox(height: 20.sp),
-          Text("  تأكيد كلمة المرور ", style: TextSt.textstyle14),
-          SizedBox(height: 16.sp),
-          textfieldPassword(
-            isObscure: isObscure2,
-            ontap: () {
-              setState(() {
-                isObscure2 = !isObscure2;
-              });
-            },
-          ),
-        ],
+            SizedBox(height: 20.sp),
+            Text(" كلمة المرور ", style: TextSt.textstyle14),
+            SizedBox(height: 16.sp),
+            textfieldPassword(
+              textEditingController: viewModel.passwordController,
+              onchange: (value) {
+                setState(() {
+                  final text = value ?? '';
+                  islength = text.length >= 8;
+                  hasuppercase = text.contains(RegExp(r'[A-Z]'));
+                  hasspecialchar = text.contains(RegExp(r'[0-9]'));
+                });
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "لا يجب ان يكون الحقل فارغ";
+                }
+
+                if (value.length < 8) {
+                  return " يجب أن تكون كلمة المرور 8 أحرف على الأقل";
+                }
+
+                if (!value.contains(RegExp(r'[A-Z]'))) {
+                  return " يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل";
+                }
+
+                if (!value.contains(RegExp(r'[0-9]'))) {
+                  return "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل";
+                }
+
+                return null;
+              },
+              isObscure: isObscure,
+              ontap: () {
+                setState(() {
+                  isObscure = !isObscure;
+                });
+              },
+            ),
+            SizedBox(height: 20.sp),
+            Text("  تأكيد كلمة المرور ", style: TextSt.textstyle14),
+            SizedBox(height: 16.sp),
+            textfieldPassword(
+              textEditingController: viewModel.configePasswordController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return ("لا بجب ان يكون الحقل فارغ");
+                }
+                if (value != viewModel.passwordController.text) {
+                  return "كلمة السر غير متطابقة";
+                }
+                return null;
+              },
+              isObscure: isObscure2,
+              ontap: () {
+                setState(() {
+                  isObscure2 = !isObscure2;
+                });
+              },
+            ),
+            SizedBox(height: 12.sp),
+            RequeriedPassword(
+              password: viewModel.passwordController.text,
+              isLength: islength,
+              hasUppercase: hasuppercase,
+              hasNumber: hasspecialchar,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -228,9 +319,20 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
   Widget textfieldPassword({
     required bool isObscure,
     required VoidCallback ontap,
+    final TextEditingController? textEditingController,
+
+    final void Function(String?)? onchange,
+    final String? Function(String?)? validator,
   }) {
-    return TextField(
+    return TextFormField(
+      controller: textEditingController,
+      validator: validator,
       obscureText: isObscure,
+      onChanged: (value) {
+        if (onchange != null) {
+          onchange(value);
+        }
+      },
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

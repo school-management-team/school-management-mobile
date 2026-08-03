@@ -173,7 +173,7 @@ class _OnBoardingPage1BodyState extends State<OnBoardingPage1Body>
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           TextButton(
-            onPressed: () => context.go(AppRouter.ksignupStud),
+            onPressed: () => context.go(AppRouter.kroleselection),
             style: TextButton.styleFrom(
               padding: EdgeInsets.zero,
               minimumSize: Size.zero,

@@ -13,14 +13,14 @@ class AssestData {
   static const circule1 = "assest/images/c1.png";
   static const Mainlogo = "assest/images/logoicon.png";
   static const overlay = "assest/images/Overlay.png";
-  static const loading = "assest/images/Loading.json";
+  static const loading = "assest/animation/Loading.json";
   static const roleImage = "assest/images/Roleimage.png";
   static const roleSystem = "assest/images/role2.png";
   static const roleTeacher = "assest/images/role3.png";
   static const roleStudent = "assest/images/role4.png";
   static const studentDashboard = "assest/images/StudentProfileImage.png";
   static const trueCircle = "assest/images/truecirclue.png";
-  static const notification = "assest/images/Notification.json";
+  static const notification = "assest/animation/Notification.json";
   static const background = "assest/images/background.png";
   static const google = "assest/images/google.png";
   static const microsoft = "assest/images/microsoft.png";
@@ -39,7 +39,21 @@ class AssestData {
   static const sendmessage = 'assest/images/sendmessage.png';
   static const grade = 'assest/images/grade.png';
   static const newtask = 'assest/images/newtask.png';
-  static const notificationn = "assest/images/Notification.json";
   static const studentPortrait = "assest/images/StudentPortrait.png";
-  static const check = "assest/images/check.png";
+  static const ba = "assest/images/Screenshot (85).png";
+  static const studentprofile = "assest/images/studentprofile1.png";
+  static const studentprofile2 = "assest/images/StudentProfile2.png";
+  static const backgroundstudent = "assest/images/Backgroundstudent.png";
+  static const schoolTrip = "assest/images/SchoolTrip.png";
+  static const study = "assest/animation/study.json";
+  static const studentsJumping = "assest/animation/studentsjumping.json";
+  static const cat = "assest/animation/cat.json";
+   static const confetti = "assest/animation/Confetti.json";
+    static const loadingPaperplane = "assest/animation/LoadingPaperplane.json";
+static const studentwithlaptop= "assest/animation/student with laptop.json";
+static const teacher1= "assest/animation/Teacher.json";
+static const adv1= "assest/animation/Student.json";
+static const teacher2= "assest/animation/Designer.json";
+
+  
 }

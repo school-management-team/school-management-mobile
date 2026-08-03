@@ -159,7 +159,7 @@ class _OnBoardingPage3BodyState extends State<OnBoardingPage3Body>
           const DotsIndicator(currentIndex: 2, total: 4),
           // زر تخطي
           TextButton(
-            onPressed: () => context.go(AppRouter.ksignupStud),
+            onPressed: () => context.go(AppRouter.kroleselection),
             style: TextButton.styleFrom(
               padding: EdgeInsets.zero,
               minimumSize: Size.zero,

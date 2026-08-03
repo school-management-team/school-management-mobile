@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/textfield_login.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
+import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class LoginBodyView extends StatelessWidget {
@@ -299,29 +301,29 @@ class LoginBodyView extends StatelessWidget {
                                     Row(
                                       children: [
                                         GestureDetector(
-                                          onTap: () {},
+                                          onTap: () {GoRouter.of(context).push(AppRouter.kroleselection);},
                                           child: Text(
                                             "إنشاء حساب جديد",
                                             style: TextSt.textstyle14.copyWith(
                                               color: kcolorOlive,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 14.sp,
+                                              
                                             ),
                                           ),
                                         ),
                                         SizedBox(width: 8.h),
                                         Text(
                                           "ليس لديك حساب أكاديمي ؟",
-                                          style: TextSt.textstyle14.copyWith(
+                                          style: TextSt.textstyle12.copyWith(
                                             color: KcolorGrey,
-                                            fontSize: 14.sp,
+                                           
                                           ),
                                         ),
                                       ],
                                     ),
                                     SizedBox(height: 8.h),
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {  },
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,

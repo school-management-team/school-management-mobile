@@ -107,7 +107,7 @@ items: [
             break;
 
           case 3:
-            context.go(AppRouter.kroleselection);
+            context.go(AppRouter.kFWeekdaysselector);
             break;
         }
       },

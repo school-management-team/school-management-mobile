@@ -564,7 +564,7 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
             height: 56.h,
             child: ElevatedButton(
               onPressed: () {
-                context.go(AppRouter.ksignupStud);
+                context.go(AppRouter.kroleselection);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: kcolorNavyBlue,

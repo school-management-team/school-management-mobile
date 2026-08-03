@@ -2,19 +2,23 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:school/Feature/auth/signup/logic/manger/cubit_Teacher_signup/sign_up_teacher_cubit.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/coustumAppBar_teacher.dart';
-import 'package:school/Feature/auth/signup/presentation/view/widget/requeriedPassword.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/textfield_teacher.dart';
+import 'package:school/Feature/auth/signup/presentation/view_Models/signup_teacher_textEditing.dart';
 import 'package:school/constant.dart';
+import 'package:school/core/function/showSuccessDialog.dart';
+import 'package:school/core/function/showloadingDialog.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/custom_buttom.dart';
 import 'package:school/core/widget/Text/text_from_field.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class SignupTeacherBodyView extends StatefulWidget {
-  const SignupTeacherBodyView({super.key});
+  SignupTeacherBodyView({super.key});
 
   @override
   State<SignupTeacherBodyView> createState() => _SignupTeacherBodyViewState();
@@ -22,7 +26,9 @@ class SignupTeacherBodyView extends StatefulWidget {
 
 class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
   String? selectedFilePath;
-
+  final viewModel = SignupTeacherTextediting();
+  final formkey = GlobalKey<FormState>();
+  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,7 +47,6 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                 size: 350.sp,
                 color: Colors.grey[200],
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -69,10 +74,9 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                     ),
                   ),
                   SizedBox(height: 16.sp),
-                  TextfieldTeacher(),
+                  TextfieldTeacher(formKey: formkey),
                   SizedBox(height: 16.sp),
-                  requeriedPassword(),
-                  SizedBox(height: 16.sp),
+
                   Text(
                     "السيرة الذاتية / نبذة تعريفية",
                     style: TextSt.textstyle14,
@@ -90,7 +94,6 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                    
                       SizedBox(height: 16.sp),
 
                       GestureDetector(
@@ -117,7 +120,10 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12.r),
-                            border: Border.all(color: Colors.grey,style: BorderStyle.solid),
+                            border: Border.all(
+                              color: Colors.grey,
+                              style: BorderStyle.solid,
+                            ),
                           ),
                           child: selectedFilePath != null
                               ? ClipRRect(
@@ -158,24 +164,56 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
             ],
           ),
           SizedBox(height: 16.sp),
-          Buttontext(
-            background: kcolorOlive,
-            textColor: Colors.white,
-            text: "إكمال التسجيل",
-            icons: Icons.arrow_back,
-            borderColor: KcolorGrey,
-            onPressed: () {
-              GoRouter.of(context).push(AppRouter.kaccountpendeing);
+          BlocConsumer<SignUpTeacherCubit, SignUpTeacherState>(
+            listener: (context, state) {
+              if (state is SignUpTeacherSuccess) {
+                showSuccessDialog(context);
+                GoRouter.of(context).push(AppRouter.kteacherdash);
+              } else if (state is SignUpTeacherFailure) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              } else if (state is SignUpTeacherLoading) {
+                showloadingDialog(context);
+              }
+            },
+            builder: (context, state) {
+              return Buttontext(
+                background: kcolorOlive,
+                textColor: Colors.white,
+                text: "إكمال التسجيل",
+                icons: Icons.arrow_back,
+                borderColor: KcolorGrey,
+                onPressed: () {
+                  if (formkey.currentState!.validate()) {
+                    context.read<SignUpTeacherCubit>().registerTeacher(
+                    //  file: viewModel.selectedfile!,
+                      name: viewModel.nameController.text,
+                      subject: viewModel.subjectController.text,
+
+                      birhthDate: viewModel.brithdayController.text,
+                      department: viewModel.departmentController.text,
+                      grade: viewModel.gradeController.text,
+                      phone: viewModel.phoneController.text,
+                      password: viewModel.passwordController.text,
+                      configePsassword:
+                          viewModel.configePasswordController.text,
+                      email: viewModel.emailController.text,
+                    );
+                  }
+                },
+              );
             },
           ),
           SizedBox(height: 16.sp),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              TextButton(onPressed: () {  GoRouter.of(context).push(AppRouter.klogin);},
+              child: Text(
                 "تسجيل الدخول",
                 style: TextSt.textstyle14.copyWith(color: kcolorOlive),
-              ),
+              )),
 
               Text("لديك حساب بالفعل؟ ", style: TextSt.textstyle14),
             ],

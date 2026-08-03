@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:school/Feature/home/Teacher/Presentation/views/presentation/view/teacherdashboard_body_view.dart';
 import 'package:school/core/assest.dart';
 import 'package:school/core/widget/bottomnavigationTeacher.dart';
@@ -30,7 +31,9 @@ class teacherdashview extends StatelessWidget {
                     borderRadius: BorderRadius.circular(9999.r),
                   ),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
                     icon: Icon(Icons.notifications_outlined),
                     color: Color(0xFF10B981),
                   ),
@@ -43,7 +46,7 @@ class teacherdashview extends StatelessWidget {
                 child: Text(
                   "مدارس القمة الأكاديمية",
                   style: TextStyle(
-                    fontSize: 27.59.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF000000),
                   ),

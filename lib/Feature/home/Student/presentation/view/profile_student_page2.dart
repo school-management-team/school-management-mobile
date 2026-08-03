@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
-import 'package:school/Feature/home/Student/presentation/view/widget/SimpleSchedule.dart';
+import 'package:school/Feature/home/Student/logic/manger/cubit_profile_student/profile_student_cubit.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/linearPrecent.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/textFieldPerson_profile.dart';
 import 'package:school/constant.dart';
-import 'package:school/core/assest.dart';
 import 'package:school/core/widget/Text/text_style.dart';
-import 'package:school/core/widget/bottomnavigator/bottomNavgtion_fiveitems.dart';
 
 class ProfileStudentPage2 extends StatefulWidget {
   const ProfileStudentPage2({super.key});
@@ -20,95 +18,96 @@ class _ProfileStudentPage2State extends State<ProfileStudentPage2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actionsPadding: EdgeInsets.symmetric(horizontal: 40.sp),
-        leadingWidth: 43,
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Text(
-              " نيو أكاديميك",
-              style: TextSt.textstyle28.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.w900,
-                fontSize: 22.sp,
-                fontFamily: 'normal',
-              ),
-            ),  SizedBox(width: 12.sp),
-            CircleAvatar(
-              radius: 30.sp,
-              backgroundImage: AssetImage(AssestData.studentDashboard),
-              backgroundColor: Colors.white,
-            ),
+   
 
-            Spacer(),
-            Lottie.asset(AssestData.notification, width: 55.sp),
-          ],
-        ),
-      ),
-
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 12.sp),
-
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12.r),
-                   border: Border.all(color: Colors.black12)
+      body: 
+      BlocBuilder<ProfileStudentCubit, ProfileStudentState>(
+          builder: (context, state) {
+            if (state is ProfileStudentLoading) {
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 50.sp),
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            } else if (state is ProfileStudentFailure) {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.errMessage)));
+            }
+          //  if (state is ProfileStudentSuccess) {
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.sp,
+                  vertical: 12.sp,
                 ),
 
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 16.h,
-                  ),
+                child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 8.sp,
-                              horizontal: 8.sp,
-                            ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12.r),
+                          border: Border.all(color: Colors.black12),
+                        ),
 
-                            child: Text(
-                              "  البيانات الشخصية ",
-                              style: TextSt.textstyle24,
-                            ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 16.h,
                           ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 8.sp,
+                                      horizontal: 8.sp,
+                                    ),
 
-                          Icon(Icons.badge_outlined, size: 30.sp),
-                        ],
+                                    child: Text(
+                                      "  البيانات الشخصية ",
+                                      style: TextSt.textstyle24,
+                                    ),
+                                  ),
+
+                                  Icon(Icons.badge_outlined, size: 30.sp),
+                                ],
+                              ),
+                              SizedBox(height: 20.sp),
+                              textfieldperson(
+                                text: "تاريخ الميلاد",
+                                texthint:" state.birthDate",
+                              ),
+                              SizedBox(height: 20.sp),
+                              textfieldperson(
+                                text: "الجنسية ",
+                                texthint: "state.nationalty",
+                              ),
+                              SizedBox(height: 20.sp),
+                              textfieldperson(
+                                text: " رقم الهوية",
+                                texthint:" state.nationalIa",
+                              ),
+                              SizedBox(height: 20.sp),
+                              textfieldperson(
+                                text: "العنوان ",
+                                texthint:" state.address",
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      SizedBox(height: 20.sp),
-                      textfieldperson(
-                        text: "تاريخ الميلاد",
-                        texthint: "15 مارس 2008 (16 سنة)",
-                      ),
-                      SizedBox(height: 20.sp),
-                      textfieldperson(text: "الجنسية ", texthint: "سعودي"),
-                      SizedBox(height: 20.sp),
-                      textfieldperson(
-                        text: " رقم الهوية",
-                        texthint: "1092837465",
-                      ),
-                      SizedBox(height: 20.sp),
-                      textfieldperson(
-                        text: "العنوان ",
-                        texthint: "الرياض، حي الملقا، شارع الأمير محمد بن",
-                      ),]))),
                       SizedBox(height: 20.sp),
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12.r),
-                           border: Border.all(color: Colors.black12)
+                          border: Border.all(color: Colors.black12),
                         ),
 
                         child: Padding(
@@ -185,7 +184,7 @@ class _ProfileStudentPage2State extends State<ProfileStudentPage2> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12.r),
-                          border: Border.all(color: Colors.black12)
+                          border: Border.all(color: Colors.black12),
                         ),
 
                         child: Padding(
@@ -211,10 +210,7 @@ class _ProfileStudentPage2State extends State<ProfileStudentPage2> {
                                     ),
                                   ),
 
-                                  Icon(
-                                    Icons.history,
-                                    size: 30.sp,
-                                  ),
+                                  Icon(Icons.history, size: 30.sp),
                                 ],
                               ),
                               Column(
@@ -326,9 +322,12 @@ class _ProfileStudentPage2State extends State<ProfileStudentPage2> {
                     ],
                   ),
                 ),
-         
-        
-      ),
+              );
+            }
+          //return const SizedBox();
+          //},
+        ),
+    
     );
   }
 }

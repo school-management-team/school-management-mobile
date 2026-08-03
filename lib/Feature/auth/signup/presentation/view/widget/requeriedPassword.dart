@@ -1,95 +1,105 @@
-
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
-class requeriedPassword extends StatefulWidget {
-  const requeriedPassword({
+class RequeriedPassword extends StatelessWidget {
+  const RequeriedPassword({
     super.key,
+    required this.password,
+    required this.isLength,
+    required this.hasUppercase,
+    required this.hasNumber,
   });
 
-  @override
-  State<requeriedPassword> createState() => _requeriedPasswordState();
-}
+  final String password;
+  final bool isLength;
+  final bool hasUppercase;
+  final bool hasNumber;
 
-class _requeriedPasswordState extends State<requeriedPassword> {
-   bool islenghth=false;
-  bool hasuppercase=false;
-  bool hasspecialchar=false;
   @override
   Widget build(BuildContext context) {
-    return Padding(padding:  EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: Colors.black12, width: 1),
-        color: Color(0Xff44474D).withOpacity(0.1),
-      ),
-    
-      height: 170.sp,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-    
-          children: [
-            Text(
-              " :متطلبات كلمة المرور",
-              style: TextSt.textstyle16.copyWith(color: Color(0XFF1C1C18)),
-              textAlign: TextAlign.right,
-            ),
-            SizedBox(height: 12.h),
+    final bool isNotEmpty = password.isNotEmpty;
 
-            buildrequirementRow(
-             
-                  " 8 أحرف على الأقل",
-                  islenghth,() => setState(() {
-                    islenghth=! islenghth;
-                  }),
-              
-            ),
-            SizedBox(height: 8.h),
-    
-           buildrequirementRow(  
-                  "حرف كبير واحد على الأقل",
-                  hasuppercase ,()=>
-                  setState(() {
-                    hasuppercase=!hasuppercase;
-                  })),
-        
-            SizedBox(height: 8.h),
-    
-           buildrequirementRow(
-                  "رقم واحد على الأقل أو رمز خاص",
-                hasspecialchar,() => 
-                setState(() {
-                  hasspecialchar=!hasspecialchar;
-                }))
-             
-          ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
+      child: Container(
+        height: 170.sp,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.r),
+          border: Border.all(color: Colors.black12),
+          color: const Color(0XFF44474D).withOpacity(0.1),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(8.sp),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                ": متطلبات كلمة المرور",
+                style: TextSt.textstyle16.copyWith(
+                  color: const Color(0XFF1C1C18),
+                ),
+              ),
+              SizedBox(height: 12.h),
+
+              buildRequirementRow(
+                "8 أحرف على الأقل",
+                isLength,
+                isNotEmpty && !isLength,
+              ),
+
+              SizedBox(height: 8.h),
+
+              buildRequirementRow(
+                "حرف كبير واحد على الأقل",
+                hasUppercase,
+                isNotEmpty && !hasUppercase,
+              ),
+
+              SizedBox(height: 8.h),
+
+              buildRequirementRow(
+                "رقم واحد على الأقل أو رمز خاص",
+                hasNumber,
+                isNotEmpty && !hasNumber,
+              ),
+            ],
+          ),
         ),
       ),
-      
-    ),);
+    );
   }
-}
-Widget buildrequirementRow(String text, bool ischecked,VoidCallback ontap){
-  
-  return GestureDetector(
-    onTap: ontap,
-    child: Row(
+
+  Widget buildRequirementRow(
+    String text,
+    bool isChecked,
+    bool isError,
+  ) {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text(text,style: TextSt.textstyle14.copyWith(color:ischecked?kcolorOlive:KcolorGrey),
-                  textAlign: TextAlign.right,),
-                   Icon(  ischecked?Icons.check_circle
-                   :Icons.circle_outlined, 
-                   color: ischecked?kcolorOlive:KcolorGrey,
-                   size: 16.sp),
+        Text(
+          text,
+          style: TextSt.textstyle14.copyWith(
+            color: isChecked
+                ?kcolorOlive
+                : isError
+                    ? const Color.fromARGB(255, 211, 42, 42)
+                    : KcolorGrey,
+          ),
+        ),
+        SizedBox(width: 6.w),
+        Icon(
+          isChecked ? Icons.check_circle : Icons.circle_outlined,
+          color: isChecked
+              ? kcolorOlive
+              : isError
+                  ? const Color.fromARGB(255, 211, 42, 42)
+                  : KcolorGrey,
+          size: 18.sp,
+        ),
       ],
-    ),
-  );
+    );
+  }
 }
