@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:school/Feature/home/Student/logic/manger/cubit_dash2_student/dash2_student_cubit.dart';
+import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_dash2_student/dash2_student_cubit.dart';
 import 'package:school/constant.dart';
 
 import 'package:school/core/widget/Text/text_style.dart';
@@ -91,24 +91,26 @@ class _SchoolCalendarScreenState extends State<SchoolCalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<Dash2StudentCubit,Dash2StudentState>(
+    return BlocBuilder<Dash2StudentCubit, Dash2StudentState>(
       builder: (context, state) {
-            if (state is Dash2StudentLoading) {
-               return Center(
-                child: Padding(padding: EdgeInsets.symmetric(vertical: 50.sp),child: 
-                CircularProgressIndicator()),
-               );
-              } else if (state is Dash2StudentFailure) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.message)));
-              }else if(state is Dash2StudentSuccess){
-          final Map<DateTime, Map<String, dynamic>>events = LinkedHashMap(
-    equals: isSameDay,
-    hashCode: (DateTime key) =>
-        key.day * 1000000 + key.month * 10000 + key.year,
-  )..addAll(state.events);
-              }     
+        if (state is Dash2StudentLoading) {
+          return Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 50.sp),
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (state is Dash2StudentFailure) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
+        } else if (state is Dash2StudentSuccess) {
+          final Map<DateTime, Map<String, dynamic>> events = LinkedHashMap(
+            equals: isSameDay,
+            hashCode: (DateTime key) =>
+                key.day * 1000000 + key.month * 10000 + key.year,
+          )..addAll(state.events);
+        }
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,

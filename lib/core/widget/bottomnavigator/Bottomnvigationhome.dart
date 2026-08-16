@@ -6,10 +6,7 @@ import 'package:school/constant.dart';
 import 'package:school/core/router_app.dart';
 
 class Bottomnvigationhome extends StatelessWidget {
-  const Bottomnvigationhome({
-    super.key,
-    required this.select,
-  });
+  const Bottomnvigationhome({super.key, required this.select});
 
   final int select;
 
@@ -22,75 +19,75 @@ class Bottomnvigationhome extends StatelessWidget {
       color: Colors.white,
       buttonBackgroundColor: kcolorOlive,
       animationDuration: const Duration(milliseconds: 300),
-items: [
-  Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Icon(
-        Icons.home_filled,
-        color: select == 0 ? Colors.white : KcolorGrey,
-      ),
-      Text(
-        'الرئيسية',
-        style: TextStyle(
-          fontSize: 10,
-          color: select == 0 ? Colors.white : KcolorGrey,
+      items: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.home_filled,
+              color: select == 0 ? Colors.white : KcolorGrey,
+            ),
+            Text(
+              'الرئيسية',
+              style: TextStyle(
+                fontSize: 10,
+                color: select == 0 ? Colors.white : KcolorGrey,
+              ),
+            ),
+          ],
         ),
-      ),
-    ],
-  ),
 
-  Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Icon(
-        Icons.class_rounded,
-        color: select == 1 ? Colors.white : KcolorGrey,
-      ),
-      Text(
-        'الصفوف',
-        style: TextStyle(
-          fontSize: 10,
-          color: select == 1 ? Colors.white : KcolorGrey,
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.class_rounded,
+              color: select == 1 ? Colors.white : KcolorGrey,
+            ),
+            Text(
+              'الصفوف',
+              style: TextStyle(
+                fontSize: 10,
+                color: select == 1 ? Colors.white : KcolorGrey,
+              ),
+            ),
+          ],
         ),
-      ),
-    ],
-  ),
 
-  Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Icon(
-        Icons.assessment_outlined,
-        color: select == 2 ? Colors.white : KcolorGrey,
-      ),
-      Text(
-        'التقارير',
-        style: TextStyle(
-          fontSize: 10,
-          color: select == 2 ? Colors.white : KcolorGrey,
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.assessment_outlined,
+              color: select == 2 ? Colors.white : KcolorGrey,
+            ),
+            Text(
+              'التقارير',
+              style: TextStyle(
+                fontSize: 10,
+                color: select == 2 ? Colors.white : KcolorGrey,
+              ),
+            ),
+          ],
         ),
-      ),
-    ],
-  ),
 
-  Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Icon(
-        Icons.person_pin,
-        color: select == 3 ? Colors.white : KcolorGrey,
-      ),
-      Text(
-        'الملف',
-        style: TextStyle(
-          fontSize: 10,
-          color: select == 3 ? Colors.white : KcolorGrey,
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.person_pin,
+              color: select == 3 ? Colors.white : KcolorGrey,
+            ),
+            Text(
+              'الملف',
+              style: TextStyle(
+                fontSize: 10,
+                color: select == 3 ? Colors.white : KcolorGrey,
+              ),
+            ),
+          ],
         ),
-      ),
-    ],
-  ),
-],
+      ],
 
       onTap: (index) {
         switch (index) {

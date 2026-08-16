@@ -48,12 +48,10 @@ class AssestData {
   static const study = "assest/animation/study.json";
   static const studentsJumping = "assest/animation/studentsjumping.json";
   static const cat = "assest/animation/cat.json";
-   static const confetti = "assest/animation/Confetti.json";
-    static const loadingPaperplane = "assest/animation/LoadingPaperplane.json";
-static const studentwithlaptop= "assest/animation/student with laptop.json";
-static const teacher1= "assest/animation/Teacher.json";
-static const adv1= "assest/animation/Student.json";
-static const teacher2= "assest/animation/Designer.json";
-
-  
+  static const confetti = "assest/animation/Confetti.json";
+  static const loadingPaperplane = "assest/animation/LoadingPaperplane.json";
+  static const studentwithlaptop = "assest/animation/student with laptop.json";
+  static const teacher1 = "assest/animation/Teacher.json";
+  static const adv1 = "assest/animation/Student.json";
+  static const teacher2 = "assest/animation/Designer.json";
 }

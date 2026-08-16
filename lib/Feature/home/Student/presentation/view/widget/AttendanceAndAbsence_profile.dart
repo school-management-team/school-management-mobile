@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/PercentageRingPainter.dart';
@@ -16,7 +15,7 @@ class AttendanceAndAbsence extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.r),
-         border: Border.all(color: Colors.black12)
+        border: Border.all(color: Colors.black12),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 16.sp),

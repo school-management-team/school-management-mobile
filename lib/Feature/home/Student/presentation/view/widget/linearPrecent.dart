@@ -56,7 +56,8 @@ class linearcontainerprofile extends StatelessWidget {
                         ),
                         child: Text(text, style: TextSt.textstyle14),
                       ),
-                    ),Spacer(),
+                    ),
+                    Spacer(),
                     Text(maintitle, style: TextSt.textstyle17),
                   ],
                 ),
@@ -70,8 +71,13 @@ class linearcontainerprofile extends StatelessWidget {
                 SizedBox(height: 16.h),
                 Row(
                   children: [
-                      Text("$progress %", style: TextSt.textstyle16.copyWith(color: getProgressColor(progress.toDouble()))),
-                      Spacer(),
+                    Text(
+                      "$progress %",
+                      style: TextSt.textstyle16.copyWith(
+                        color: getProgressColor(progress.toDouble()),
+                      ),
+                    ),
+                    Spacer(),
                     Text(lasttitle, style: TextSt.textstyle12),
                   ],
                 ),
@@ -79,11 +85,11 @@ class linearcontainerprofile extends StatelessWidget {
                 SizedBox(
                   width: 400.sp,
                   child: LinearPercentIndicator(
-                   isRTL: true,
+                    isRTL: true,
                     padding: EdgeInsets.zero,
                     lineHeight: 10,
                     percent: progress.toDouble() / 100,
-                    barRadius:  Radius.circular(20.sp),
+                    barRadius: Radius.circular(20.sp),
                     backgroundColor: Colors.grey.shade300,
                     progressColor: getProgressColor(progress.toDouble()),
                   ),

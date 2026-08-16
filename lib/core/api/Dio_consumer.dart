@@ -1,15 +1,24 @@
-
-
 import 'package:dio/dio.dart';
 import 'package:school/core/api/api_consumer.dart';
 import 'package:school/core/api/api_intercpector.dart';
 import 'package:school/core/api/endpoint.dart';
 import 'package:school/core/api/errors/serverException.dart';
 
-
 class DioConsumer extends ApiConsumer {
   DioConsumer(this.dio) {
+ 
     dio.options.baseUrl = ApiEndpoint.urlbase;
+
+    dio.options.connectTimeout =
+        const Duration(seconds: 20);
+
+    dio.options.sendTimeout =
+        const Duration(seconds: 20);
+
+    dio.options.receiveTimeout =
+        const Duration(seconds: 20);
+
+ 
     dio.interceptors.add(ApiInterceptors());
     dio.interceptors.add(
       LogInterceptor(
@@ -33,6 +42,7 @@ class DioConsumer extends ApiConsumer {
     dynamic data,
     Map<String, dynamic>? query,
     bool isFromData = false,
+     Options? options,
   }) async {
     try {
       final respone = await dio.delete(
@@ -52,12 +62,14 @@ class DioConsumer extends ApiConsumer {
     dynamic data,
     Map<String, dynamic>? query,
     bool isFromData = false,
+     Options? options,
   }) async {
     try {
-      final respone = await dio.get(path, 
-      data:isFromData?FormData.fromMap(data): data
-      
-      , queryParameters: query);
+      final respone = await dio.get(
+        path,
+        data: isFromData ? FormData.fromMap(data) : data,
+        queryParameters: query,
+      );
       return respone.data;
     } on DioException catch (e) {
       HandelDioException(e);
@@ -66,34 +78,50 @@ class DioConsumer extends ApiConsumer {
 
   @override
   Future<dynamic> patch(
-    String path,{
-   dynamic data,
-    Map<String, dynamic>? query,
-    bool isFromData = false,}
-  ) async {
-    try {
-      final respone = await dio.patch(path, 
-      data:isFromData?FormData.fromMap(data): data, queryParameters: query);
-      return respone.data;
-    } on DioException catch (e) {
-      HandelDioException(e);
-    }
-  }
-
-  @override
-  Future<dynamic> post(
-    String path,{
+    String path, {
     dynamic data,
     Map<String, dynamic>? query,
-      bool isFromData = false
-    }
-  ) async {
+    bool isFromData = false,
+     Options? options,
+  }) async {
     try {
-      final respone = await dio.post(path, 
-       data:isFromData?FormData.fromMap(data): data, queryParameters: query);
+      final respone = await dio.patch(
+        path,
+        data: isFromData ? FormData.fromMap(data) : data,
+        queryParameters: query,
+      );
       return respone.data;
     } on DioException catch (e) {
       HandelDioException(e);
     }
   }
+@override
+Future<dynamic> post(
+  String path, {
+  dynamic data,
+  Map<String, dynamic>? query,
+  bool isFromData = false,
+  Options? options,
+}) async {
+  try {
+    print('URL = ${dio.options.baseUrl}$path');
+    print('DATA = $data');
+
+    final response = await dio.post(
+      path,
+      data: isFromData ? FormData.fromMap(data) : data,
+      queryParameters: query,
+      options: options,
+    );
+
+    print('STATUS = ${response.statusCode}');
+    print('RESPONSE = ${response.data}');
+
+    return response.data;
+  } on DioException catch (e) {
+    print('POST ERROR = $e');
+    HandelDioException(e);
+    
+  }
+}
 }

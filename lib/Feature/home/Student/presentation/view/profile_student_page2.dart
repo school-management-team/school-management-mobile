@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:school/Feature/home/Student/logic/manger/cubit_profile_student/profile_student_cubit.dart';
+import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_profile_student/profile_student_cubit.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/linearPrecent.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/textFieldPerson_profile.dart';
 import 'package:school/constant.dart';
@@ -18,316 +18,302 @@ class _ProfileStudentPage2State extends State<ProfileStudentPage2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-   
-
-      body: 
-      BlocBuilder<ProfileStudentCubit, ProfileStudentState>(
-          builder: (context, state) {
-            if (state is ProfileStudentLoading) {
-              return Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 50.sp),
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            } else if (state is ProfileStudentFailure) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.errMessage)));
-            }
+      body: BlocBuilder<ProfileStudentCubit, ProfileStudentState>(
+        builder: (context, state) {
+          if (state is ProfileStudentLoading) {
+            return Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 50.sp),
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (state is ProfileStudentFailure) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.errMessage)));
+          }
           //  if (state is ProfileStudentSuccess) {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.sp,
-                  vertical: 12.sp,
-                ),
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 12.sp),
 
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12.r),
-                          border: Border.all(color: Colors.black12),
-                        ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(color: Colors.black12),
+                    ),
 
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16.w,
-                            vertical: 16.h,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 16.h,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 8.sp,
-                                      horizontal: 8.sp,
-                                    ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 8.sp,
+                                  horizontal: 8.sp,
+                                ),
 
-                                    child: Text(
-                                      "  البيانات الشخصية ",
-                                      style: TextSt.textstyle24,
-                                    ),
-                                  ),
+                                child: Text(
+                                  "  البيانات الشخصية ",
+                                  style: TextSt.textstyle24,
+                                ),
+                              ),
 
-                                  Icon(Icons.badge_outlined, size: 30.sp),
-                                ],
+                              Icon(Icons.badge_outlined, size: 30.sp),
+                            ],
+                          ),
+                          SizedBox(height: 20.sp),
+                          textfieldperson(
+                            text: "تاريخ الميلاد",
+                            texthint: " state.birthDate",
+                          ),
+                          SizedBox(height: 20.sp),
+                          textfieldperson(
+                            text: "الجنسية ",
+                            texthint: "state.nationalty",
+                          ),
+                          SizedBox(height: 20.sp),
+                          textfieldperson(
+                            text: " رقم الهوية",
+                            texthint: " state.nationalIa",
+                          ),
+                          SizedBox(height: 20.sp),
+                          textfieldperson(
+                            text: "العنوان ",
+                            texthint: " state.address",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.sp),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(color: Colors.black12),
+                    ),
+
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 16.h,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 8.sp,
+                                  horizontal: 8.sp,
+                                ),
+                                child: Text(
+                                  " عرض الخطة \n   الدراسية ",
+                                  style: TextSt.textstyle12,
+                                ),
                               ),
-                              SizedBox(height: 20.sp),
-                              textfieldperson(
-                                text: "تاريخ الميلاد",
-                                texthint:" state.birthDate",
+                              Spacer(),
+                              Text(
+                                " المقررات \n الدراسية ",
+                                style: TextSt.textstyle24,
                               ),
-                              SizedBox(height: 20.sp),
-                              textfieldperson(
-                                text: "الجنسية ",
-                                texthint: "state.nationalty",
-                              ),
-                              SizedBox(height: 20.sp),
-                              textfieldperson(
-                                text: " رقم الهوية",
-                                texthint:" state.nationalIa",
-                              ),
-                              SizedBox(height: 20.sp),
-                              textfieldperson(
-                                text: "العنوان ",
-                                texthint:" state.address",
+                              SizedBox(width: 12.sp),
+                              Icon(
+                                Icons.menu_book_outlined,
+                                size: 30.sp,
+                                color: kcolorOlive,
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      SizedBox(height: 20.sp),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12.r),
-                          border: Border.all(color: Colors.black12),
-                        ),
-
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16.w,
-                            vertical: 16.h,
+                          SizedBox(height: 20.sp),
+                          linearcontainerprofile(
+                            maintitle: "الرياضيات المتقدمة",
+                            subtitle: "أ. خالد العتيبي",
+                            lasttitle: "التقدم الأكاديمي",
+                            text: "5 ساعات",
+                            progress: 83,
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                          SizedBox(height: 16.sp),
+                          linearcontainerprofile(
+                            maintitle: "الرياضيات المتقدمة",
+                            subtitle: "أ. خالد العتيبي",
+                            lasttitle: "التقدم الأكاديمي",
+                            text: "5 ساعات",
+                            progress: 99,
+                          ),
+                          SizedBox(height: 16.sp),
+                          linearcontainerprofile(
+                            maintitle: "الرياضيات المتقدمة",
+                            subtitle: "أ. خالد العتيبي",
+                            lasttitle: "التقدم الأكاديمي",
+                            text: "5 ساعات",
+                            progress: 23,
+                          ),
+                          SizedBox(height: 16.sp),
+                          linearcontainerprofile(
+                            maintitle: "الرياضيات المتقدمة",
+                            subtitle: "أ. خالد العتيبي",
+                            lasttitle: "التقدم الأكاديمي",
+                            text: "5 ساعات",
+                            progress: 65,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.sp),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(color: Colors.black12),
+                    ),
+
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 16.h,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 8.sp,
-                                      horizontal: 8.sp,
-                                    ),
-                                    child: Text(
-                                      " عرض الخطة \n   الدراسية ",
-                                      style: TextSt.textstyle12,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    " المقررات \n الدراسية ",
-                                    style: TextSt.textstyle24,
-                                  ),
-                                  SizedBox(width: 12.sp),
-                                  Icon(
-                                    Icons.menu_book_outlined,
-                                    size: 30.sp,
-                                    color: kcolorOlive,
-                                  ),
-                                ],
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 8.sp,
+                                  horizontal: 8.sp,
+                                ),
+
+                                child: Text(
+                                  "   النشاط الأخير ",
+                                  style: TextSt.textstyle24,
+                                ),
                               ),
-                              SizedBox(height: 20.sp),
-                              linearcontainerprofile(
-                                maintitle: "الرياضيات المتقدمة",
-                                subtitle: "أ. خالد العتيبي",
-                                lasttitle: "التقدم الأكاديمي",
-                                text: "5 ساعات",
-                                progress: 83,
-                              ),
-                              SizedBox(height: 16.sp),
-                              linearcontainerprofile(
-                                maintitle: "الرياضيات المتقدمة",
-                                subtitle: "أ. خالد العتيبي",
-                                lasttitle: "التقدم الأكاديمي",
-                                text: "5 ساعات",
-                                progress: 99,
-                              ),
-                              SizedBox(height: 16.sp),
-                              linearcontainerprofile(
-                                maintitle: "الرياضيات المتقدمة",
-                                subtitle: "أ. خالد العتيبي",
-                                lasttitle: "التقدم الأكاديمي",
-                                text: "5 ساعات",
-                                progress: 23,
-                              ),
-                              SizedBox(height: 16.sp),
-                              linearcontainerprofile(
-                                maintitle: "الرياضيات المتقدمة",
-                                subtitle: "أ. خالد العتيبي",
-                                lasttitle: "التقدم الأكاديمي",
-                                text: "5 ساعات",
-                                progress: 65,
-                              ),
+
+                              Icon(Icons.history, size: 30.sp),
                             ],
                           ),
-                        ),
-                      ),
-                      SizedBox(height: 20.sp),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12.r),
-                          border: Border.all(color: Colors.black12),
-                        ),
+                          Column(
+                            children: List.generate(activities.length, (index) {
+                              final item = activities[index];
 
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16.w,
-                            vertical: 16.h,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 8.sp,
-                                      horizontal: 8.sp,
-                                    ),
-
-                                    child: Text(
-                                      "   النشاط الأخير ",
-                                      style: TextSt.textstyle24,
-                                    ),
+                              return InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = index;
+                                  });
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 12.sp,
+                                    vertical: 16.sp,
                                   ),
-
-                                  Icon(Icons.history, size: 30.sp),
-                                ],
-                              ),
-                              Column(
-                                children: List.generate(activities.length, (
-                                  index,
-                                ) {
-                                  final item = activities[index];
-
-                                  return InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedIndex = index;
-                                      });
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 12.sp,
-                                        vertical: 16.sp,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: selectedIndex == index
-                                            ? item.color.withOpacity(0.15)
-                                            : Colors.transparent,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  item.time,
-                                                  style: TextSt.textstyle14
-                                                      .copyWith(
-                                                        color:
-                                                            selectedIndex ==
-                                                                index
-                                                            ? item.color
-                                                            : Colors.grey,
-                                                      ),
-                                                ),
-                                                SizedBox(height: 16.sp),
-                                                Text(
-                                                  item.title,
-                                                  textAlign: TextAlign.right,
-                                                  style: TextSt.textstyle14
-                                                      .copyWith(
-                                                        fontWeight:
-                                                            selectedIndex ==
-                                                                index
-                                                            ? FontWeight.bold
-                                                            : FontWeight.normal,
-                                                        color:
-                                                            selectedIndex ==
-                                                                index
-                                                            ? item.color
-                                                            : Colors.black,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-
-                                          const SizedBox(width: 12),
-
-                                          Column(
-                                            children: [
-                                              Container(
-                                                width: 2.sp,
-                                                height: 20.sp,
-                                                color: Colors.grey.shade300,
-                                              ),
-                                              Container(
-                                                width: 20.sp,
-                                                height: 20.sp,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: item.color,
-                                                  border: Border.all(
+                                  decoration: BoxDecoration(
+                                    color: selectedIndex == index
+                                        ? item.color.withOpacity(0.15)
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              item.time,
+                                              style: TextSt.textstyle14
+                                                  .copyWith(
                                                     color:
                                                         selectedIndex == index
                                                         ? item.color
-                                                        : Colors.white,
-                                                    width: 3,
+                                                        : Colors.grey,
                                                   ),
-                                                ),
+                                            ),
+                                            SizedBox(height: 16.sp),
+                                            Text(
+                                              item.title,
+                                              textAlign: TextAlign.right,
+                                              style: TextSt.textstyle14
+                                                  .copyWith(
+                                                    fontWeight:
+                                                        selectedIndex == index
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
+                                                    color:
+                                                        selectedIndex == index
+                                                        ? item.color
+                                                        : Colors.black,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      const SizedBox(width: 12),
+
+                                      Column(
+                                        children: [
+                                          Container(
+                                            width: 2.sp,
+                                            height: 20.sp,
+                                            color: Colors.grey.shade300,
+                                          ),
+                                          Container(
+                                            width: 20.sp,
+                                            height: 20.sp,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: item.color,
+                                              border: Border.all(
+                                                color: selectedIndex == index
+                                                    ? item.color
+                                                    : Colors.white,
+                                                width: 3,
                                               ),
-                                              Container(
-                                                width: 2.sp,
-                                                height: 20.sp,
-                                                color: Colors.grey.shade300,
-                                              ),
-                                            ],
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 2.sp,
+                                            height: 20.sp,
+                                            color: Colors.grey.shade300,
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  );
-                                }),
-                              ),
-                            ],
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              );
-            }
-          //return const SizedBox();
-          //},
-        ),
-    
+                ],
+              ),
+            ),
+          );
+        },
+        //return const SizedBox();
+        //},
+      ),
     );
   }
 }

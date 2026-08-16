@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -105,7 +104,6 @@ class _LandingPageBodyState extends State<LandingPageBody>
 
                   // ─── Dots Indicator ───────────────────────────────
                   // _buildDotsIndicator(),
-
                   SizedBox(height: 28.h),
 
                   // ─── Dashboard Mockup مع البطاقات العائمة ─────────
@@ -152,11 +150,7 @@ class _LandingPageBodyState extends State<LandingPageBody>
               ),
             ),
             SizedBox(width: 10.w),
-            Icon(
-              Icons.school_rounded,
-              color: kcolorOlive,
-              size: 28.sp,
-            ),
+            Icon(Icons.school_rounded, color: kcolorOlive, size: 28.sp),
           ],
         ),
       ),
@@ -292,11 +286,7 @@ class _LandingPageBodyState extends State<LandingPageBody>
               style: TextSt.textstyle16.copyWith(color: Colors.white),
             ),
             SizedBox(width: 8.w),
-            Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.white,
-              size: 22.sp,
-            ),
+            Icon(Icons.arrow_back_rounded, color: Colors.white, size: 22.sp),
           ],
         ),
       ),
@@ -342,11 +332,7 @@ class _LandingPageBodyState extends State<LandingPageBody>
         clipBehavior: Clip.none,
         children: [
           // ── لوحة Dashboard الرئيسية ──
-          Positioned.fill(
-            left: 20.w,
-            right: 0,
-            child: _buildMockupPanel(),
-          ),
+          Positioned.fill(left: 20.w, right: 0, child: _buildMockupPanel()),
 
           // ── نسبة الحضور (أعلى يسار) ──
           Positioned(
@@ -386,9 +372,7 @@ class _LandingPageBodyState extends State<LandingPageBody>
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.4),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.4)),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF071A2F).withValues(alpha: 0.12),
@@ -468,15 +452,40 @@ class _LandingPageBodyState extends State<LandingPageBody>
         // صفوف بيانات وهمية
         Row(
           children: [
-            Expanded(child: _mockBar(height: 60.h, color: kcolorOlive.withValues(alpha: 0.7))),
+            Expanded(
+              child: _mockBar(
+                height: 60.h,
+                color: kcolorOlive.withValues(alpha: 0.7),
+              ),
+            ),
             SizedBox(width: 6.w),
-            Expanded(child: _mockBar(height: 45.h, color: kcolorNavyBlue.withValues(alpha: 0.3))),
+            Expanded(
+              child: _mockBar(
+                height: 45.h,
+                color: kcolorNavyBlue.withValues(alpha: 0.3),
+              ),
+            ),
             SizedBox(width: 6.w),
-            Expanded(child: _mockBar(height: 75.h, color: kcolorOlive.withValues(alpha: 0.5))),
+            Expanded(
+              child: _mockBar(
+                height: 75.h,
+                color: kcolorOlive.withValues(alpha: 0.5),
+              ),
+            ),
             SizedBox(width: 6.w),
-            Expanded(child: _mockBar(height: 50.h, color: kcolorNavyBlue.withValues(alpha: 0.2))),
+            Expanded(
+              child: _mockBar(
+                height: 50.h,
+                color: kcolorNavyBlue.withValues(alpha: 0.2),
+              ),
+            ),
             SizedBox(width: 6.w),
-            Expanded(child: _mockBar(height: 65.h, color: kcolorOlive.withValues(alpha: 0.6))),
+            Expanded(
+              child: _mockBar(
+                height: 65.h,
+                color: kcolorOlive.withValues(alpha: 0.6),
+              ),
+            ),
           ],
         ),
         SizedBox(height: 10.h),
@@ -502,12 +511,11 @@ class _LandingPageBodyState extends State<LandingPageBody>
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  // البطاقة العائمة 1: 
+  // البطاقة العائمة 1:
   // ─────────────────────────────────────────────────────────────────────────
   Widget _buildFloatingCard1() {
     return Container(
-      
-      padding: EdgeInsets.only(right:15.w,left: 5.w,top: 5.h,bottom: 10.h),
+      padding: EdgeInsets.only(right: 15.w, left: 5.w, top: 5.h, bottom: 10.h),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(14.r),
@@ -553,11 +561,10 @@ class _LandingPageBodyState extends State<LandingPageBody>
             width: 40.w,
             height: 40.w,
             decoration: BoxDecoration(
-
               color: kcolorgreen.withValues(alpha: 0.15),
               shape: BoxShape.circle,
             ),
-child: Image(image: AssetImage(AssestData.backgroundIcon),),
+            child: Image(image: AssetImage(AssestData.backgroundIcon)),
             // child: Icon(
             //   Icons.trending_up,
             //   color: kcolorgreen,

@@ -13,17 +13,16 @@ class BottomnavgtionFiveitems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-  decoration: BoxDecoration(
-    
-    boxShadow: [
-      BoxShadow(
-        color: Colors.grey.withOpacity(0.2),
-        blurRadius: 0,
-        spreadRadius: 0,
-        offset: Offset(0, -2.sp), 
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 0,
+            spreadRadius: 0,
+            offset: Offset(0, -2.sp),
+          ),
+        ],
       ),
-    ],
-  ),
 
       child: CurvedNavigationBar(
         index: select,
@@ -49,7 +48,7 @@ class BottomnavgtionFiveitems extends StatelessWidget {
               ),
             ],
           ),
-      
+
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -66,7 +65,7 @@ class BottomnavgtionFiveitems extends StatelessWidget {
               ),
             ],
           ),
-      
+
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -83,7 +82,7 @@ class BottomnavgtionFiveitems extends StatelessWidget {
               ),
             ],
           ),
-      
+
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -107,7 +106,7 @@ class BottomnavgtionFiveitems extends StatelessWidget {
                 Icons.calendar_month,
                 color: select == 4 ? Colors.white : KcolorGrey,
               ),
-      
+
               Text(
                 'الجدول',
                 style: TextStyle(
@@ -118,22 +117,22 @@ class BottomnavgtionFiveitems extends StatelessWidget {
             ],
           ),
         ],
-      
+
         onTap: (index) {
           switch (index) {
             case 0:
               context.go(AppRouter.kDashboardstudent);
               break;
-      
+
             case 1:
               context.go(AppRouter.kTaskshomeworkStudent);
               break;
-      
+
             case 2:
               context.go(AppRouter.kGradecardstStudent);
-               
+
               break;
-      
+
             case 3:
               context.go(AppRouter.kDashboardstudent);
               break;

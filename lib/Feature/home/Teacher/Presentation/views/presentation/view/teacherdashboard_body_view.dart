@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:school/Feature/auth/signup/presentation/view/Login_View.dart';
-import 'package:school/Feature/auth/signup/presentation/view/Login_body_view.dart';
+import 'package:school/Feature/auth/login/presentation/view/Login_View.dart';
+import 'package:school/Feature/auth/login/presentation/view/Login_body_view.dart';
 import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/actioncards.dart';
 import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/assignedclasscard.dart';
 import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/new_messages.dart';

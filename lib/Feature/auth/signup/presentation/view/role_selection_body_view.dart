@@ -11,7 +11,6 @@ import 'package:school/core/widget/Text/text_style.dart';
 class RoleSelectionBodyView extends StatelessWidget {
   const RoleSelectionBodyView({super.key});
 
- 
   void _openTour(
     BuildContext context, {
     required List<TourSlide> slides,
@@ -38,10 +37,7 @@ class RoleSelectionBodyView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              AssestData.roleImage,
-              alignment: Alignment.center,
-            ),
+            Image.asset(AssestData.roleImage, alignment: Alignment.center),
             Text(
               "اختر نوع  \n الحساب للبدء",
               style: TextSt.textstyle28.copyWith(
@@ -57,8 +53,7 @@ class RoleSelectionBodyView extends StatelessWidget {
             ),
             Text("    .التحكم المخصصة لك والمتابعة", style: TextSt.textstyle17),
             SizedBox(height: 16.h),
-            
-          
+
             containerRoles(
               ontap: () {
                 _openTour(
@@ -69,13 +64,12 @@ class RoleSelectionBodyView extends StatelessWidget {
                 );
               },
               image: AssestData.roleSystem,
-              textmain: " الموجه التربوي",
+              textmain: "            الموجه التربوي",
               text: "إدارة شاملة لشؤون الطلاب",
-              text2: ".والإعدادات الأكاديمية  ",
+              text2: "              .والإعدادات الأكاديمية  ",
             ),
             SizedBox(height: 16.sp),
-            
-       
+
             containerRoles(
               ontap: () {
                 _openTour(
@@ -91,8 +85,7 @@ class RoleSelectionBodyView extends StatelessWidget {
               text2: ".والتواصل المباشر مع الطلاب",
             ),
             SizedBox(height: 16.sp),
-            
-         
+
             containerRoles(
               ontap: () {
                 _openTour(

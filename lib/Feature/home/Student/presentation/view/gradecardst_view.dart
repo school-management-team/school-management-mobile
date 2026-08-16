@@ -7,7 +7,6 @@ import 'package:school/core/assest.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 import 'package:school/core/widget/bottomnavigator/bottomfive_home_student.dart';
 
-
 class GradecardstView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

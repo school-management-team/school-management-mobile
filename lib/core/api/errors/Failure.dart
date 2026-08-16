@@ -1,15 +1,9 @@
-
-
-
 abstract class Failure {
- String errorMessage;
+  String errorMessage;
 
- Failure({required this.errorMessage});
+  Failure({required this.errorMessage});
+}
 
-
- }
- class serverFailure extends Failure{
+class serverFailure extends Failure {
   serverFailure({required super.errorMessage});
-
- 
 }

@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import 'package:school/Feature/attendance_Management/presentation/view/management_view.dart';
-import 'package:school/Feature/auth/signup/presentation/view/Login_View.dart';
+import 'package:school/Feature/auth/login/presentation/view/Login_View.dart';
 import 'package:school/Feature/auth/signup/presentation/view/account_peneding.dart';
 import 'package:school/Feature/auth/signup/presentation/view/role_selection_view.dart';
 
@@ -61,8 +61,7 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) =>const OnBoardingPage1View()
-          
+        builder: (context, state) => const OnBoardingPage1View(),
       ),
 
       GoRoute(

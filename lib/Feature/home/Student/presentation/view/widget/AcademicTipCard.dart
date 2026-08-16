@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/widget/Text/text_style.dart';
+
 class AcademicTipCard extends StatefulWidget {
   final String title, content, author, authorInitial;
 
@@ -85,7 +85,11 @@ class _AcademicTipCardState extends State<AcademicTipCard>
                       ),
                     ),
                   ),
-                  Icon(Icons.person_search_outlined, color: kcolorOlive, size: 40.sp),
+                  Icon(
+                    Icons.person_search_outlined,
+                    color: kcolorOlive,
+                    size: 40.sp,
+                  ),
                 ],
               ),
             ],

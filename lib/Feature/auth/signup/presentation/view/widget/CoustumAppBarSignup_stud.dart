@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -24,10 +23,12 @@ class CoustumAppBarSignup extends StatelessWidget {
               "العودة لاختيار الدور",
               style: TextSt.textstyle12.copyWith(color: KcolorGrey),
             ),
-            IconButton(onPressed: () {
-
+            IconButton(
+              onPressed: () {
                 GoRouter.of(context).push(AppRouter.kroleselection);
-            }, icon: Icon(Icons.arrow_forward)),
+              },
+              icon: Icon(Icons.arrow_forward),
+            ),
           ],
         ),
 
@@ -38,7 +39,7 @@ class CoustumAppBarSignup extends StatelessWidget {
               "بيانات الحساب",
               style: TextSt.textstyle16.copyWith(color: KcolorGrey),
             ),
-            Image.asset(AssestData.circule,width: 30.w,),
+            Image.asset(AssestData.circule, width: 30.w),
             Spacer(),
             Image.asset(AssestData.Horizontal_Divider),
             Spacer(),
@@ -47,7 +48,7 @@ class CoustumAppBarSignup extends StatelessWidget {
               "التحقق ",
               style: TextSt.textstyle16.copyWith(color: kcolorOlive),
             ),
-            Image.asset(AssestData.circule1,width: 30.w,),
+            Image.asset(AssestData.circule1, width: 30.w),
           ],
         ),
 
@@ -61,7 +62,10 @@ class CoustumAppBarSignup extends StatelessWidget {
           " يرجى إدخال البيانات الوظيفية لإكمال إعداد الحساب  ",
           style: TextSt.textstyle14.copyWith(color: kcolorNavyBlue),
         ),
-        Text(" .الخاص بك ", style: TextSt.textstyle14.copyWith(color: kcolorNavyBlue)),
+        Text(
+          " .الخاص بك ",
+          style: TextSt.textstyle14.copyWith(color: kcolorNavyBlue),
+        ),
       ],
     );
   }

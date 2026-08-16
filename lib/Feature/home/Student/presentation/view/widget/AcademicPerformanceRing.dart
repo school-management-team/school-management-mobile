@@ -7,13 +7,12 @@ import 'package:school/constant.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class AcademicPerformanceRing extends StatelessWidget {
- final int percentageInt;
+  final int percentageInt;
 
   const AcademicPerformanceRing({super.key, required this.percentageInt});
 
   @override
   Widget build(BuildContext context) {
-     
     return SingleChildScrollView(
       child: Container(
         height: 400.sp,

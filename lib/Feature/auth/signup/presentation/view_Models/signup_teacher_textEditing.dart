@@ -1,15 +1,45 @@
 import 'package:flutter/material.dart';
-//import 'package:image_picker/image_picker.dart';
 
-class  SignupTeacherTextediting {
- final TextEditingController brithdayController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController subjectController = TextEditingController();
-   // XFile?selectedfile;
-  final TextEditingController gradeController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController configePasswordController = TextEditingController();
-  final TextEditingController departmentController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+class SignupTeacherTextediting {
+  final TextEditingController brithdayController =
+      TextEditingController();
+
+  final TextEditingController nameController =
+      TextEditingController();
+
+  final TextEditingController subjectController =
+      TextEditingController();
+
+  final TextEditingController passwordController =
+      TextEditingController();
+
+  final TextEditingController configePasswordController =
+      TextEditingController();
+
+  final TextEditingController phoneController =
+      TextEditingController();
+
+  final TextEditingController emailController =
+      TextEditingController();
+
+  final TextEditingController genderController =
+      TextEditingController();
+
+  final TextEditingController cvController =
+      TextEditingController();
+
+  int? selectedStageId;
+  int? selectedSubjectId;
+
+  void dispose() {
+    cvController.dispose();
+    genderController.dispose();
+    brithdayController.dispose();
+    nameController.dispose();
+    subjectController.dispose();
+    passwordController.dispose();
+    configePasswordController.dispose();
+    phoneController.dispose();
+    emailController.dispose();
+  }
 }

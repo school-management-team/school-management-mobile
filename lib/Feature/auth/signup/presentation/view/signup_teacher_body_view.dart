@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:school/Feature/auth/signup/logic/manger/cubit_Teacher_signup/sign_up_teacher_cubit.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:school/Feature/auth/signup/presentation/view_Models/manger/cubit_Teacher_signup/sign_up_teacher_cubit.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/coustumAppBar_teacher.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/textfield_teacher.dart';
 import 'package:school/Feature/auth/signup/presentation/view_Models/signup_teacher_textEditing.dart';
@@ -18,17 +18,19 @@ import 'package:school/core/widget/Text/text_from_field.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class SignupTeacherBodyView extends StatefulWidget {
-  SignupTeacherBodyView({super.key});
+  const SignupTeacherBodyView({super.key});
 
   @override
   State<SignupTeacherBodyView> createState() => _SignupTeacherBodyViewState();
 }
 
 class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
-  String? selectedFilePath;
+  XFile? selectedFilePath;
+
   final viewModel = SignupTeacherTextediting();
+
   final formkey = GlobalKey<FormState>();
-  
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,9 +38,13 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
       child: ListView(
         children: [
           customAPPTeacher(),
+
           SizedBox(height: 16.sp),
-          Divider(color: Color(0XFFC4C6CD), thickness: 0),
+
+          const Divider(color: Color(0XFFC4C6CD), thickness: 0),
+
           SizedBox(height: 16.sp),
+
           Stack(
             alignment: Alignment.topRight,
             children: [
@@ -47,12 +53,12 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                 size: 350.sp,
                 color: Colors.grey[200],
               ),
+
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    //  crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
                         " معلم ",
@@ -61,33 +67,47 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                       Text("إنشاء حساب ", style: TextSt.textstyle28),
                     ],
                   ),
+
                   Text(
                     "يرجى تعبئة كافة الحقول التالية لإتمام عملية",
                     style: TextSt.textstyle14.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
                   ),
+
                   Text(
                     " .التسجيل",
                     style: TextSt.textstyle14.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
                   ),
+
                   SizedBox(height: 16.sp),
-                  TextfieldTeacher(formKey: formkey),
+
+                  TextfieldTeacher(formKey: formkey, viewModel: viewModel),
+
                   SizedBox(height: 16.sp),
 
                   Text(
                     "السيرة الذاتية / نبذة تعريفية",
                     style: TextSt.textstyle14,
                   ),
+
                   SizedBox(height: 16.sp),
 
                   TextFieldStyle(
+                    textEditingController: viewModel.cvController,
                     max: 5,
                     hinit: "...تحدث عن خبراتك ومهاراتك الأكاديمية",
-                    filledcolor: Color(0XFFFFFFFF),
+                    filledcolor: const Color(0XFFFFFFFF),
                     textAlign: TextAlign.end,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "لا يجب أن يكون الحقل فارغ";
+                      }
+
+                      return null;
+                    },
                   ),
 
                   SizedBox(height: 16.sp),
@@ -98,14 +118,16 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
 
                       GestureDetector(
                         onTap: () async {
-                          FilePickerResult? result = await FilePicker.pickFiles(
-                            type: FileType.custom,
+                          final ImagePicker picker = ImagePicker();
+
+                          final XFile? image = await picker.pickImage(
+                            source: ImageSource.gallery,
+                            imageQuality: 80,
                           );
 
-                          if (result != null &&
-                              result.files.single.path != null) {
+                          if (image != null) {
                             setState(() {
-                              selectedFilePath = result.files.single.path;
+                              selectedFilePath = image;
                             });
                           }
                         },
@@ -120,16 +142,13 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12.r),
-                            border: Border.all(
-                              color: Colors.grey,
-                              style: BorderStyle.solid,
-                            ),
+                            border: Border.all(color: Colors.grey),
                           ),
                           child: selectedFilePath != null
                               ? ClipRRect(
                                   borderRadius: BorderRadius.circular(12.r),
                                   child: Image.file(
-                                    File(selectedFilePath!),
+                                    File(selectedFilePath!.path),
                                     width: double.infinity,
                                     height: 140.sp,
                                     fit: BoxFit.cover,
@@ -150,7 +169,6 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                         color: Colors.grey[600],
-                                        fontWeight: FontWeight.normal,
                                       ),
                                     ),
                                   ],
@@ -163,11 +181,14 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
               ),
             ],
           ),
+
           SizedBox(height: 16.sp),
+
           BlocConsumer<SignUpTeacherCubit, SignUpTeacherState>(
             listener: (context, state) {
               if (state is SignUpTeacherSuccess) {
                 showSuccessDialog(context);
+                Future.delayed(const Duration(seconds: 2));
                 GoRouter.of(context).push(AppRouter.kteacherdash);
               } else if (state is SignUpTeacherFailure) {
                 ScaffoldMessenger.of(
@@ -185,39 +206,69 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                 icons: Icons.arrow_back,
                 borderColor: KcolorGrey,
                 onPressed: () {
-                  if (formkey.currentState!.validate()) {
-                    context.read<SignUpTeacherCubit>().registerTeacher(
-                    //  file: viewModel.selectedfile!,
-                      name: viewModel.nameController.text,
-                      subject: viewModel.subjectController.text,
-
-                      birhthDate: viewModel.brithdayController.text,
-                      department: viewModel.departmentController.text,
-                      grade: viewModel.gradeController.text,
-                      phone: viewModel.phoneController.text,
-                      password: viewModel.passwordController.text,
-                      configePsassword:
-                          viewModel.configePasswordController.text,
-                      email: viewModel.emailController.text,
-                    );
+                  if (!formkey.currentState!.validate()) {
+                    return;
                   }
+
+                  if (viewModel.selectedStageId == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("يرجى اختيار المرحلة")),
+                    );
+                    return;
+                  }
+
+                  if (viewModel.selectedSubjectId == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("يرجى اختيار المادة")),
+                    );
+                    return;
+                  }
+
+                  if (selectedFilePath == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("يرجى اختيار الوثيقة القانونية"),
+                      ),
+                    );
+                    return;
+                  }
+
+                  context.read<SignUpTeacherCubit>().registerTeacher(
+                    email: viewModel.emailController.text,
+                    password: viewModel.passwordController.text,
+                    passwordConfirmation:
+                        viewModel.configePasswordController.text,
+                    phone: viewModel.phoneController.text,
+                    userName: viewModel.nameController.text,
+                    gender: viewModel.genderController.text,
+                    birthDate: viewModel.brithdayController.text,
+                    stageId: viewModel.selectedStageId!,
+                    subjectId: viewModel.selectedSubjectId!,
+                    cv: viewModel.cvController.text,
+                    legalDocumentPath: selectedFilePath!,
+                  );
                 },
               );
             },
           ),
+
           SizedBox(height: 16.sp),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextButton(onPressed: () {  GoRouter.of(context).push(AppRouter.klogin);},
-              child: Text(
-                "تسجيل الدخول",
-                style: TextSt.textstyle14.copyWith(color: kcolorOlive),
-              )),
-
+              TextButton(
+                onPressed: () {
+                  GoRouter.of(context).push(AppRouter.klogin);
+                },
+                child: Text(
+                  "تسجيل الدخول",
+                  style: TextSt.textstyle14.copyWith(color: kcolorOlive),
+                ),
+              ),
               Text("لديك حساب بالفعل؟ ", style: TextSt.textstyle14),
             ],
           ),
+
           SizedBox(height: 40.sp),
         ],
       ),

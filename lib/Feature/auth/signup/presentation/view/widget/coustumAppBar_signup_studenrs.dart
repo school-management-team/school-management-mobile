@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school/core/widget/Text/text_style.dart';
@@ -16,7 +14,10 @@ class CustomAppBarSignupStudents extends StatelessWidget {
         children: [
           Text(
             "Academia Neo",
-            style: TextSt.textstyle16.copyWith(fontWeight: FontWeight.w900,fontSize: 18),
+            style: TextSt.textstyle16.copyWith(
+              fontWeight: FontWeight.w900,
+              fontSize: 18,
+            ),
           ),
           SizedBox(width: 16.w),
           Container(

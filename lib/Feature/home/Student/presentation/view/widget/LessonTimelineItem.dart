@@ -39,14 +39,13 @@ class _LessonTimelineItemState extends State<LessonTimelineItem> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-         
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16),
-                   
+
                     border: Border.all(
                       color: displayColor.withOpacity(0.5),
                       width: 2.sp,
@@ -65,7 +64,7 @@ class _LessonTimelineItemState extends State<LessonTimelineItem> {
                 ),
               ),
               const SizedBox(width: 16),
-          
+
               Column(
                 children: [
                   Container(
@@ -111,25 +110,26 @@ class _LessonTimelineItemState extends State<LessonTimelineItem> {
             width: 110.sp,
             height: 30.sp,
             decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(40.sp)
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(40.sp),
             ),
-          
+
             child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 18.sp,vertical: 4.sp),
+              padding: EdgeInsets.symmetric(horizontal: 18.sp, vertical: 4.sp),
               child: Text(
                 widget.status == 'current' ? "جارية الآن" : "قادمة",
-                style: TextSt.textstyle14.copyWith(color: color, fontWeight: FontWeight.bold),textAlign: TextAlign.center,
+                style: TextSt.textstyle14.copyWith(
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
         ],
       ),
-        SizedBox(height: 16.sp),
-      Text(
-        widget.title,
-        style:  TextSt.textstyle16,
-      ),
+      SizedBox(height: 16.sp),
+      Text(widget.title, style: TextSt.textstyle16),
       SizedBox(height: 12.sp),
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -149,10 +149,10 @@ class _LessonTimelineItemState extends State<LessonTimelineItem> {
   Widget _buildBreakCard() => DottedBorder(
     color: Colors.orange,
     dashPattern: [8, 4],
-    radius:  Radius.circular(12.sp),
+    radius: Radius.circular(12.sp),
     borderType: BorderType.RRect,
     child: Padding(
-      padding: EdgeInsets.symmetric(vertical:  10.sp,horizontal: 12.sp),
+      padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 12.sp),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
