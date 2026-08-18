@@ -169,8 +169,19 @@ class LoginBodyView extends StatelessWidget {
 
                               ElevatedButton(
                                 onPressed: () {
-                                  if (formkey.currentState!.validate()) {}
+                                  if (formkey.currentState!.validate()) {
+                                    GoRouter.of(context).go(AppRouter.kadvisordash);
+                                  }
                                 },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: kcolorOlive,
+                                  padding: EdgeInsets.symmetric(vertical: 17.h),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadiusGeometry.circular(
+                                      12.r,
+                                    ),
+                                  ),
+                                ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -187,15 +198,6 @@ class LoginBodyView extends StatelessWidget {
                                       ),
                                     ),
                                   ],
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: kcolorOlive,
-                                  padding: EdgeInsets.symmetric(vertical: 17.h),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadiusGeometry.circular(
-                                      12.r,
-                                    ),
-                                  ),
                                 ),
                               ),
 
@@ -323,7 +325,9 @@ class LoginBodyView extends StatelessWidget {
                                     ),
                                     SizedBox(height: 8.h),
                                     InkWell(
-                                      onTap: () {  },
+                                      onTap: () {
+                                        GoRouter.of(context).push(AppRouter.kroleselection);
+                                      },
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
