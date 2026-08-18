@@ -19,11 +19,11 @@ class _ManagementViewState extends State<ManagementView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         elevation: 0.5,
         actionsPadding: EdgeInsets.symmetric(horizontal: 20.sp),
 
-        backgroundColor:kPrimaryColor,
+        backgroundColor: kPrimaryColor,
         leading: CircleAvatar(
           radius: 30.sp,
           backgroundImage: AssetImage(AssestData.studentDashboard),
@@ -40,20 +40,16 @@ class _ManagementViewState extends State<ManagementView> {
         ),
         centerTitle: true,
         actions: [
-        /*  Icon(
+          /*  Icon(
             Icons.notifications_none_rounded,
             size: 35.sp,
             color: KcolorGrey.withOpacity(0.8),
           ),*/
-          Lottie.asset(AssestData.notification,width: 55.sp)
+          Lottie.asset(AssestData.notification, width: 55.sp),
         ],
-      ),  bottomNavigationBar:   
-           Bottomnvigationhome(select: 1),
-      body: 
-      SafeArea(child:
-       
-      MagagementBodyView()
       ),
+      bottomNavigationBar: Bottomnvigationhome(select: 1),
+      body: SafeArea(child: MagagementBodyView()),
     );
   }
 }

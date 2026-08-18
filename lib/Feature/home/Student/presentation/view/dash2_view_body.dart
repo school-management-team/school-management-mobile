@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_flip_builder/page_flip_builder.dart';
-import 'package:school/Feature/home/Student/logic/manger/cubit_dash2_student/dash2_student_cubit.dart';
+import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_dash2_student/dash2_student_cubit.dart';
 import 'package:school/Feature/home/Student/presentation/view/WeekDaysSelector_view.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/SchoolCalendarScreen.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
+import 'package:school/core/function/showloadingDialog.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class Dash2ViewBody extends StatefulWidget {
@@ -22,37 +23,28 @@ class _Dash2ViewBodyState extends State<Dash2ViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<Dash2StudentCubit,Dash2StudentState>(
+    return BlocBuilder<Dash2StudentCubit, Dash2StudentState>(
       builder: (context, state) {
-            if (state is Dash2StudentLoading) {
-               return Center(
-                child: Padding(padding: EdgeInsets.symmetric(vertical: 50.sp),child: 
-                CircularProgressIndicator()),
-               );
-            }
-              else if (state is Dash2StudentFailure) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.message)));
-              }
-             
+        if (state is Dash2StudentLoading) {
+          showloadingDialog(context);
+        } else if (state is Dash2StudentFailure) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
+        }
 
-              
-         
-                 return
-     PageFlipBuilder(
-        key: PageFlipKey,
-        interactiveFlipEnabled: true,
-        flipAxis: Axis.horizontal,
-      
-        frontBuilder: (_) => _buildMainContent(),
-      
-        backBuilder: (_) => (WeekdaysselectorView()),
-      );
-        
-              });}
-  
-  
+        return PageFlipBuilder(
+          key: PageFlipKey,
+          interactiveFlipEnabled: true,
+          flipAxis: Axis.horizontal,
+
+          frontBuilder: (_) => _buildMainContent(),
+
+          backBuilder: (_) => (WeekdaysselectorView()),
+        );
+      },
+    );
+  }
 
   Widget _buildMainContent() {
     return Material(

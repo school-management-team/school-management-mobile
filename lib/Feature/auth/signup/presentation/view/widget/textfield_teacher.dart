@@ -7,73 +7,86 @@ import 'package:school/core/widget/Text/text_from_field.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class TextfieldTeacher extends StatefulWidget {
-  TextfieldTeacher({super.key, required this.formKey});
+  const TextfieldTeacher({
+    super.key,
+    required this.formKey,
+    required this.viewModel,
+  });
 
   final GlobalKey<FormState> formKey;
+  final SignupTeacherTextediting viewModel;
+
   @override
-  State<TextfieldTeacher> createState() => _ListView_SignupState();
+  State<TextfieldTeacher> createState() => _TextfieldTeacherState();
 }
 
-class _ListView_SignupState extends State<TextfieldTeacher> {
+class _TextfieldTeacherState extends State<TextfieldTeacher> {
   bool isObscure = true;
   bool isObscure2 = true;
-  String? gender = 'ذكر';
-  String selectedRequirement = 'lenght';
+
+  String gender = "ذكر";
 
   bool islength = false;
   bool hasuppercase = false;
   bool hasspecialchar = false;
+
   DateTime? selectedDate;
-  String? selectedSelection;
-  final viewModel = SignupTeacherTextediting();
+
+  SignupTeacherTextediting get viewModel => widget.viewModel;
+  @override
+  void initState() {
+    super.initState();
+    viewModel.genderController.text = "ذكر";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 8),
+      padding: EdgeInsets.symmetric(horizontal: 8.sp),
       child: Form(
         key: widget.formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
-
           children: [
-            Text("الاسم بالكامل ", style: TextSt.textstyle14),
+            Text("الاسم بالكامل", style: TextSt.textstyle14),
             SizedBox(height: 16.h),
             TextFieldStyle(
               textEditingController: viewModel.nameController,
               keyboardytype: TextInputType.text,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return ("لا بجب ان يكون الحقل فارغ");
+                  return "لا يجب أن يكون الحقل فارغ";
                 }
                 return null;
               },
-              filledcolor: Color(0XFFFFFFFF),
-              hinit: "أدخل اسمك الثلاثي ",
+              filledcolor: const Color(0XFFFFFFFF),
+              hinit: "أدخل اسمك الثلاثي",
               textAlign: TextAlign.end,
             ),
 
             SizedBox(height: 20.sp),
-            Text(" المواليد", style: TextSt.textstyle14),
+
+            Text("المواليد", style: TextSt.textstyle14),
             SizedBox(height: 16.sp),
+
             TextFieldStyle(
               keyboardytype: TextInputType.datetime,
               textEditingController: viewModel.brithdayController,
-
               validator: (value) {
-            
                 if (value == null || value.isEmpty) {
-                  return ("لا بجب ان يكون الحقل فارغ");
+                  return "لا يجب أن يكون الحقل فارغ";
                 }
                 return null;
               },
               readonly: true,
-              filledcolor: Color(0XFFFFFFFF),
-              hinit: " mm/dd/yyyy",
+              filledcolor: const Color(0XFFFFFFFF),
+              hinit: "yyyy-mm-dd",
               onPressed: () async {
                 DateTime? pickedDate = await showDatePicker(
                   context: context,
                   firstDate: DateTime(1950),
-                  lastDate: DateTime(2005),
+                  lastDate: DateTime(2011),
+                  initialDate: DateTime(2000),
                   builder: (context, child) {
                     return Theme(
                       data: Theme.of(context).copyWith(
@@ -81,161 +94,135 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
                           primary: kcolorOlive,
                           onPrimary: KcolorGrey,
                         ),
-                        datePickerTheme: DatePickerThemeData(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusGeometry.circular(16.sp),
-                            side: BorderSide(color: kcolorOlive, width: 3.sp),
-                          ),
-                        ),
                       ),
-
                       child: child!,
                     );
                   },
                 );
+
                 if (pickedDate != null) {
-                  String fromatDate =
-                      "${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.day.toString().padRight(2, '0')}/${pickedDate.year}";
+                  final formatDate =
+                      "${pickedDate.year}-"
+                      "${pickedDate.month.toString().padLeft(2, '0')}-"
+                      "${pickedDate.day.toString().padLeft(2, '0')}";
 
                   setState(() {
                     selectedDate = pickedDate;
-                    viewModel.brithdayController.text = fromatDate;
+                    viewModel.brithdayController.text = formatDate;
                   });
                 }
               },
             ),
 
-            SizedBox(height: 20.h),
-            Text("  الجنس ", style: TextSt.textstyle14),
-            SizedBox(height: 16),
+            SizedBox(height: 20.sp),
+
+            Text("الجنس", style: TextSt.textstyle14),
+            SizedBox(height: 16.sp),
 
             textfieldgender(),
+
             SizedBox(height: 20.sp),
-            Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(" الصف  ", style: TextSt.textstyle14),
-                    SizedBox(height: 16.sp),
-                    DropdownMenu<String>(
-                      controller: viewModel.gradeController,
-                      width: 160.sp,
-                      hintText: "اختر الصف  ",
-                      textStyle: TextSt.textstyle12,
-                      textAlign: TextAlign.end,
-                      inputDecorationTheme: InputDecorationTheme(
-                        fillColor: Colors.white,
-                        filled: true,
-
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                        ),
-                      ),
-
-                      dropdownMenuEntries: ClassesEntries(),
-
-                      onSelected: (String? value) {},
-                    ),
-                  ],
-                ),
-
-                Spacer(),
-
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(" القسم  ", style: TextSt.textstyle14),
-                    SizedBox(height: 16.sp),
-                    DropdownMenu<String>(
-                      width: 160.sp,
-                      controller: viewModel.departmentController,
-                      hintText: "اختر القسم  ",
-                      textStyle: TextSt.textstyle12,
-                      textAlign: TextAlign.end,
-                      inputDecorationTheme: InputDecorationTheme(
-                        fillColor: Colors.white,
-                        filled: true,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                        ),
-                      ),
-
-                      dropdownMenuEntries: [
-                        DropdownMenuEntry(value: '1', label: " ابتدائي"),
-                        DropdownMenuEntry(value: '2', label: "إعدادي"),
-                        DropdownMenuEntry(value: '3', label: "(أدبي)ثانوي"),
-                        DropdownMenuEntry(value: '4', label: "(علمي)ثانوي"),
-                      ],
-                      onSelected: (String? value) {
-                        setState(() {
-                          selectedSelection = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            Text("المرحلة", style: TextSt.textstyle14),
             SizedBox(height: 16.sp),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(" المادة  ", style: TextSt.textstyle14),
-                SizedBox(height: 16.sp),
-                DropdownMenu<String>(
-                  controller: viewModel.subjectController,
-                  width: double.infinity,
-                  hintText: "اختر  المادة  ",
-                  textStyle: TextSt.textstyle12,
-                  textAlign: TextAlign.end,
-                  inputDecorationTheme: InputDecorationTheme(
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.r),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                    ),
-                  ),
 
-                  dropdownMenuEntries: SubjectEntries(),
-
-                  onSelected: (String? value) {},
+            DropdownMenu<int>(
+              width: double.infinity,
+              hintText: "اختر المرحلة",
+              textStyle: TextSt.textstyle12,
+              textAlign: TextAlign.end,
+              inputDecorationTheme: InputDecorationTheme(
+                fillColor: Colors.white,
+                filled: true,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
+              ),
+              dropdownMenuEntries: const [
+                DropdownMenuEntry(value: 1, label: "ابتدائي"),
+                DropdownMenuEntry(value: 2, label: "إعدادي"),
+                DropdownMenuEntry(value: 3, label: "ثانوي علمي"),
+                DropdownMenuEntry(value: 4, label: "ثانوي أدبي"),
               ],
+              onSelected: (value) {
+                setState(() {
+                  viewModel.selectedStageId = value;
+                  viewModel.selectedSubjectId = null;
+                  viewModel.subjectController.clear();
+                });
+              },
             ),
-            SizedBox(height: 20.h),
-            Text("البريد الإلكتروني للعمل ", style: TextSt.textstyle14),
-            SizedBox(height: 16),
+
+            SizedBox(height: 20.sp),
+
+            Text("المادة", style: TextSt.textstyle14),
+            SizedBox(height: 16.sp),
+
+            DropdownMenu<int>(
+              width: double.infinity,
+              hintText: "اختر المادة",
+              textStyle: TextSt.textstyle12,
+              textAlign: TextAlign.end,
+              inputDecorationTheme: InputDecorationTheme(
+                fillColor: Colors.white,
+                filled: true,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+              ),
+              dropdownMenuEntries: subjectEntries(),
+              onSelected: (value) {
+                setState(() {
+                  viewModel.selectedSubjectId = value;
+                  viewModel.subjectController.text = value.toString();
+                });
+              },
+            ),
+
+            SizedBox(height: 20.sp),
+
+            Text("البريد الإلكتروني للعمل", style: TextSt.textstyle14),
+            SizedBox(height: 16.sp),
+
             TextFieldStyle(
               keyboardytype: TextInputType.emailAddress,
               textEditingController: viewModel.emailController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return ("لا بجب ان يكون الحقل فارغ");
+                  return "لا يجب أن يكون الحقل فارغ";
                 }
                 return null;
               },
-              filledcolor: Color(0XFFFFFFFF),
-              hinit: " name@school.edu",
+              filledcolor: const Color(0XFFFFFFFF),
+              hinit: "name@school.edu",
               icontext: Icon(Icons.email_outlined, color: kcolordarkBlue),
             ),
+
             SizedBox(height: 20.sp),
-            Text(" رقم الهاتف  ", style: TextSt.textstyle14),
+
+            Text("رقم الهاتف", style: TextSt.textstyle14),
             SizedBox(height: 16.sp),
+
             TextFieldStyle(
               keyboardytype: TextInputType.phone,
               textEditingController: viewModel.phoneController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return ("لا بجب ان يكون الحقل فارغ");
+                  return 'يرجى إدخال رقم الهاتف';
                 }
+
+                final RegExp phoneRegex = RegExp(r'^09[0-9]{8}$');
+
+                if (!phoneRegex.hasMatch(value)) {
+                  return 'رقم الهاتف يجب أن يبدأ بـ 09 ويتكون من 10 أرقام';
+                }
+
                 return null;
               },
-              filledcolor: Color(0XFFFFFFFF),
-              hinit: " 05XXXXXXXX",
+
+              filledcolor: const Color(0XFFFFFFFF),
+              hinit: "05XXXXXXXX",
               icontext: Icon(
                 Icons.phone_outlined,
                 color: kcolordarkBlue,
@@ -244,13 +231,16 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
             ),
 
             SizedBox(height: 20.sp),
-            Text(" كلمة المرور ", style: TextSt.textstyle14),
+
+            Text("كلمة المرور", style: TextSt.textstyle14),
             SizedBox(height: 16.sp),
+
             textfieldPassword(
               textEditingController: viewModel.passwordController,
               onchange: (value) {
                 setState(() {
                   final text = value ?? '';
+
                   islength = text.length >= 8;
                   hasuppercase = text.contains(RegExp(r'[A-Z]'));
                   hasspecialchar = text.contains(RegExp(r'[0-9]'));
@@ -258,15 +248,15 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
               },
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "لا يجب ان يكون الحقل فارغ";
+                  return "لا يجب أن يكون الحقل فارغ";
                 }
 
                 if (value.length < 8) {
-                  return " يجب أن تكون كلمة المرور 8 أحرف على الأقل";
+                  return "يجب أن تكون كلمة المرور 8 أحرف على الأقل";
                 }
 
                 if (!value.contains(RegExp(r'[A-Z]'))) {
-                  return " يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل";
+                  return "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل";
                 }
 
                 if (!value.contains(RegExp(r'[0-9]'))) {
@@ -282,18 +272,23 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
                 });
               },
             ),
+
             SizedBox(height: 20.sp),
-            Text("  تأكيد كلمة المرور ", style: TextSt.textstyle14),
+
+            Text("تأكيد كلمة المرور", style: TextSt.textstyle14),
             SizedBox(height: 16.sp),
+
             textfieldPassword(
               textEditingController: viewModel.configePasswordController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return ("لا بجب ان يكون الحقل فارغ");
+                  return "لا يجب أن يكون الحقل فارغ";
                 }
+
                 if (value != viewModel.passwordController.text) {
                   return "كلمة السر غير متطابقة";
                 }
+
                 return null;
               },
               isObscure: isObscure2,
@@ -303,7 +298,9 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
                 });
               },
             ),
+
             SizedBox(height: 12.sp),
+
             RequeriedPassword(
               password: viewModel.passwordController.text,
               isLength: islength,
@@ -319,34 +316,29 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
   Widget textfieldPassword({
     required bool isObscure,
     required VoidCallback ontap,
-    final TextEditingController? textEditingController,
-
-    final void Function(String?)? onchange,
-    final String? Function(String?)? validator,
+    TextEditingController? textEditingController,
+    void Function(String?)? onchange,
+    String? Function(String?)? validator,
   }) {
     return TextFormField(
       controller: textEditingController,
       validator: validator,
       obscureText: isObscure,
       onChanged: (value) {
-        if (onchange != null) {
-          onchange(value);
-        }
+        onchange?.call(value);
       },
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Color(0XFFC4C6CD)),
+          borderSide: const BorderSide(color: Color(0XFFC4C6CD)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-
           borderSide: BorderSide(color: kcolorOlive),
         ),
-
-        fillColor: Color(0XFFFFFFFF),
+        fillColor: const Color(0XFFFFFFFF),
         filled: true,
-        hintText: " .....",
+        hintText: ".....",
         prefixIcon: IconButton(
           onPressed: ontap,
           icon: Icon(isObscure ? Icons.visibility : Icons.visibility_off),
@@ -362,37 +354,41 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: Color(0XFFC4C6CD)),
+        border: Border.all(color: const Color(0XFFC4C6CD)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Row(
             children: [
-              Text("أنثى"),
+              const Text("أنثى"),
               Radio<String>(
                 value: "أنثى",
                 groupValue: gender,
                 activeColor: kcolorOlive,
                 onChanged: (value) {
                   setState(() {
-                    gender = value;
+                    gender = value!;
+                    viewModel.genderController.text = value;
                   });
                 },
               ),
             ],
           ),
-          Spacer(),
+
+          const Spacer(),
+
           Row(
             children: [
-              Text("ذكر"),
+              const Text("ذكر"),
               Radio<String>(
                 value: "ذكر",
                 groupValue: gender,
                 activeColor: kcolorOlive,
                 onChanged: (value) {
                   setState(() {
-                    gender = value;
+                    gender = value!;
+                    viewModel.genderController.text = value;
                   });
                 },
               ),
@@ -403,91 +399,57 @@ class _ListView_SignupState extends State<TextfieldTeacher> {
     );
   }
 
-  List<DropdownMenuEntry<String>> ClassesEntries() {
-    if (selectedSelection == '1') {
-      return [
-        DropdownMenuEntry(value: 'p1', label: "الصف الأول "),
-        DropdownMenuEntry(value: 'p2', label: "الصف الثاني "),
-        DropdownMenuEntry(value: 'p3', label: "الصف الثالث "),
-        DropdownMenuEntry(value: 'p3', label: "الصف الرابع "),
-        DropdownMenuEntry(value: 'p3', label: "الصف الخامس "),
-        DropdownMenuEntry(value: 'p3', label: "الصف السادس "),
+  List<DropdownMenuEntry<int>> subjectEntries() {
+    if (viewModel.selectedStageId == 1) {
+      return const [
+        DropdownMenuEntry(value: 1, label: "رياضيات"),
+        DropdownMenuEntry(value: 4, label: "أحياء"),
+        DropdownMenuEntry(value: 5, label: "اللغة العربية"),
+        DropdownMenuEntry(value: 6, label: "اللغة الإنجليزية"),
       ];
-    } else if (selectedSelection == '2') {
-      return [
-        DropdownMenuEntry(value: 'm1', label: "الصف السابع"),
-        DropdownMenuEntry(value: 'm2', label: "الصف الثامن"),
-        DropdownMenuEntry(value: 'm3', label: "الصف التاسع"),
-      ];
-    } else if (selectedSelection == '3') {
-      return [
-        DropdownMenuEntry(value: 'h1', label: "الأول ثانوي"),
-        DropdownMenuEntry(value: 'h2', label: "الثاني ثانوي"),
-        DropdownMenuEntry(value: 'h3', label: "الثالث ثانوي (بكالوريا)"),
-      ];
-    } else if (selectedSelection == '4') {
-      return [
-        DropdownMenuEntry(value: 'd1', label: "الأول ثانوي"),
-        DropdownMenuEntry(value: 'd2', label: "الثاني ثانوي"),
-        DropdownMenuEntry(value: 'd3', label: "الثالث ثانوي (بكالوريا)"),
-      ];
-    } else {
-      return [];
     }
+
+    if (viewModel.selectedStageId == 2) {
+      return const [
+        DropdownMenuEntry(value: 1, label: "رياضيات"),
+        DropdownMenuEntry(value: 4, label: "أحياء"),
+        DropdownMenuEntry(value: 5, label: "اللغة العربية"),
+        DropdownMenuEntry(value: 6, label: "اللغة الإنجليزية"),
+      ];
+    }
+
+    if (viewModel.selectedStageId == 3) {
+      return const [
+        DropdownMenuEntry(value: 1, label: "رياضيات"),
+        DropdownMenuEntry(value: 2, label: "فيزياء"),
+        DropdownMenuEntry(value: 3, label: "كيمياء"),
+        DropdownMenuEntry(value: 4, label: "أحياء"),
+        DropdownMenuEntry(value: 5, label: "اللغة العربية"),
+        DropdownMenuEntry(value: 6, label: "اللغة الإنجليزية"),
+      ];
+    }
+
+    if (viewModel.selectedStageId == 4) {
+      return const [
+        DropdownMenuEntry(value: 5, label: "اللغة العربية"),
+        DropdownMenuEntry(value: 6, label: "اللغة الإنجليزية"),
+        DropdownMenuEntry(value: 7, label: "التاريخ"),
+        DropdownMenuEntry(value: 8, label: "الجغرافيا"),
+      ];
+    }
+
+    return [];
   }
 
-  List<DropdownMenuEntry<String>> SubjectEntries() {
-    if (selectedSelection == '1') {
-      return [
-        const DropdownMenuEntry(value: 'p1', label: "اللغة العربية"),
-        const DropdownMenuEntry(value: 'p2', label: "الرياضيات"),
-        const DropdownMenuEntry(value: 'p3', label: "العلوم "),
-        const DropdownMenuEntry(value: 'p4', label: "اللغة الإنجليزية "),
-        const DropdownMenuEntry(value: 'p5', label: "التربية الدينية "),
-        const DropdownMenuEntry(value: 'p6', label: "الاجتماعيات"),
-      ];
-    } else if (selectedSelection == '2') {
-      return [
-        const DropdownMenuEntry(value: 'm1', label: "اللغة العربية"),
-        const DropdownMenuEntry(value: 'm2', label: "الرياضيات"),
-        const DropdownMenuEntry(value: 'm3', label: "الفيزياء والكيمياء"),
-        const DropdownMenuEntry(value: 'm4', label: "العلوم العامة"),
-        const DropdownMenuEntry(value: 'm5', label: "اللغة الإنجليزية"),
-        const DropdownMenuEntry(value: 'm6', label: "الاجتماعيات"),
-        const DropdownMenuEntry(value: 'm7', label: "التربية الدينية"),
-        const DropdownMenuEntry(
-          value: 'm8',
-          label: "اللغة الفرنسية او الروسية",
-        ),
-      ];
-    } else if (selectedSelection == '3') {
-      return [
-        const DropdownMenuEntry(value: 'h5', label: "فلسفة "),
-        const DropdownMenuEntry(value: 'h5', label: "التاريخ  "),
-        const DropdownMenuEntry(value: 'h6', label: "الجغرافيا  "),
-        const DropdownMenuEntry(value: 'h7', label: "اللغة العربية "),
-        const DropdownMenuEntry(value: 'h8', label: "اللغة الإنجليزية "),
-        const DropdownMenuEntry(value: 'h9', label: "التربية الدينية "),
-        const DropdownMenuEntry(
-          value: 'h10',
-          label: "اللغة الفرنسية او الروسية",
-        ),
-      ];
-    } else if (selectedSelection == '4') {
-      return [
-        const DropdownMenuEntry(value: 'h1', label: "الرياضيات  "),
-        const DropdownMenuEntry(value: 'h2', label: "الفيزياء  "),
-        const DropdownMenuEntry(value: 'h3', label: "الكيمياء  "),
-        const DropdownMenuEntry(value: 'h4', label: "العلوم والأحياء "),
-        const DropdownMenuEntry(value: 'h7', label: "اللغة العربية "),
-        const DropdownMenuEntry(value: 'h8', label: "اللغة الإنجليزية "),
-        const DropdownMenuEntry(value: 'h9', label: "التربية الدينية "),
-        const DropdownMenuEntry(
-          value: 'h10',
-          label: "اللغة الفرنسية او الروسية",
-        ),
-      ];
-    }
-    return [];
+  int? getStageId() {
+    return viewModel.selectedStageId;
+  }
+
+  int? getSubjectId() {
+    return viewModel.selectedSubjectId;
+  }
+
+  String getGender() {
+    return gender;
   }
 }

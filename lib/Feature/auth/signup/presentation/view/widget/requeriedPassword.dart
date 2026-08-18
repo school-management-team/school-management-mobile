@@ -71,11 +71,7 @@ class RequeriedPassword extends StatelessWidget {
     );
   }
 
-  Widget buildRequirementRow(
-    String text,
-    bool isChecked,
-    bool isError,
-  ) {
+  Widget buildRequirementRow(String text, bool isChecked, bool isError) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -83,10 +79,10 @@ class RequeriedPassword extends StatelessWidget {
           text,
           style: TextSt.textstyle14.copyWith(
             color: isChecked
-                ?kcolorOlive
+                ? kcolorOlive
                 : isError
-                    ? const Color.fromARGB(255, 211, 42, 42)
-                    : KcolorGrey,
+                ? const Color.fromARGB(255, 211, 42, 42)
+                : KcolorGrey,
           ),
         ),
         SizedBox(width: 6.w),
@@ -95,8 +91,8 @@ class RequeriedPassword extends StatelessWidget {
           color: isChecked
               ? kcolorOlive
               : isError
-                  ? const Color.fromARGB(255, 211, 42, 42)
-                  : KcolorGrey,
+              ? const Color.fromARGB(255, 211, 42, 42)
+              : KcolorGrey,
           size: 18.sp,
         ),
       ],

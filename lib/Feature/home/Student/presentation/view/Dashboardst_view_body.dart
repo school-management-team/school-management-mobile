@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:school/Feature/home/Student/logic/manger/cubit_dashboard_student/dashboard1_student_cubit.dart';
-import 'package:school/Feature/home/Student/logic/manger/cubit_profile_student/profile_student_cubit.dart';
+import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_dashboard_student/dashboard1_student_cubit.dart';
+import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_profile_student/profile_student_cubit.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/todaytasks_dash.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/widgetdashcontainerst.dart';
 import 'package:school/constant.dart';
@@ -19,19 +19,21 @@ class DashboardstViewBody extends StatefulWidget {
 class _DashboardstViewBodyState extends State<DashboardstViewBody> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<Dashboard1StudentCubit,Dashboard1StudentState>(
+    return BlocBuilder<Dashboard1StudentCubit, Dashboard1StudentState>(
       builder: (context, state) {
-            if (state is Dashboard1StudentLoading) {
-               return Center(
-                child: Padding(padding: EdgeInsets.symmetric(vertical: 50.sp),child: 
-                CircularProgressIndicator()),
-               );
-              } else if (state is Dashboard1StudentFailure) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.errMessage)));
-              }
-         
+        if (state is Dashboard1StudentLoading) {
+          return Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 50.sp),
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (state is Dashboard1StudentFailure) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errMessage)));
+        }
+
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 16.sp),
           child: SingleChildScrollView(

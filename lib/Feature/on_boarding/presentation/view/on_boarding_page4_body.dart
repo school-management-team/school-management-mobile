@@ -42,39 +42,44 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
       vsync: this,
       duration: const Duration(milliseconds: 3500),
     )..repeat(reverse: true);
-    _float1Anim = Tween<double>(begin: 0, end: -6).animate(
-      CurvedAnimation(parent: _float1Ctrl, curve: Curves.easeInOut),
-    );
+    _float1Anim = Tween<double>(
+      begin: 0,
+      end: -6,
+    ).animate(CurvedAnimation(parent: _float1Ctrl, curve: Curves.easeInOut));
 
     // طفو البطاقة الخلفية 2
     _float2Ctrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 4200),
     )..repeat(reverse: true);
-    _float2Anim = Tween<double>(begin: -4, end: 4).animate(
-      CurvedAnimation(parent: _float2Ctrl, curve: Curves.easeInOut),
-    );
+    _float2Anim = Tween<double>(
+      begin: -4,
+      end: 4,
+    ).animate(CurvedAnimation(parent: _float2Ctrl, curve: Curves.easeInOut));
 
     // نبض الدرع
     _shieldCtrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
     )..repeat(reverse: true);
-    _shieldAnim = Tween<double>(begin: 0.9, end: 1.1).animate(
-      CurvedAnimation(parent: _shieldCtrl, curve: Curves.easeInOut),
-    );
+    _shieldAnim = Tween<double>(
+      begin: 0.9,
+      end: 1.1,
+    ).animate(CurvedAnimation(parent: _shieldCtrl, curve: Curves.easeInOut));
 
     // دخول البطاقة الرئيسية
     _cardEntryCtrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
     )..forward();
-    _cardSlideAnim = Tween<double>(begin: 30, end: 0).animate(
-      CurvedAnimation(parent: _cardEntryCtrl, curve: Curves.easeOut),
-    );
-    _cardFadeAnim = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _cardEntryCtrl, curve: Curves.easeOut),
-    );
+    _cardSlideAnim = Tween<double>(
+      begin: 30,
+      end: 0,
+    ).animate(CurvedAnimation(parent: _cardEntryCtrl, curve: Curves.easeOut));
+    _cardFadeAnim = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _cardEntryCtrl, curve: Curves.easeOut));
   }
 
   @override
@@ -235,8 +240,9 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF071A2F)
-                              .withValues(alpha: 0.02),
+                          color: const Color(
+                            0xFF071A2F,
+                          ).withValues(alpha: 0.02),
                           blurRadius: 20,
                           offset: const Offset(4, 4),
                         ),
@@ -262,8 +268,9 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF071A2F)
-                              .withValues(alpha: 0.03),
+                          color: const Color(
+                            0xFF071A2F,
+                          ).withValues(alpha: 0.03),
                           blurRadius: 20,
                           offset: const Offset(-2, -2),
                         ),
@@ -288,8 +295,9 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF071A2F)
-                              .withValues(alpha: 0.08),
+                          color: const Color(
+                            0xFF071A2F,
+                          ).withValues(alpha: 0.08),
                           blurRadius: 30,
                           offset: const Offset(0, 8),
                         ),
@@ -332,10 +340,7 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
               gradient: const LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [
-                  Color(0xFFD3E4FF),
-                  Color(0xFFB6C8E4),
-                ],
+                colors: [Color(0xFFD3E4FF), Color(0xFFB6C8E4)],
               ),
             ),
           ),
@@ -346,20 +351,15 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
             left: 20.w,
             child: AnimatedBuilder(
               animation: _shieldAnim,
-              builder: (context, child) => Transform.scale(
-                scale: _shieldAnim.value,
-                child: child,
-              ),
+              builder: (context, child) =>
+                  Transform.scale(scale: _shieldAnim.value, child: child),
               child: Container(
                 width: 42.w,
                 height: 42.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: const Color(0xFF6CF8BB),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 3,
-                  ),
+                  border: Border.all(color: Colors.white, width: 3),
                   boxShadow: [
                     BoxShadow(
                       color: kcolorgreen.withValues(alpha: 0.25),
@@ -398,10 +398,7 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: const Color(0xFFE5E2DC),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 2,
-                  ),
+                  border: Border.all(color: Colors.white, width: 2),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.05),
@@ -432,9 +429,7 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
                     SizedBox(height: 2.h),
                     Text(
                       'الصف الثامن - القسم العام',
-                      style: TextSt.textstyle12.copyWith(
-                        color: KcolorGrey,
-                      ),
+                      style: TextSt.textstyle12.copyWith(color: KcolorGrey),
                     ),
                   ],
                 ),
@@ -460,10 +455,7 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
   }
 
   // ── صف بيانات آمن (أيقونة + عنوان + قفل) ─────────────────────────────────
-  Widget _buildSecureDataRow({
-    required IconData icon,
-    required String label,
-  }) {
+  Widget _buildSecureDataRow({required IconData icon, required String label}) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(
@@ -475,11 +467,7 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
       ),
       child: Row(
         children: [
-          Icon(
-            icon,
-            size: 20.sp,
-            color: kcolorNavyBlue.withValues(alpha: 0.6),
-          ),
+          Icon(icon, size: 20.sp, color: kcolorNavyBlue.withValues(alpha: 0.6)),
           SizedBox(width: 10.w),
           Expanded(
             child: Text(
@@ -490,11 +478,7 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
               ),
             ),
           ),
-          Icon(
-            Icons.lock,
-            size: 16.sp,
-            color: kcolorOlive,
-          ),
+          Icon(Icons.lock, size: 16.sp, color: kcolorOlive),
         ],
       ),
     );
@@ -596,6 +580,4 @@ class _OnBoardingPage4BodyState extends State<OnBoardingPage4Body>
       ),
     );
   }
-
-
 }

@@ -72,7 +72,7 @@ class FreiendschoolViewBody extends StatelessWidget {
                   ),
                   buildStudyGroupCard(
                     "عباقرة الرياضيات",
-                    "مراجعة الجبر المتقدم والميكانيكا",
+                    "مراجعة الجبر المتقدم والميكانيك",
                     "Σ",
                     Colors.green,
                   ),

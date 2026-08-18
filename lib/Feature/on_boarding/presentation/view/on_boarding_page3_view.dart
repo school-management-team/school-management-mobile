@@ -9,9 +9,7 @@ class OnBoardingPage3View extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimaryColor,
-      body: const SafeArea(
-        child: OnBoardingPage3Body(),
-      ),
+      body: const SafeArea(child: OnBoardingPage3Body()),
     );
   }
 }

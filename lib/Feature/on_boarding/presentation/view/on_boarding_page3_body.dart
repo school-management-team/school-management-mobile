@@ -42,18 +42,20 @@ class _OnBoardingPage3BodyState extends State<OnBoardingPage3Body>
       vsync: this,
       duration: const Duration(milliseconds: 2000),
     )..repeat(reverse: true);
-    _pulseAnim = Tween<double>(begin: 0.85, end: 1.0).animate(
-      CurvedAnimation(parent: _pulseCtrl, curve: Curves.easeInOut),
-    );
+    _pulseAnim = Tween<double>(
+      begin: 0.85,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _pulseCtrl, curve: Curves.easeInOut));
 
     // ظهور الخطوط تدريجياً
     _linesCtrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1200),
     )..forward();
-    _linesAnim = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _linesCtrl, curve: Curves.easeOut),
-    );
+    _linesAnim = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _linesCtrl, curve: Curves.easeOut));
   }
 
   @override
@@ -266,8 +268,9 @@ class _OnBoardingPage3BodyState extends State<OnBoardingPage3Body>
                           spreadRadius: 2,
                         ),
                         BoxShadow(
-                          color: const Color(0xFF071A2F)
-                              .withValues(alpha: 0.05),
+                          color: const Color(
+                            0xFF071A2F,
+                          ).withValues(alpha: 0.05),
                           blurRadius: 30,
                           offset: const Offset(0, 4),
                         ),
@@ -282,15 +285,12 @@ class _OnBoardingPage3BodyState extends State<OnBoardingPage3Body>
                           height: hubSize * 0.85,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color:
-                                kcolorgreen.withValues(alpha: 0.1 * _pulseAnim.value),
+                            color: kcolorgreen.withValues(
+                              alpha: 0.1 * _pulseAnim.value,
+                            ),
                           ),
                         ),
-                        Icon(
-                          Icons.school,
-                          size: 36.sp,
-                          color: kcolorgreen,
-                        ),
+                        Icon(Icons.school, size: 36.sp, color: kcolorgreen),
                       ],
                     ),
                   ),
@@ -358,11 +358,7 @@ class _OnBoardingPage3BodyState extends State<OnBoardingPage3Body>
                 shape: BoxShape.circle,
                 color: node.bgColor,
               ),
-              child: Icon(
-                node.icon,
-                size: 22.sp,
-                color: node.iconColor,
-              ),
+              child: Icon(node.icon, size: 22.sp, color: node.iconColor),
             ),
             SizedBox(height: 6.h),
             Text(
@@ -476,8 +472,6 @@ class _OnBoardingPage3BodyState extends State<OnBoardingPage3Body>
       ),
     );
   }
-
-
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

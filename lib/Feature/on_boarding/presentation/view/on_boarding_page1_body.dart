@@ -36,25 +36,28 @@ class _OnBoardingPage1BodyState extends State<OnBoardingPage1Body>
       vsync: this,
       duration: const Duration(milliseconds: 3000),
     )..repeat(reverse: true);
-    _bounce1 = Tween<double>(begin: 0, end: -10).animate(
-      CurvedAnimation(parent: _bounce1Ctrl, curve: Curves.easeInOut),
-    );
+    _bounce1 = Tween<double>(
+      begin: 0,
+      end: -10,
+    ).animate(CurvedAnimation(parent: _bounce1Ctrl, curve: Curves.easeInOut));
 
     _bounce2Ctrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 4000),
     )..repeat(reverse: true);
-    _bounce2 = Tween<double>(begin: -6, end: 6).animate(
-      CurvedAnimation(parent: _bounce2Ctrl, curve: Curves.easeInOut),
-    );
+    _bounce2 = Tween<double>(
+      begin: -6,
+      end: 6,
+    ).animate(CurvedAnimation(parent: _bounce2Ctrl, curve: Curves.easeInOut));
 
     _bounce3Ctrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 3500),
     )..repeat(reverse: true);
-    _bounce3 = Tween<double>(begin: 0, end: -8).animate(
-      CurvedAnimation(parent: _bounce3Ctrl, curve: Curves.easeInOut),
-    );
+    _bounce3 = Tween<double>(
+      begin: 0,
+      end: -8,
+    ).animate(CurvedAnimation(parent: _bounce3Ctrl, curve: Curves.easeInOut));
   }
 
   @override
@@ -130,10 +133,26 @@ class _OnBoardingPage1BodyState extends State<OnBoardingPage1Body>
                 ),
                 child: BackdropFilter(
                   filter: const ColorFilter.matrix([
-                    1, 0, 0, 0, 0,
-                    0, 1, 0, 0, 0,
-                    0, 0, 1, 0, 0,
-                    0, 0, 0, 1, 0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
                   ]),
                   child: Container(
                     decoration: const BoxDecoration(
@@ -211,9 +230,7 @@ class _OnBoardingPage1BodyState extends State<OnBoardingPage1Body>
             height: circleSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(
-                color: kcolorNavyBlue.withValues(alpha: 0.1),
-              ),
+              border: Border.all(color: kcolorNavyBlue.withValues(alpha: 0.1)),
               boxShadow: [
                 BoxShadow(
                   color: const Color(0xFF071A2F).withValues(alpha: 0.05),
@@ -251,7 +268,6 @@ class _OnBoardingPage1BodyState extends State<OnBoardingPage1Body>
                 child: child,
               ),
               child: _SubjectCard(
-                
                 imagePath: AssestData.mathIcon,
                 subject: 'الرياضيات',
                 subtitle: 'الفصل الأول',
@@ -396,8 +412,6 @@ class _OnBoardingPage1BodyState extends State<OnBoardingPage1Body>
       ),
     );
   }
-
-
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -452,9 +466,7 @@ class _SubjectCard extends StatelessWidget {
               SizedBox(height: 2.h),
               Text(
                 subtitle,
-                style: TextSt.textstyle10.copyWith(
-                  color: KcolorGrey,
-                ),
+                style: TextSt.textstyle10.copyWith(color: KcolorGrey),
               ),
             ],
           ),
@@ -463,19 +475,13 @@ class _SubjectCard extends StatelessWidget {
           Container(
             width: 42.w,
             height: 42.w,
-            decoration: BoxDecoration(
-              color: bgColor,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: bgColor, shape: BoxShape.circle),
             padding: EdgeInsets.all(8.sp),
             child: Image.asset(
               imagePath,
               fit: BoxFit.contain,
-              errorBuilder: (context, error, stack) => Icon(
-                Icons.book_outlined,
-                size: 20.sp,
-                color: kcolorNavyBlue,
-              ),
+              errorBuilder: (context, error, stack) =>
+                  Icon(Icons.book_outlined, size: 20.sp, color: kcolorNavyBlue),
             ),
           ),
         ],
@@ -488,10 +494,7 @@ class _SubjectCard extends StatelessWidget {
 // البطاقة الصغيرة (اللغة — فقط أيقونة + نص)
 // ─────────────────────────────────────────────────────────────────────────────
 class _SmallCard extends StatelessWidget {
-  const _SmallCard({
-    required this.imagePath,
-    required this.label,
-  });
+  const _SmallCard({required this.imagePath, required this.label});
 
   final String imagePath;
   final String label;

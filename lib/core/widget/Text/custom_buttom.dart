@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class Buttontext extends StatelessWidget {
-   Buttontext({
+  Buttontext({
     super.key,
     required this.background,
     required this.textColor,
     this.border,
     required this.text,
-    
+
     required this.icons,
     required this.borderColor,
     this.width = 1,
@@ -20,7 +20,7 @@ class Buttontext extends StatelessWidget {
   final Color borderColor;
   final BorderRadius? border;
   final String text;
-  final double? fontsize=25.sp;
+  final double? fontsize = 25.sp;
   final IconData icons;
   final double width;
   final VoidCallback? onPressed;

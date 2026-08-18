@@ -39,33 +39,37 @@ class _OnBoardingPage2BodyState extends State<OnBoardingPage2Body>
       vsync: this,
       duration: const Duration(milliseconds: 1200),
     )..forward();
-    _ringAnim = Tween<double>(begin: 0, end: 0.75).animate(
-      CurvedAnimation(parent: _ringCtrl, curve: Curves.easeOut),
-    );
+    _ringAnim = Tween<double>(
+      begin: 0,
+      end: 0.75,
+    ).animate(CurvedAnimation(parent: _ringCtrl, curve: Curves.easeOut));
 
     _chartCtrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),
     )..forward();
-    _chartAnim = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _chartCtrl, curve: Curves.easeOut),
-    );
+    _chartAnim = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _chartCtrl, curve: Curves.easeOut));
 
     _float1Ctrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 3000),
     )..repeat(reverse: true);
-    _float1Anim = Tween<double>(begin: 0, end: -10).animate(
-      CurvedAnimation(parent: _float1Ctrl, curve: Curves.easeInOut),
-    );
+    _float1Anim = Tween<double>(
+      begin: 0,
+      end: -10,
+    ).animate(CurvedAnimation(parent: _float1Ctrl, curve: Curves.easeInOut));
 
     _float2Ctrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 3800),
     )..repeat(reverse: true);
-    _float2Anim = Tween<double>(begin: -8, end: 4).animate(
-      CurvedAnimation(parent: _float2Ctrl, curve: Curves.easeInOut),
-    );
+    _float2Anim = Tween<double>(
+      begin: -8,
+      end: 4,
+    ).animate(CurvedAnimation(parent: _float2Ctrl, curve: Curves.easeInOut));
   }
 
   @override
@@ -475,7 +479,9 @@ class _OnBoardingPage2BodyState extends State<OnBoardingPage2Body>
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(4.r),
                             border: Border.all(
-                              color: const Color(0xFFC4C6CD).withValues(alpha: 0.2),
+                              color: const Color(
+                                0xFFC4C6CD,
+                              ).withValues(alpha: 0.2),
                             ),
                             boxShadow: [
                               BoxShadow(
@@ -615,8 +621,6 @@ class _OnBoardingPage2BodyState extends State<OnBoardingPage2Body>
       ),
     );
   }
-
-
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -685,10 +689,7 @@ class _MiniCard extends StatelessWidget {
           color: const Color(0xFFC4C6CD).withValues(alpha: 0.3),
         ),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 8,
-          ),
+          BoxShadow(color: Colors.black.withValues(alpha: 0.03), blurRadius: 8),
         ],
       ),
       child: Column(
@@ -697,10 +698,7 @@ class _MiniCard extends StatelessWidget {
           Container(
             width: 28.w,
             height: 28.w,
-            decoration: BoxDecoration(
-              color: iconBg,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: iconBg, shape: BoxShape.circle),
             child: Icon(icon, size: 16.sp, color: iconColor),
           ),
           SizedBox(height: 10.h),

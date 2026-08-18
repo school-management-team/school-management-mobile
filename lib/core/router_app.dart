@@ -105,8 +105,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: '/',
-        builder: (context, state) =>const OnBoardingPage1View()
-          
+        builder: (context, state) => const OnBoardingPage1View(),
       ),
 
       GoRoute(

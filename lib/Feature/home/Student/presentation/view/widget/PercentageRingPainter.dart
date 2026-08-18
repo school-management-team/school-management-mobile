@@ -4,22 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-
 import 'package:school/constant.dart';
-
 
 class GradeCircle extends StatelessWidget {
   final double grade;
-   final String text;
+  final String text;
 
-  const GradeCircle({
-    super.key,
-    required this.grade, required this.text,
-  });
+  const GradeCircle({super.key, required this.grade, required this.text});
 
   Color getGradeColor() {
     if (grade >= 85) {
-      return  kcolorOlive; 
+      return kcolorOlive;
     } else if (grade >= 70) {
       return Colors.green;
     } else if (grade >= 50) {
@@ -33,7 +28,6 @@ class GradeCircle extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = getGradeColor();
 
-  
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
@@ -59,18 +53,10 @@ class GradeCircle extends StatelessWidget {
           children: [
             Text(
               "${grade.toStringAsFixed(0)}%",
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-             Text(
-                 text, 
-              style: TextStyle(
-                fontSize: 12,
-              ),
-            ),
+            Text(text, style: TextStyle(fontSize: 12)),
           ],
         ),
       ),

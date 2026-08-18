@@ -1,4 +1,3 @@
-
 // ignore: camel_case_types
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +9,8 @@ class containerRoles extends StatelessWidget {
     required this.text,
     required this.image,
     required this.textmain,
-    required this.text2, required this.ontap,
+    required this.text2,
+    required this.ontap,
   });
   final String textmain;
   final String text;
@@ -47,7 +47,7 @@ class containerRoles extends StatelessWidget {
           Positioned(
             top: 33.h,
             right: 18.w,
-            child: Image.asset(image, width: 58),
+            child: Image.asset(image, width: 58.sp),
           ),
 
           Padding(
@@ -56,7 +56,7 @@ class containerRoles extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(height: 110),
-                Text(textmain, style: TextSt.textstyle24),
+                Text(textmain, style: TextSt.textstyle28),
 
                 Text(text, style: TextSt.textstyle17),
                 Text(text2, style: TextSt.textstyle17),

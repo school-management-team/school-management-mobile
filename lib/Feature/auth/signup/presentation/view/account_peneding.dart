@@ -92,7 +92,9 @@ class AccountPending extends StatelessWidget {
                         text: "التواصل مع الدعم الفني",
                         icons: Icons.support_agent_outlined,
                         onPressed: () {
-                           GoRouter.of(context).push(AppRouter.kStudentDashboard);
+                          GoRouter.of(
+                            context,
+                          ).push(AppRouter.kStudentDashboard);
                         },
                       ),
                     ),
@@ -117,7 +119,6 @@ class AccountPending extends StatelessWidget {
                       ),
                     ],
                   ),
-               
                 ],
               ),
             ),

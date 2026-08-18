@@ -12,7 +12,9 @@ class TextFieldStyle extends StatelessWidget {
     this.readonly = false,
     this.onPressed,
     this.obscure = false,
-    this.max = 1, this.validator, this.keyboardytype,
+    this.max = 1,
+    this.validator,
+    this.keyboardytype,
   });
 
   final String hinit;
@@ -24,13 +26,12 @@ class TextFieldStyle extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool? obscure;
   final int? max;
-  final String?Function(String?)?validator;
-  final TextInputType?keyboardytype;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardytype;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
-      keyboardType:keyboardytype ,
+      keyboardType: keyboardytype,
       validator: validator,
       maxLines: max,
       obscureText: false,
@@ -39,12 +40,12 @@ class TextFieldStyle extends StatelessWidget {
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-    
+
           borderSide: BorderSide(color: Color(0XFFC4C6CD)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-    
+
           borderSide: BorderSide(color: kcolorOlive),
         ),
         fillColor: filledcolor,

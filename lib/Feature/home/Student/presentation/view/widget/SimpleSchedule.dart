@@ -88,8 +88,8 @@ class SimpleScheduleState extends State<SimpleSchedule> {
               child: GestureDetector(
                 onTap: () => setState(() => selectedIndex = index),
                 child: Container(
-                  margin:  EdgeInsets.only(bottom: 20.w),
-                  padding:  EdgeInsets.all(16.sp),
+                  margin: EdgeInsets.only(bottom: 20.w),
+                  padding: EdgeInsets.all(16.sp),
                   decoration: BoxDecoration(
                     color: isSelected
                         ? kcolorOlive.withOpacity(0.1)

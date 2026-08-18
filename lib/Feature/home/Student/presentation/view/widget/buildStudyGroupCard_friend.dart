@@ -12,6 +12,7 @@ Widget buildStudyGroupCard(
 ) {
   return Container(
     width: 300.sp,
+
     margin: EdgeInsets.only(right: 16, bottom: 12.sp),
     padding: EdgeInsets.all(16.sp),
     decoration: BoxDecoration(
@@ -78,22 +79,26 @@ Widget buildStudyGroupCard(
           ],
         ),
 
-        SizedBox(height: 15.sp),
+        SizedBox(height: 10.sp),
         Text(title, style: TextSt.textstyle16),
-        SizedBox(height: 12.sp),
+        SizedBox(height: 10.sp),
         Text(subtitle, style: TextSt.textstyle14.copyWith(color: Colors.grey)),
-        Spacer(),
+
         SizedBox(
           width: double.infinity,
+
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: kcolorOlive,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.sp),
               ),
             ),
             onPressed: () {},
-            child: Text("انضمام الآن", style: TextStyle(color: Colors.white)),
+            child: Text(
+              "انضمام الآن",
+              style: TextStyle(color: Colors.white, fontSize: 16.sp),
+            ),
           ),
         ),
       ],

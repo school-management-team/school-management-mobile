@@ -22,7 +22,10 @@ class _TasksandhomeworkViewBodyState extends State<TasksandhomeworkViewBody> {
         child: Column(
           children: [
             DailyProgressCard(progress: 0.95, completed: 6, total: 5),
-            SizedBox(height: MediaQuery.sizeOf(context).height, child: MRSHGRMainView()),
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height,
+              child: MRSHGRMainView(),
+            ),
           ],
         ),
       ),
@@ -49,7 +52,7 @@ class MRSHGRMainView extends StatefulWidget {
 }
 
 class _MRSHGRMainViewState extends State<MRSHGRMainView> {
-  int _selectedIndex = 0;  
+  int _selectedIndex = 0;
   List<Task> tasks = [
     Task(
       title: "مشروع الفيزياء: الطاقة المتجددة",
@@ -67,12 +70,11 @@ class _MRSHGRMainViewState extends State<MRSHGRMainView> {
     ),
   ];
 
- 
   Future<void> _submitTask(Task task) async {
     FilePickerResult? result = await FilePicker.pickFiles();
     if (result != null) {
       setState(() {
-        task.isCompleted = true; 
+        task.isCompleted = true;
       });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -86,7 +88,6 @@ class _MRSHGRMainViewState extends State<MRSHGRMainView> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Task> filteredTasks = tasks
         .where((t) => t.isCompleted == (_selectedIndex == 1))
         .toList();
@@ -95,20 +96,19 @@ class _MRSHGRMainViewState extends State<MRSHGRMainView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          
           Container(
-            margin:  EdgeInsets.all(16.sp),
-            padding:  EdgeInsets.all(4.sp),
+            margin: EdgeInsets.all(16.sp),
+            padding: EdgeInsets.all(4.sp),
             decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(23),
-              border: Border.all(color: Colors.grey.shade300)
+              border: Border.all(color: Colors.grey.shade300),
             ),
             child: Row(
               children: [_buildTab("المكتملة", 1), _buildTab("قيد التنفيذ", 0)],
             ),
           ),
-          
+
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
             transitionBuilder: (child, anim) => FadeTransition(
@@ -169,7 +169,7 @@ class _MRSHGRMainViewState extends State<MRSHGRMainView> {
 
   Widget _buildTaskCard(Task task) {
     return Container(
-      margin:  EdgeInsets.symmetric(horizontal: 16.sp, vertical: 8.sp),
+      margin: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 8.sp),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -193,16 +193,23 @@ class _MRSHGRMainViewState extends State<MRSHGRMainView> {
                 onSelected: (val) =>
                     setState(() => task.priority = val.toString()),
                 itemBuilder: (_) => [
-                   PopupMenuItem(
+                  PopupMenuItem(
                     value: "هام جداً",
-                    child: Text("هام جداً",style: TextSt.textstyle14),
+                    child: Text("هام جداً", style: TextSt.textstyle14),
                   ),
-                   PopupMenuItem(value: "عادي", child: Text("عادي",style: TextSt.textstyle14)),
+                  PopupMenuItem(
+                    value: "عادي",
+                    child: Text("عادي", style: TextSt.textstyle14),
+                  ),
                 ],
-                child:  Icon(Icons.more_vert_sharp, color: Colors.grey,size: 20.sp,),
+                child: Icon(
+                  Icons.more_vert_sharp,
+                  color: Colors.grey,
+                  size: 20.sp,
+                ),
               ),
               Container(
-                padding:  EdgeInsets.symmetric(horizontal: 8.sp, vertical: 4.sp),
+                padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 4.sp),
                 decoration: BoxDecoration(
                   color:
                       (task.priority == "هام جداً" ? Colors.red : Colors.green)
@@ -222,14 +229,11 @@ class _MRSHGRMainViewState extends State<MRSHGRMainView> {
               ),
             ],
           ),
-          SizedBox(height: 20.sp,),
-          Text(
-            task.title,
-            style:  TextSt.textstyle16
-          ),
-            SizedBox(height: 10.sp),
+          SizedBox(height: 20.sp),
+          Text(task.title, style: TextSt.textstyle16),
+          SizedBox(height: 10.sp),
           Text(task.description, style: TextStyle(color: Colors.grey[600])),
-           SizedBox(height: 16.sp),
+          SizedBox(height: 16.sp),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -243,33 +247,24 @@ class _MRSHGRMainViewState extends State<MRSHGRMainView> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  icon:  Icon(Icons.upload_file, size: 16.sp),
-                  label:  Text("تسليم",style: TextSt.textstyle17),
+                  icon: Icon(Icons.upload_file, size: 16.sp),
+                  label: Text("تسليم", style: TextSt.textstyle17),
                 ),
-                SizedBox(height: 12.sp,),
+              SizedBox(height: 12.sp),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-
-
-                   const SizedBox(width: 8),
-                  Text(
-                    task.subject,
-                    style: TextSt.textstyle12,
-                  ),
-                   SizedBox(width: 4.sp),
-                   Icon(Icons.menu_book_rounded, size: 15.sp, color: Colors.grey),
-                  Text(
-                    task.date,
-                    style:  TextSt.textstyle12,
-                  ),
-                  const SizedBox(width: 4),
-                   Icon(
-                    Icons.calendar_month,
+                  const SizedBox(width: 8),
+                  Text(task.subject, style: TextSt.textstyle12),
+                  SizedBox(width: 4.sp),
+                  Icon(
+                    Icons.menu_book_rounded,
                     size: 15.sp,
                     color: Colors.grey,
                   ),
-                 
+                  Text(task.date, style: TextSt.textstyle12),
+                  const SizedBox(width: 4),
+                  Icon(Icons.calendar_month, size: 15.sp, color: Colors.grey),
                 ],
               ),
             ],

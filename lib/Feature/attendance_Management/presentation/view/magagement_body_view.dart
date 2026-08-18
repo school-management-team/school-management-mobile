@@ -58,7 +58,7 @@ class _MagagementBodyViewState extends State<MagagementBodyView> {
             children: [
               Container(
                 width: double.infinity,
-                
+
                 decoration: BoxDecoration(
                   color: kPrimaryColor,
                   borderRadius: BorderRadius.circular(12.r),
@@ -81,7 +81,7 @@ class _MagagementBodyViewState extends State<MagagementBodyView> {
                       ),
                       SizedBox(height: 18.sp),
                       Container(
-                        height:MediaQuery.sizeOf(context).height*0.5,
+                        height: MediaQuery.sizeOf(context).height * 0.5,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12.r),
@@ -101,21 +101,18 @@ class _MagagementBodyViewState extends State<MagagementBodyView> {
                                 SizedBox(height: 16.sp),
                                 Column(
                                   children: [
-                                  Row(
+                                    Row(
                                       children: [
                                         StatusSelector(),
                                         Column(
                                           children: [
-                                          
-                                         
-                                        CircleAvatar(
-                                          backgroundImage: AssetImage(
-                                            AssestData.studentDashboard,
-                                          ),
-                                          
-                                        ), 
-                                          Text("ليلى خالد"),
-                                        ],
+                                            CircleAvatar(
+                                              backgroundImage: AssetImage(
+                                                AssestData.studentDashboard,
+                                              ),
+                                            ),
+                                            Text("ليلى خالد"),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -129,21 +126,18 @@ class _MagagementBodyViewState extends State<MagagementBodyView> {
                                       ),
                                     ),
                                     SizedBox(height: 10.sp),
-                                  Row(
+                                    Row(
                                       children: [
                                         StatusSelector(),
                                         Column(
                                           children: [
-                                          
-                                         
-                                        CircleAvatar(
-                                          backgroundImage: AssetImage(
-                                            AssestData.studentDashboard,
-                                          ),
-                                          
-                                        ), 
-                                          Text("محمد علي"),
-                                        ],
+                                            CircleAvatar(
+                                              backgroundImage: AssetImage(
+                                                AssestData.studentDashboard,
+                                              ),
+                                            ),
+                                            Text("محمد علي"),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -162,16 +156,13 @@ class _MagagementBodyViewState extends State<MagagementBodyView> {
                                         StatusSelector(),
                                         Column(
                                           children: [
-                                          
-                                         
-                                        CircleAvatar(
-                                          backgroundImage: AssetImage(
-                                            AssestData.studentDashboard,
-                                          ),
-                                          
-                                        ), 
-                                          Text("سارةأحمد"),
-                                        ],
+                                            CircleAvatar(
+                                              backgroundImage: AssetImage(
+                                                AssestData.studentDashboard,
+                                              ),
+                                            ),
+                                            Text("سارةأحمد"),
+                                          ],
                                         ),
                                       ],
                                     ),
