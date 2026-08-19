@@ -60,7 +60,7 @@ class RoleSelectionBodyView extends StatelessWidget {
                   context,
                   slides: supervisorTourSlides,
                   mascotAsset: AssestData.adv1,
-                  destinationRoute: AppRouter.kmanagementview,
+                  destinationRoute: AppRouter.ksignupadvisor,
                 );
               },
               image: AssestData.roleSystem,

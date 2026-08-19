@@ -3,9 +3,17 @@ import 'package:go_router/go_router.dart';
 import 'package:school/Feature/attendance_Management/presentation/view/management_view.dart';
 import 'package:school/Feature/auth/login/presentation/view/Login_View.dart';
 import 'package:school/Feature/auth/login/presentation/view/forgotpass_View.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/advisor_alerts_view.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/advisor_attendance_view.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/advisor_dashboard_view.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/advisor_overview_view.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/advisor_schedule_view.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/advisor_staff_view.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/student_transfer_view.dart';
 import 'package:school/Feature/auth/signup/presentation/view/account_peneding.dart';
 import 'package:school/Feature/auth/signup/presentation/view/role_selection_view.dart';
 
+import 'package:school/Feature/auth/signup/presentation/view/signup_advisor_view.dart';
 import 'package:school/Feature/auth/signup/presentation/view/signup_stud_view.dart';
 import 'package:school/Feature/auth/signup/presentation/view/signup_teacher_view.dart';
 
@@ -54,6 +62,7 @@ abstract class AppRouter {
   static const kroleselection = '/roleselectionview';
 
   static const ksignupteacher = '/signupteacherview';
+  static const ksignupadvisor = '/signupadvisorview';
   static const kaccountpendeing = '/accountpendeingview';
   static const kStudentDashboard = '/StudentDashboardview';
   static const kmanagementview = '/managementview';
@@ -68,8 +77,43 @@ abstract class AppRouter {
 
   static const kTaskshomeworkStudent = '/kTaskshomeworkStudentview';
   static const ksignupstudent = '/SignupStudView';
+  static const kadvisordash = '/advisordashview';
+  static const kadvisoralerts = '/advisoralertsview';
+  static const kadvisorattendance = '/advisorattendanceview';
+  static const kstudenttransfer = '/studenttransferview';
+  static const kadvisoroverview = '/advisoroverviewview';
+  static const kadvisorstaff = '/advisorstaffview';
+  static const kadvisorschedule = '/advisorscheduleview';
   static final router = GoRouter(
     routes: [
+      GoRoute(
+        path: kadvisordash,
+        builder: (context, state) => const AdvisorDashboardView(),
+      ),
+      GoRoute(
+        path: kadvisoralerts,
+        builder: (context, state) => const AdvisorAlertsView(),
+      ),
+      GoRoute(
+        path: kadvisorattendance,
+        builder: (context, state) => const AdvisorAttendanceView(),
+      ),
+      GoRoute(
+        path: kstudenttransfer,
+        builder: (context, state) => const StudentTransferView(),
+      ),
+      GoRoute(
+        path: kadvisoroverview,
+        builder: (context, state) => const AdvisorOverviewView(),
+      ),
+      GoRoute(
+        path: kadvisorstaff,
+        builder: (context, state) => const AdvisorStaffView(),
+      ),
+      GoRoute(
+        path: kadvisorschedule,
+        builder: (context, state) => const AdvisorScheduleView(),
+      ),
       GoRoute(
         path: '/',
         builder: (context, state) => const SignupStudView(),
@@ -130,6 +174,28 @@ abstract class AppRouter {
         builder: (context, state) => const SignupTeacherView(),
       ),
 
+      GoRoute(
+        path: ksignupadvisor,
+        builder: (context, state) => const SignupAdvisorView(),
+      ),
+      GoRoute(
+        path: kteacherdash,
+        builder: (context, state) => const teacherdashview(),
+      ),
+      GoRoute(
+        path: kassignmentandtasks,
+        builder: (context, state) => const assignmentsschoolview(),
+      ),
+      GoRoute(
+        path: ktaskandgrademonitor,
+        builder: (context, state) => const Taskandgradeview(),
+      ),
+      GoRoute(
+        path: knewtaskteacher,
+        builder: (context, state) => const addnewtaskteacherview(),
+        /* path: kaccountpendeing,
+        builder: (context, state) => const AccountPending(),*/
+      ),
       GoRoute(
         path: kOnBoarding1,
         builder: (context, state) => const OnBoardingPage1View(),
