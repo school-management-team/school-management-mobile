@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school/core/api/Dio_consumer.dart';
+import 'package:school/core/api/endpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 sealed class LoginState {}
@@ -20,25 +22,18 @@ final class LoginFailure extends LoginState {
 }
 
 class LoginCubit extends Cubit<LoginState> {
-  final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: 'https://reawake-unlighted-scoff.ngrok-free.dev/api/',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    ),
-  );
 
-  LoginCubit() : super(LoginInitial());
+DioConsumer dio;
+  LoginCubit(this.dio) : super(LoginInitial());
 
   Future<void> login({required String email, required String password}) async {
     emit(LoginLoading());
 
     try {
-      final response = await _dio.post(
-        'auth/login',
+      final response = await dio.post(
+       ApiEndpoint.login,
         data: {'email': email, 'password': password},
+        
       );
 
       final String? token =

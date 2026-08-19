@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_dashboard_student/dashboard1_student_cubit.dart';
 import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_profile_student/profile_student_cubit.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/todaytasks_dash.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/widgetdashcontainerst.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
+import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class DashboardstViewBody extends StatefulWidget {
@@ -166,14 +168,15 @@ class _DashboardstViewBodyState extends State<DashboardstViewBody> {
                                 ),
                                 borderRadius: BorderRadius.circular(40.sp),
                               ),
-                              child: Icon(
-                                Icons.local_library_outlined,
+                              child: IconButton(
+                                 onPressed:() => GoRouter.of(context).push(AppRouter.kDash2Student) ,icon: Icon(
+                                Icons.calendar_month,
                                 size: 20.sp,
                                 color: kcolorOlive,
-                              ),
+                              )),
                             ),
                           ),
-                          Text("المكتبة", style: TextSt.textstyle17),
+                          Text("الجدول", style: TextSt.textstyle17),
                         ],
                       ),
                     ),
@@ -208,11 +211,12 @@ class _DashboardstViewBodyState extends State<DashboardstViewBody> {
                                 ),
                                 borderRadius: BorderRadius.circular(40.sp),
                               ),
-                              child: Icon(
+                              child: IconButton(
+                                 onPressed:() => GoRouter.of(context).push(AppRouter.kTaskshomeworkStudent) ,icon: Icon(
                                 Icons.assignment_outlined,
                                 size: 20.sp,
                                 color: kcolorOlive,
-                              ),
+                              )),
                             ),
                           ),
                           Text("المهام", style: TextSt.textstyle17),
@@ -251,11 +255,12 @@ class _DashboardstViewBodyState extends State<DashboardstViewBody> {
                                 ),
                                 borderRadius: BorderRadius.circular(40.sp),
                               ),
-                              child: Icon(
+                              child: IconButton(
+                                 onPressed:() => GoRouter.of(context).push(AppRouter.kGradecardstStudent) ,icon: Icon(
                                 Icons.star_outline,
                                 size: 20.sp,
                                 color: kcolorOlive,
-                              ),
+                              )),
                             ),
                           ),
                           Text("الدرجات", style: TextSt.textstyle17),

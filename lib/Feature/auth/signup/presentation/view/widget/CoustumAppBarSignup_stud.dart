@@ -55,16 +55,16 @@ class CoustumAppBarSignup extends StatelessWidget {
         SizedBox(height: 33.h),
         Text(
           "إنشاء حساب جديد",
-          style: TextSt.textstyle28.copyWith(color: kcolorNavyBlue),
+          style: TextSt.textstyle28
         ),
         SizedBox(height: 4.h),
         Text(
           " يرجى إدخال البيانات الوظيفية لإكمال إعداد الحساب  ",
-          style: TextSt.textstyle14.copyWith(color: kcolorNavyBlue),
+          style: TextSt.textstyle14
         ),
         Text(
           " .الخاص بك ",
-          style: TextSt.textstyle14.copyWith(color: kcolorNavyBlue),
+          style: TextSt.textstyle14,
         ),
       ],
     );

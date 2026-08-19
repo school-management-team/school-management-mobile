@@ -24,9 +24,9 @@ class SignUpStudentCubit extends Cubit<SignUpStudentState> {
     required String password,
     required String gender
   }) async {
-    print("cubit,,,,,,,,,,,,,,,,,0");
+
     emit(SignUpStudentLoading());
- print("cubit,,,,,,,,lllllllloadddddinggggg,,,,,,,,,0");
+
     final result = await studentAuthRepository.registerStudent(
       userName: userName,
       fatherName: fatherName,
@@ -41,7 +41,7 @@ class SignUpStudentCubit extends Cubit<SignUpStudentState> {
        classId: classId,
     ); 
     
-    print("cubit,,,,,,,,,,,,resullllttttt,,,,,0");
+   
     result.fold(
       (failure) => emit(SignUpStudentFailure(failure.errorMessage)),
       (success) => emit(SignUpStudentSuccess()),

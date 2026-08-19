@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:school/Feature/attendance_Management/presentation/view/magagement_body_view.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/magagement_body_view.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
 import 'package:school/core/widget/Text/text_style.dart';

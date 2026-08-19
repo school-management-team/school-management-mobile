@@ -22,7 +22,7 @@ class ProfileStudentView extends StatelessWidget {
         automaticallyImplyLeading: false,
         actionsPadding: EdgeInsets.symmetric(horizontal: 40.sp),
         leadingWidth: 43,
-        backgroundColor: Colors.white,
+
         title: Row(
           children: [
             IconButton(
@@ -34,7 +34,7 @@ class ProfileStudentView extends StatelessWidget {
             Text(
               " نيو أكاديميك",
               style: TextSt.textstyle28.copyWith(
-                color: Colors.black,
+              
                 fontWeight: FontWeight.w900,
                 fontSize: 22.sp,
                 fontFamily: 'normal',

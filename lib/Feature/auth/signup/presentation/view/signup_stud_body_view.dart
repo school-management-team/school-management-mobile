@@ -11,6 +11,7 @@ import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/showotpd
 
 import 'package:school/constant.dart';
 import 'package:school/core/function/showloadingDialog.dart';
+import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class SignupStudBodyView extends StatefulWidget {
@@ -126,9 +127,26 @@ class _SignupStudBodyViewState extends State<SignupStudBodyView> {
               );
             },
           ),
-          SizedBox(height: 33.h),
+           SizedBox(height: 16.sp),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  GoRouter.of(context).push(AppRouter.klogin);
+                },
+                child: Text(
+                  "تسجيل الدخول",
+                  style: TextSt.textstyle14.copyWith(color: kcolorOlive),
+                ),
+              ),
+              Text("لديك حساب بالفعل؟ ", style: TextSt.textstyle14),
+            ],
+          ),
+          SizedBox(height: 40.sp),
         ],
       ),
+         
     );
   }
 }

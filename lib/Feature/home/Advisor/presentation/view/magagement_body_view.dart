@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:school/Feature/attendance_Management/presentation/view/widget/StatusSelector.dart';
-import 'package:school/Feature/attendance_Management/presentation/view/widget/container_inform.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/widget/StatusSelector.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/widget/container_inform.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
 

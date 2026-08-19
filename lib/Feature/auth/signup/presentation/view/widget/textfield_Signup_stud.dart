@@ -37,11 +37,10 @@ class _TextfieldSignupStudState extends State<TextfieldSignupStud> {
 
   SignupStudentTextediting get viewModel => widget.viewModel;
 
-  @override
+   @override
   void initState() {
     super.initState();
-
-    viewModel.genderController.text = gender;
+    viewModel.genderController.text = "ذكر";
   }
 
   @override

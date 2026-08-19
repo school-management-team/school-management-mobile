@@ -23,7 +23,7 @@ class DashboardstView extends StatelessWidget {
           automaticallyImplyLeading: false,
           actionsPadding: EdgeInsets.symmetric(horizontal: 40.sp),
           leadingWidth: 43,
-          backgroundColor: Colors.white,
+      
           title: Row(
             children: [
               IconButton(
@@ -35,7 +35,7 @@ class DashboardstView extends StatelessWidget {
               Text(
                 "  مدارس المستقبل",
                 style: TextSt.textstyle28.copyWith(
-                  color: Colors.black,
+                
                   fontWeight: FontWeight.w900,
                   fontSize: 22.sp,
                   fontFamily: 'normal',

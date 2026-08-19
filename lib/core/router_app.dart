@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 
-import 'package:school/Feature/attendance_Management/presentation/view/management_view.dart';
+import 'package:school/Feature/home/Advisor/presentation/view/management_view.dart';
 import 'package:school/Feature/auth/login/presentation/view/Login_View.dart';
 import 'package:school/Feature/auth/login/presentation/view/forgotpass_View.dart';
 import 'package:school/Feature/home/Advisor/presentation/view/advisor_alerts_view.dart';
@@ -16,6 +16,7 @@ import 'package:school/Feature/auth/signup/presentation/view/role_selection_view
 import 'package:school/Feature/auth/signup/presentation/view/signup_advisor_view.dart';
 import 'package:school/Feature/auth/signup/presentation/view/signup_stud_view.dart';
 import 'package:school/Feature/auth/signup/presentation/view/signup_teacher_view.dart';
+import 'package:school/Feature/home/Student/presentation/view/dash2_view_body.dart';
 
 import 'package:school/Feature/home/Student/presentation/view/profile_student_page2.dart';
 import 'package:school/Feature/home/Student/presentation/view/profile_student_view.dart';
@@ -86,7 +87,16 @@ abstract class AppRouter {
   static const kadvisorschedule = '/advisorscheduleview';
   static final router = GoRouter(
     routes: [
+  
       GoRoute(
+        path: '/',
+
+        builder: (context, state) => const SignupStudView(),
+
+        //  builder: (context, state) => const OnBoardingPage1View(),
+        //  path: ksignupStudent,
+        //builder: (context, state) => const SignupStudentView(),
+      ),    GoRoute(
         path: kadvisordash,
         builder: (context, state) => const AdvisorDashboardView(),
       ),
@@ -114,15 +124,7 @@ abstract class AppRouter {
         path: kadvisorschedule,
         builder: (context, state) => const AdvisorScheduleView(),
       ),
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const SignupStudView(),
-
-        //  builder: (context, state) => const OnBoardingPage1View(),
-        //  path: ksignupStudent,
-        //builder: (context, state) => const SignupStudentView(),
-      ),
-      //********************************* */
+      
       GoRoute(
         path: kteacherdash,
         builder: (context, state) => const teacherdashview(),
@@ -154,7 +156,8 @@ abstract class AppRouter {
         builder: (context, state) => const Taskandgradeview(),
       ),
 
-      //************************************ */
+     
+
       GoRoute(
         path: ksignupstudent,
         builder: (context, state) => const SignupStudView(),

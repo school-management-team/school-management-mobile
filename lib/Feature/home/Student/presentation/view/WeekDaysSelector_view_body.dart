@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:school/Feature/home/Student/presentation/view/WeekDaysSelector_view.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/LessonTimelineItem.dart';
 import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_weekDaysSelector/cubit_week_days_selector_cubit.dart';
 import 'package:school/constant.dart';
@@ -29,26 +30,34 @@ class _SchoolWeekSelectorState extends State<SchoolWeekSelector> {
           children: [
             listviewWeekend(),
             SizedBox(height: 16.sp),
- BlocBuilder(
-          builder: (BuildContext context, state) { 
+            BlocBuilder<CubitWeekDaysSelectorCubit,CubitWeekDaysSelectorState>(
+              builder: (BuildContext context, state) {
+                if (state is CubitWeekDaysSelectorSuccess) {
+                  showloadingDialog(context);
+                } else if (state is CubitWeekDaysSelectorFailure) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        state.message,
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  );
+                } else if (state is CubitWeekDaysSelectorSuccess) {
+                  return Column(
+                    children: [
+                      ...state.sheduleList.map((item) {
+                        return LessonTimelineItem(
+                          title: item['title'],
+                          time: item['time'],
+                          session: item['session'],
+                          status: item['status'],
+                          teacher: item['teacher'],
+                          room: item['room'],
+                        );
+                      }).toList(),
 
-            if(state is CubitWeekDaysSelectorSuccess){
-         showloadingDialog(context);
-      
-        } else if (state is CubitWeekDaysSelectorFailure) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message,style: TextStyle(color: Colors.red),)));
-        }else if (state is CubitWeekDaysSelectorSuccess){
-
-        return Column(children: [
-                 ... state.sheduleList.map((item){
-         return LessonTimelineItem(
-              title: item['title'], time: item['time'], session: item['session'], 
-              status: item['status'], teacher: item['teacher'], room:item ['room']);
-          }).toList(),
-  
-         /*   LessonTimelineItem(
+                      /*   LessonTimelineItem(
               session: "الحصة الأولى",
               title: "الرياضيات المتقدمة",
               time: "08:00",
@@ -80,100 +89,110 @@ class _SchoolWeekSelectorState extends State<SchoolWeekSelector> {
               teacher: "خالد العبيد",
               room: "قاعة 101",
             ),*/
-            SizedBox(height: 20.sp),
+                      SizedBox(height: 20.sp),
 
-            Container(
-              margin: const EdgeInsets.all(16),
-              padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 16.sp),
-              decoration: BoxDecoration(
-                color: const Color(0xFF091C31),
-                borderRadius: BorderRadius.circular(24.sp),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 0,
-                    offset: const Offset(8, 8),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    "ساعات الدوام",
-                    style: TextSt.textstyle14.copyWith(color: Colors.grey[400]),
-                  ),
-                  SizedBox(height: 16.sp),
-                  Text(
-                   "بقي لك ${state.remainingHours} ساعات دراسية اليوم",
-           
-                   style: TextSt.textstyle24.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.end,
-                  ),
-                  SizedBox(height: 20.sp),
-                  Row(
-                    //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: kcolorgreen,
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.sp,
-                            vertical: 10.sp,
-                          ),
+                      Container(
+                        margin: const EdgeInsets.all(16),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.sp,
+                          vertical: 16.sp,
                         ),
-                        child: Text(
-                          "عرض الإحصائيات",
-                          style: TextSt.textstyle16.copyWith(
-                            color: Colors.white,
-                          ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF091C31),
+                          borderRadius: BorderRadius.circular(24.sp),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 0,
+                              offset: const Offset(8, 8),
+                            ),
+                          ],
                         ),
-                      ),
-                      Spacer(),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            " إنجاز اليوم",
-                            style: TextSt.textstyle12.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: kcolorgreen.withOpacity(0.2),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Text(
-                              state.completionPercentage!,
-                              style: TextSt.textstyle16.copyWith(
-                                color: kcolorgreen,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              "ساعات الدوام",
+                              style: TextSt.textstyle14.copyWith(
+                                color: Colors.grey[400],
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 16.sp),
+                            Text(
+                              "بقي لك ${state.remainingHours} ساعات دراسية اليوم",
+
+                              style: TextSt.textstyle24.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.end,
+                            ),
+                            SizedBox(height: 20.sp),
+                            Row(
+                              //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: kcolorgreen,
+                                    foregroundColor: Colors.black,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10.sp,
+                                      vertical: 10.sp,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "عرض الإحصائيات",
+                                    style: TextSt.textstyle16.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                Spacer(),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      " إنجاز اليوم",
+                                      style: TextSt.textstyle12.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+
+                                    Container(
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: kcolorgreen.withOpacity(0.2),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Text(
+                                        state.completionPercentage!,
+                                        style: TextSt.textstyle16.copyWith(
+                                          color: kcolorgreen,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
-                  ),
-                ],
-              ),
+                  );
+                }
+                   
+                   
+                return Center(child: CircularProgressIndicator(),);
+              },
             ),
-          ],            
-        );}
-       return SizedBox.shrink();
-          }),
-       ] ),
+          ],
+        ),
       ),
     );
   }

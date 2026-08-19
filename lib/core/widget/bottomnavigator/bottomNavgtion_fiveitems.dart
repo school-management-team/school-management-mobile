@@ -134,7 +134,7 @@ class BottomnavgtionFiveitems extends StatelessWidget {
               break;
 
             case 3:
-              context.go(AppRouter.kDashboardstudent);
+              context.go(AppRouter.kprofileStudent);
               break;
             case 4:
               context.go(AppRouter.kDash2Student);

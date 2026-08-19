@@ -14,13 +14,13 @@ class GradecardstView extends StatelessWidget {
       appBar: AppBar(
         actionsPadding: EdgeInsets.symmetric(horizontal: 40.sp),
         leadingWidth: 43.sp,
-        backgroundColor: Colors.white,
+      
         title: Row(
           children: [
             Text(
               "  مدارس المستقبل",
               style: TextSt.textstyle28.copyWith(
-                color: Colors.black,
+                
                 fontWeight: FontWeight.w900,
                 fontSize: 22.sp,
                 fontFamily: 'normal',

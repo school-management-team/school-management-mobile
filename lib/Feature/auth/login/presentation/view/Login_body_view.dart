@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/textfield_login.dart';
 import 'package:school/Feature/home/Teacher/Presentation/Cubit/LoginCubit.dart';
 import 'package:school/constant.dart';
+import 'package:school/core/api/Dio_consumer.dart';
 import 'package:school/core/assest.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
@@ -32,7 +34,7 @@ class _LoginBodyViewState extends State<LoginBodyView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(),
+      create: (context) => LoginCubit(DioConsumer(Dio())),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {

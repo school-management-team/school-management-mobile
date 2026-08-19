@@ -38,7 +38,7 @@ class RequeriedPassword extends StatelessWidget {
               Text(
                 ": متطلبات كلمة المرور",
                 style: TextSt.textstyle16.copyWith(
-                  color: const Color(0XFF1C1C18),
+                
                 ),
               ),
               SizedBox(height: 12.h),

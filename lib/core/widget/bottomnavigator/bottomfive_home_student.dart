@@ -115,8 +115,24 @@ class BottomfiveHomeStudent extends StatelessWidget {
                   color: select == 4 ? Colors.white : KcolorGrey,
                 ),
               ),
+            ],),
+               Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.dashboard_outlined,
+                color: select == 3 ? Colors.white : KcolorGrey,
+              ),
+              Text(
+                'الملف',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: select == 2 ? Colors.white : KcolorGrey,
+                ),
+              ),
             ],
           ),
+          
         ],
 
         onTap: (index) {
@@ -138,6 +154,10 @@ class BottomfiveHomeStudent extends StatelessWidget {
               break;
             case 4:
               context.go(AppRouter.kFriendsStudent);
+              break;
+
+                case 5:
+              context.go(AppRouter.kprofileStudent);
               break;
           }
         },

@@ -12,12 +12,15 @@ import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubi
 
 import 'package:school/constant.dart';
 import 'package:school/core/api/Dio_consumer.dart';
+import 'package:school/core/database/cache/cahe_helper.dart';
 import 'package:school/core/router_app.dart';
+import 'package:school/core/themes/cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('ar', '');
   await ScreenUtil.ensureScreenSize();
+  await CacheHelper().init();
   runApp(const MyApp());
 }
 
@@ -32,21 +35,32 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MultiBlocProvider(
         providers: [
-        
           BlocProvider(
-            create: (context) => SignUpTeacherCubit(TeacherAuthRepoImpl(DioConsumer(Dio()))),
+            create: (context) =>
+                SignUpTeacherCubit(TeacherAuthRepoImpl(DioConsumer(Dio()))),
           ),
-          BlocProvider(
-            create: (context) => ProfileStudentCubit(StudentProfileRepoImpl()),
-          ),
+          BlocProvider(create: (context) => ThemeCubit()),
         ],
 
-        child: MaterialApp.router(
-          routerConfig: AppRouter.router,
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            fontFamily: 'Tajawal',
-          ).copyWith(scaffoldBackgroundColor: kPrimaryColor),
+        child: BlocBuilder<ThemeCubit, ThemeMode>(
+          builder: (context, themeMode) {
+            return MaterialApp.router(
+              routerConfig: AppRouter.router,
+              debugShowCheckedModeBanner: false,
+
+              themeMode: themeMode,
+              theme: ThemeData(
+                fontFamily: 'Tajawal',
+              ).copyWith(scaffoldBackgroundColor: kPrimaryColor),
+              darkTheme: ThemeData(
+                brightness: Brightness.dark,
+                scaffoldBackgroundColor: Color(0xFF1E1E1E),
+                appBarTheme: AppBarTheme(
+                  backgroundColor: const Color.fromARGB(255, 54, 54, 54),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

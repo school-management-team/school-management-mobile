@@ -63,12 +63,13 @@ class TeacherAuthRepoImpl implements TeacherAuthRepository {
         },
       );
 
-      options:
-      Options(
-        connectTimeout: const Duration(seconds: 5),
-        sendTimeout: const Duration(seconds: 5),
-        receiveTimeout: const Duration(seconds: 5),
-      );
+
+        options: Options(
+                  connectTimeout: const Duration(seconds: 30),
+          sendTimeout: const Duration(seconds: 30),
+          receiveTimeout: const Duration(seconds: 30),
+        );
+
       return right(null);
     } on ServerException catch (e) {
       return left(serverFailure(errorMessage: e.modelErrors.errorMessage));

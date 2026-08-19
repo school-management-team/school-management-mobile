@@ -56,10 +56,10 @@ class containerRoles extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(height: 110),
-                Text(textmain, style: TextSt.textstyle28),
+                Text(textmain, style: TextSt.textstyle28.copyWith(color: Colors.black)),
 
-                Text(text, style: TextSt.textstyle17),
-                Text(text2, style: TextSt.textstyle17),
+                Text(text, style: TextSt.textstyle17.copyWith(color: Colors.black)),
+                Text(text2, style: TextSt.textstyle17.copyWith(color: Colors.black)),
               ],
             ),
           ),

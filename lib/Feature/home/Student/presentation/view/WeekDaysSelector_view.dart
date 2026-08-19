@@ -18,8 +18,11 @@ class WeekdaysselectorView extends StatefulWidget {
 class WeekdaysselectorViewstate extends State<WeekdaysselectorView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: BlocProvider
-    (create: (BuildContext context) =>CubitWeekDaysSelectorCubit(WeekdaysselectorRepoImpl()),
-    child: SchoolWeekSelector())));
+    return BlocProvider(create: (BuildContext context) =>CubitWeekDaysSelectorCubit(WeekdaysselectorRepoImpl())
+    ,
+      child: Scaffold(body:SafeArea(child:
+     SchoolWeekSelector()),
+    
+    ));
   }
 }
