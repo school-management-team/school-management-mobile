@@ -79,151 +79,9 @@ class _LoginBodyViewState extends State<LoginBodyView> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-<<<<<<< HEAD
                               Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
-=======
-                              CircleAvatar(
-                                radius: 25.r,
-                                backgroundColor: Colors.grey.withOpacity(0.2),
-                                child: Icon(
-                                  Icons.school,
-                                  color: kcolorOlive,
-                                  size: 28.sp,
-                                ),
-                              ),
-                              SizedBox(height: 8.h),
-                              Text(
-                                "تسجيل الدخول",
-                                style: TextStyle(
-                                  fontSize: 30.sp,
-                                  color: Color(0xFF091C31),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: 8.h),
-                              Text(
-                                "مرحبا بك مجددا بالحرم الجامعي الرقمي ",
-                                style: TextStyle(
-                                  fontSize: 17.sp,
-                                  color: KcolorGrey,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: 30.h),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  "البريد الإلكتروني أو اسم المستخدم ",
-                                  style: TextSt.textstyle14.copyWith(
-                                    color: Color(0xFF091C31),
-
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  textAlign: TextAlign.right,
-                                ),
-                              ),
-                              SizedBox(height: 16.h),
-                              TextFieldLogin(
-                                hintText: "ادخل هويتك الأكاديمية",
-                                suffixIcon: Icons.account_circle_outlined,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'يرجى إدخال البريد الإلكتروني ';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(height: 16.h),
-
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      "نسيت كلمة المرور؟",
-                                      style: TextSt.textstyle14.copyWith(
-                                        color: kcolorOlive,
-                                        fontSize: 12.sp,
-                                      ),
-                                      textAlign: TextAlign.right,
-                                    ),
-                                  ),
-                                  Text(
-                                    "كلمة المرور",
-                                    style: TextSt.textstyle14.copyWith(
-                                      color: Color(0xFF091C31),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.right,
-                                  ),
-                                ],
-                              ),
-
-                              // SizedBox(height: 2.h),
-                              TextFieldLogin(
-                                hintText: ".........",
-                                isPassword: true,
-                                suffixIcon: Icons.lock_outline,
-                                prefixIcon: Icons.visibility_off_outlined,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "تذكرني على هذا الجهاز",
-                                    style: TextSt.textstyle14.copyWith(
-                                      color: Colors.grey[700],
-                                    ),
-                                  ),
-                                  SizedBox(width: 8.w),
-                                  Checkbox(
-                                    value: false,
-                                    onChanged: (value) {},
-                                    activeColor: kcolorOlive,
-                                    checkColor: Colors.white,
-                                    fillColor: WidgetStateProperty.resolveWith((
-                                      states,
-                                    ) {
-                                      if (states.contains(
-                                        WidgetState.selected,
-                                      )) {
-                                        return kcolorOlive;
-                                      }
-                                      return Colors.white;
-                                    }),
-                                    side: BorderSide(color: Colors.white),
-
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4.r),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 24.h),
-
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (formkey.currentState!.validate()) {
-                                    GoRouter.of(context).go(AppRouter.kadvisordash);
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: kcolorOlive,
-                                  padding: EdgeInsets.symmetric(vertical: 17.h),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadiusGeometry.circular(
-                                      12.r,
-                                    ),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
->>>>>>> d0d078bfe11c70fa682e8eed8d60f982e56fbeea
                                   children: [
                                     CircleAvatar(
                                       radius: 25.r,
@@ -236,7 +94,6 @@ class _LoginBodyViewState extends State<LoginBodyView> {
                                         size: 28.sp,
                                       ),
                                     ),
-<<<<<<< HEAD
                                     SizedBox(height: 8.h),
                                     Text(
                                       "تسجيل الدخول",
@@ -252,28 +109,6 @@ class _LoginBodyViewState extends State<LoginBodyView> {
                                       "مرحبا بك مجددا بالحرم الجامعي الرقمي ",
                                       style: TextStyle(
                                         fontSize: 17.sp,
-=======
-                                  ],
-                                ),
-                              ),
-
-                              SizedBox(height: 35.h),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Divider(
-                                      color: Color(0xFFC4C6CD),
-                                      thickness: 1,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 8.h,
-                                    ),
-                                    child: Text(
-                                      "أو الدخول عبر",
-                                      style: TextSt.textstyle14.copyWith(
->>>>>>> d0d078bfe11c70fa682e8eed8d60f982e56fbeea
                                         color: KcolorGrey,
                                       ),
                                       textAlign: TextAlign.center,
@@ -368,7 +203,6 @@ class _LoginBodyViewState extends State<LoginBodyView> {
                                         ),
                                       ],
                                     ),
-<<<<<<< HEAD
                                     SizedBox(height: 24.h),
                                     ElevatedButton(
                                       onPressed: state is LoginLoading
@@ -510,14 +344,6 @@ class _LoginBodyViewState extends State<LoginBodyView> {
                                     SizedBox(
                                       width: 308.w,
                                       child: Column(
-=======
-                                    SizedBox(height: 8.h),
-                                    InkWell(
-                                      onTap: () {
-                                        GoRouter.of(context).push(AppRouter.kroleselection);
-                                      },
-                                      child: Row(
->>>>>>> d0d078bfe11c70fa682e8eed8d60f982e56fbeea
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
