@@ -96,7 +96,7 @@ class taskforstudent extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
-                    onPressed: onPublishtask,
+                    onPressed: onGraderecording,
                     icon: Icon(Icons.grading, color: Color(0xFF000000)),
                     label: Text(
                       "رصد درجات ",

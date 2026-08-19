@@ -4,6 +4,7 @@ import 'package:school/constant.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class TextFieldLogin extends StatefulWidget {
+  final TextEditingController controller;
   final String? hintText;
   final IconData? suffixIcon;
   final IconData? prefixIcon;
@@ -12,6 +13,7 @@ class TextFieldLogin extends StatefulWidget {
   final String? Function(String?)? validator;
   const TextFieldLogin({
     super.key,
+    required this.controller,
     required this.hintText,
     this.prefixIcon,
     this.suffixIcon,
@@ -27,6 +29,7 @@ class TextFieldLoginState extends State<TextFieldLogin> {
   bool isObscured = true;
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       obscureText: widget.isPassword ? isObscured : false,
       keyboardType: widget.textinputtype,
       textAlign: TextAlign.right,

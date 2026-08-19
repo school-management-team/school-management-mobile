@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school/Feature/auth/login/presentation/view/Login_View.dart';
 import 'package:school/Feature/auth/login/presentation/view/Login_body_view.dart';
+//import 'package:school/Feature/auth/signup/presentation/view/Login_View.dart';
+//import 'package:school/Feature/auth/signup/presentation/view/Login_body_view.dart';
+import 'package:school/Feature/home/Teacher/Presentation/Cubit/dashboardcubit.dart';
 import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/actioncards.dart';
 import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/assignedclasscard.dart';
 import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/new_messages.dart';
@@ -18,106 +22,148 @@ class teacherdashbody extends StatefulWidget {
 }
 
 class teacherdashbodyState extends State<teacherdashbody> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<DashBoardCubit>().fetchdashboarddata();
+  }
+
   Widget build(BuildContext context) {
-    return //Padding(
-    Directionality(
-      textDirection: TextDirection.rtl,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 12, top: 12),
-        child: ListView(
-          children: [
-            Container(
-              //height: 229.4.h,
-              width: 342.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Color(0xFFFFFFFF),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocBuilder<DashBoardCubit, DashBoardState>(
+      builder: (context, state) {
+        if (state is DashBoardLoading) {
+          return Center(
+            child: CircularProgressIndicator(color: Color(0xFF006C49)),
+          );
+        }
+        if (state is DashBoardError) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(state.message),
+                SizedBox(height: 10.h),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<DashBoardCubit>().fetchdashboarddata();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF006C49),
+                  ),
+                  child: Text(
+                    'إعادة المحاولة',
+                    style: TextStyle(color: Color(0xFFFFFFFF)),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+        if (state is DashBoardLoaded) {
+          final data = state.data;
+          return //Padding(
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 12, top: 12),
+              child: ListView(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      right: 18,
-                      top: 20,
-                      bottom: 10,
+                  Container(
+                    //height: 229.4.h,
+                    width: 342.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Color(0xFFFFFFFF),
                     ),
-                    child: SizedBox(
-                      // height: 116.h,
-                      // width: 240.87.w,
-                      child: Text(
-                        "أهلا بك, أستاذ أحمد",
-                        style: TextStyle(
-                          color: Color(0xFF000000),
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          //height: 57.6.sp,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            right: 18,
+                            top: 20,
+                            bottom: 10,
+                          ),
+                          child: SizedBox(
+                            // height: 116.h,
+                            // width: 240.87.w,
+                            child: Text(
+                              "أهلا بك, ${data.teacherName}",
+                              style: TextStyle(
+                                color: Color(0xFF000000),
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                                //height: 57.6.sp,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 18),
+                          child: SizedBox(
+                            width: 326.75.w,
+                            // height: 58.h,
+                            child: Text(
+                              "إليك نظرة عامة على يومك الأكاديمي",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Color(0xFF44474D),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 12.h),
+                      ],
                     ),
                   ),
+                  SizedBox(height: 40.h),
+                  assignedclasscard(
+                    nextlesson: "الحصة القادمة: ${data.nextLesson}",
+                    numofclasses: data.numOfClasses,
+                  ),
+                  SizedBox(height: 20.h),
+                  PendingTasks(
+                    numofclasses: data.pendingTaskCount,
+                    nextlesson: data.pendingTaskDetails,
+                  ),
+                  SizedBox(height: 40.h),
+                  newmessages(
+                    numofmessages: data.numOfMessages,
+                    source: data.messagesSource,
+                  ),
+                  SizedBox(height: 40.h),
                   Padding(
                     padding: const EdgeInsets.only(right: 18),
                     child: SizedBox(
-                      width: 326.75.w,
-                      // height: 58.h,
-                      child: Text(
-                        "إليك نظرة عامة على يومك الأكاديمي",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xFF44474D),
+                      child: Container(
+                        width: 342.w,
+                        child: Text(
+                          'إجراءات سريعة',
+                          style: TextStyle(
+                            color: Color(0xFF000000),
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   SizedBox(height: 12.h),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 18, left: 18),
+                    child: const ButtonCard(),
+                  ),
+
+                  SizedBox(height: 2.h),
+
+                  // SizedBox(height: 4.h),
                 ],
               ),
             ),
-            SizedBox(height: 40.h),
-            assignedclasscard(
-              nextlesson: "الحصة القادمة:رياضيات (الصف 10-أ)",
-              numofclasses: "4",
-            ),
-            SizedBox(height: 20.h),
-            PendingTasks(
-              numofclasses: '7',
-              nextlesson: '4 تصحيح واجبات.3 تقارير',
-            ),
-            SizedBox(height: 40.h),
-            newmessages(
-              numofmessages: '2',
-              source: 'من الإدارة وأولياء الأمور',
-            ),
-            SizedBox(height: 40.h),
-            Padding(
-              padding: const EdgeInsets.only(right: 18),
-              child: SizedBox(
-                child: Container(
-                  width: 342.w,
-                  child: Text(
-                    'إجراءات سريعة',
-                    style: TextStyle(
-                      color: Color(0xFF000000),
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 12.h),
-            Padding(
-              padding: const EdgeInsets.only(right: 18, left: 18),
-              child: const ButtonCard(),
-            ),
-
-            SizedBox(height: 2.h),
-
-            // SizedBox(height: 4.h),
-          ],
-        ),
-      ),
+          );
+        }
+        return Center(child: Text('جاري تحميل البيانات'));
+      },
     );
   }
 }

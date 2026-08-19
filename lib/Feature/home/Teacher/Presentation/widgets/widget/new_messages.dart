@@ -85,7 +85,7 @@ class newmessages extends StatelessWidget {
                 SizedBox(height: 15.h),
                 Container(
                   width: 308.w,
-                  height: 43.59.h,
+                  height: 57.59.h,
                   child: Text(
                     numofmessages,
                     style: TextStyle(
@@ -110,24 +110,6 @@ class newmessages extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 19.h),
-
-                /* LinearProgressIndicator(
-              borderRadius: BorderRadius.circular(9999.r),
-              minHeight: 6.h,
-              backgroundColor: Color(0xFF071A2F).withOpacity(0.1),
-              value: progressvalue,
-              valueColor: AlwaysStoppedAnimation<Color>(kcolorOlive),
-            ),*/
-
-                /* Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  '${progress.toInt()}% إنجاز المنهج',
-                  textAlign: TextAlign.right,
-                ),
-              ],
-            ),*/
               ],
             ),
           ),

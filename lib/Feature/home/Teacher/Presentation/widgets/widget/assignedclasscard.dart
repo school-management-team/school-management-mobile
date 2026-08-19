@@ -56,7 +56,7 @@ class assignedclasscard extends StatelessWidget {
               children: [
                 Container(
                   width: 294.w,
-                  height: 32.h,
+                  height: 40.h,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -88,7 +88,7 @@ class assignedclasscard extends StatelessWidget {
                 SizedBox(height: 15.h),
                 Container(
                   width: 308.w,
-                  height: 40.59,
+                  height: 45.59,
                   child: Text(
                     numofclasses,
                     style: TextStyle(

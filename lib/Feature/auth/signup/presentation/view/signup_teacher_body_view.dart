@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:school/Feature/auth/signup/presentation/view_Models/manger/cubit_Teacher_signup/sign_up_teacher_cubit.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/coustumAppBar_teacher.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/textfield_teacher.dart';
+import 'package:school/Feature/auth/signup/presentation/view_Models/manger/cubit_Teacher_signup/sign_up_teacher_cubit.dart';
 import 'package:school/Feature/auth/signup/presentation/view_Models/signup_teacher_textEditing.dart';
+import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/showotpdialog.dart';
 import 'package:school/constant.dart';
-import 'package:school/core/function/showSuccessDialog.dart';
 import 'package:school/core/function/showloadingDialog.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/custom_buttom.dart';
@@ -26,9 +26,7 @@ class SignupTeacherBodyView extends StatefulWidget {
 
 class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
   XFile? selectedFilePath;
-
   final viewModel = SignupTeacherTextediting();
-
   final formkey = GlobalKey<FormState>();
 
   @override
@@ -38,13 +36,9 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
       child: ListView(
         children: [
           customAPPTeacher(),
-
           SizedBox(height: 16.sp),
-
           const Divider(color: Color(0XFFC4C6CD), thickness: 0),
-
           SizedBox(height: 16.sp),
-
           Stack(
             alignment: Alignment.topRight,
             children: [
@@ -53,7 +47,6 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                 size: 350.sp,
                 color: Colors.grey[200],
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -67,34 +60,26 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                       Text("إنشاء حساب ", style: TextSt.textstyle28),
                     ],
                   ),
-
                   Text(
                     "يرجى تعبئة كافة الحقول التالية لإتمام عملية",
                     style: TextSt.textstyle14.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-
                   Text(
                     " .التسجيل",
                     style: TextSt.textstyle14.copyWith(
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-
                   SizedBox(height: 16.sp),
-
                   TextfieldTeacher(formKey: formkey, viewModel: viewModel),
-
                   SizedBox(height: 16.sp),
-
                   Text(
                     "السيرة الذاتية / نبذة تعريفية",
                     style: TextSt.textstyle14,
                   ),
-
                   SizedBox(height: 16.sp),
-
                   TextFieldStyle(
                     textEditingController: viewModel.cvController,
                     max: 5,
@@ -105,21 +90,17 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
                       if (value == null || value.isEmpty) {
                         return "لا يجب أن يكون الحقل فارغ";
                       }
-
                       return null;
                     },
                   ),
-
                   SizedBox(height: 16.sp),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       SizedBox(height: 16.sp),
-
                       GestureDetector(
                         onTap: () async {
                           final ImagePicker picker = ImagePicker();
-
                           final XFile? image = await picker.pickImage(
                             source: ImageSource.gallery,
                             imageQuality: 80,
@@ -181,16 +162,17 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
               ),
             ],
           ),
-
           SizedBox(height: 16.sp),
-
           BlocConsumer<SignUpTeacherCubit, SignUpTeacherState>(
             listener: (context, state) {
               if (state is SignUpTeacherSuccess) {
-                showSuccessDialog(context);
-                Future.delayed(const Duration(seconds: 2));
-                GoRouter.of(context).push(AppRouter.kteacherdash);
+                Navigator.of(context, rootNavigator: true).maybePop();
+                showOtpDialog(
+                  context: context,
+                  userEmail: viewModel.emailController.text.trim(),
+                );
               } else if (state is SignUpTeacherFailure) {
+                Navigator.of(context, rootNavigator: true).maybePop();
                 ScaffoldMessenger.of(
                   context,
                 ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
@@ -251,7 +233,6 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
               );
             },
           ),
-
           SizedBox(height: 16.sp),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -268,7 +249,6 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
               Text("لديك حساب بالفعل؟ ", style: TextSt.textstyle14),
             ],
           ),
-
           SizedBox(height: 40.sp),
         ],
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:school/Feature/home/Teacher/Presentation/Cubit/tasktostudcubit.dart';
 import 'package:school/Feature/home/Teacher/Presentation/views/presentation/view/addnewtask_teacher_body.dart';
 
 import 'package:school/constant.dart';
@@ -10,65 +12,70 @@ class addnewtaskteacherview extends StatelessWidget {
   const addnewtaskteacherview({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 64.h,
-        backgroundColor: Color(0xFFFFFFFF),
-        shadowColor: Colors.black.withOpacity(0.4),
-        elevation: 0.7,
+    return BlocProvider(
+      create: (context) => NewTaskCubit(),
 
-        // shadowColor: Colors.black.withOpacity(0.08),
-        title: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                //width: 186.77.w,
-                //height: 32.h,
-                child: Container(
-                  height: 50.h,
-                  width: 37.w,
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 64.h,
+          backgroundColor: Color(0xFFFFFFFF),
+          shadowColor: Colors.black.withOpacity(0.4),
+          elevation: 0.7,
+
+          // shadowColor: Colors.black.withOpacity(0.08),
+          title: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  //width: 186.77.w,
+                  //height: 32.h,
+                  child: Container(
+                    height: 50.h,
+                    width: 37.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(9999.r),
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.notifications_outlined),
+                      color: Color(0xFF10B981),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 2.w),
+                Container(
+                  // width: 142.77.w,
+                  height: 28.h,
+                  child: Text(
+                    "مدارس القمة الأكاديمية",
+                    style: TextStyle(
+                      fontSize: 27.59.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF000000),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 3.w),
+
+                Container(
+                  height: 32.h,
+                  width: 32.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(9999.r),
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.notifications_outlined),
-                    color: Color(0xFF10B981),
-                  ),
-                ),
-              ),
-              SizedBox(width: 2.w),
-              Container(
-                // width: 142.77.w,
-                height: 28.h,
-                child: Text(
-                  "مدارس القمة الأكاديمية",
-                  style: TextStyle(
-                    fontSize: 27.59.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF000000),
+                    image: DecorationImage(
+                      image: AssetImage(AssestData.profile),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(width: 3.w),
-
-              Container(
-                height: 32.h,
-                width: 32.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(9999.r),
-                  image: DecorationImage(
-                    image: AssetImage(AssestData.profile),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
+          automaticallyImplyLeading: false,
+          leading: null,
         ),
-      ),
-      bottomNavigationBar: Container(
+        /*  bottomNavigationBar: Container(
         width: 390.w,
         height: 102.59.h,
         padding: EdgeInsets.all(16),
@@ -92,22 +99,28 @@ class addnewtaskteacherview extends StatelessWidget {
           height: 70.59.h,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
           child: ElevatedButton(
-            onPressed: () {},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  child: Text(
-                    "نشر في الفصل",
-                    style: TextSt.textstyle24.copyWith(
-                      color: Color(0xFFFFFFFF),
-                    ),
+            onPressed: state is NewTaskLoading ? null : publishtask,
+            child: state is NewTaskLoading
+                ? const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(color: Colors.white),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        child: Text(
+                          "نشر في الفصل",
+                          style: TextSt.textstyle24.copyWith(
+                            color: Color(0xFFFFFFFF),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 8.w),
+                      Icon(Icons.send, color: Color(0xFFFFFFFF), size: 24),
+                    ],
                   ),
-                ),
-                SizedBox(width: 8.w),
-                Icon(Icons.send, color: Color(0xFFFFFFFF), size: 24),
-              ],
-            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Color(0xFF10B981),
               padding: EdgeInsets.symmetric(vertical: 17.h),
@@ -117,9 +130,15 @@ class addnewtaskteacherview extends StatelessWidget {
             ),
           ),
         ),
+      ),*/
+        // backgroundColor: Color(0xFFFFFFFF),
+        body: WillPopScope(
+          child: SafeArea(child: addnewtaskteacher()),
+          onWillPop: () async {
+            return true;
+          },
+        ),
       ),
-      // backgroundColor: Color(0xFFFFFFFF),
-      body: SafeArea(child: addnewtaskteacher()),
     );
   }
 }

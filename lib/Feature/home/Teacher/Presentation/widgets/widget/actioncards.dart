@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+import 'package:school/Feature/home/Teacher/Presentation/Cubit/gradecubit.dart';
+import 'package:school/Feature/home/Teacher/Presentation/data/grade_repo.dart';
+import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/gradedialog.dart';
 import 'package:school/core/assest.dart';
 
 class ButtonCard extends StatelessWidget {
   const ButtonCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GridView.count(
@@ -12,56 +16,57 @@ class ButtonCard extends StatelessWidget {
       shrinkWrap: true,
       crossAxisSpacing: 12.w,
       mainAxisSpacing: 12.h,
-      physics: NeverScrollableScrollPhysics(),
+      childAspectRatio: 1.3,
+      physics: const NeverScrollableScrollPhysics(),
       children: [
-        buildgridview(
+        _buildItem(
           icon: Image.asset(AssestData.grade),
           label: 'رصد درجة',
-          ontap: () {},
-          background: Color(0xFF006C49).withOpacity(0.1),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (_) => BlocProvider(
+                create: (context) => GradeCubit(GradeRepo()),
+                child: const GradeDialog(),
+              ),
+            );
+          },
+          background: const Color(0xFF006C49).withOpacity(0.1),
         ),
-        buildgridview(
+        _buildItem(
           icon: Image.asset(AssestData.newtask),
-          label: 'واجب جديد',
-          ontap: () {},
-          background: Color(0xFF000000).withOpacity(0.05),
+          label: 'قريباً',
+          onTap: () {},
+          background: const Color(0xFF000000).withOpacity(0.05),
         ),
-        buildgridview(
+        _buildItem(
           icon: Image.asset(AssestData.sendmessage),
-          label: 'إرسال إعلان',
-          ontap: () {},
-          background: Color(0xFFC4C6CD).withOpacity(0.2),
+          label: 'قريباً',
+          onTap: () {},
+          background: const Color(0xFFC4C6CD).withOpacity(0.2),
         ),
       ],
     );
   }
 
-  Widget buildgridview({
-    required Image icon,
+  Widget _buildItem({
+    required Widget icon,
     required String label,
-    required VoidCallback ontap,
+    required VoidCallback onTap,
     required Color background,
   }) {
     return GestureDetector(
-      onTap: ontap,
+      onTap: onTap,
       child: Container(
-        width: 163.w,
-        height: 109.59.h,
-        padding: EdgeInsets.only(
-          bottom: 16,
-          top: 16,
-          left: 43.48,
-          right: 45.47,
-        ),
+        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 8.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.r),
-          color: Color(0xFFF6F3ED),
-
+          color: const Color(0xFFF6F3ED),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFFC4C6CD).withOpacity(0.2),
+              color: const Color(0xFFC4C6CD).withOpacity(0.2),
               blurRadius: 1,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -71,23 +76,20 @@ class ButtonCard extends StatelessWidget {
             Container(
               width: 48.w,
               height: 48.h,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(9999.r),
+                shape: BoxShape.circle,
                 color: background,
               ),
               child: icon,
             ),
             SizedBox(height: 7.h),
-            Container(
-              width: 77.05.w,
-              height: 20.59.h,
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF1C1C18),
-                ),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFF1C1C18),
               ),
             ),
           ],

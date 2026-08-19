@@ -11,6 +11,7 @@ import 'package:school/core/api/errors/Failure.dart';
 import 'package:school/core/api/errors/serverException.dart';
 
 import 'package:school/core/function/upload_image_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TeacherAuthRepoImpl implements TeacherAuthRepository {
   final ApiConsumer api;
@@ -32,10 +33,9 @@ class TeacherAuthRepoImpl implements TeacherAuthRepository {
     required XFile legalDocumentPath,
   }) async {
     try {
-  
       final legalDocument = await uploadImageToApi(legalDocumentPath);
 
-      await api.post(
+      final response = await api.post(
         ApiEndpoint.signupTeacher,
         isFromData: true,
         data: {
@@ -43,7 +43,6 @@ class TeacherAuthRepoImpl implements TeacherAuthRepository {
 
           'password': password,
 
-      
           'password_confirmation': passwordConfirmation,
 
           'phone': phone,
@@ -64,11 +63,12 @@ class TeacherAuthRepoImpl implements TeacherAuthRepository {
         },
       );
 
-        options: Options(
-          connectTimeout: const Duration(seconds: 5),
-          sendTimeout: const Duration(seconds: 5),
-          receiveTimeout: const Duration(seconds: 5),
-        );
+      options:
+      Options(
+        connectTimeout: const Duration(seconds: 5),
+        sendTimeout: const Duration(seconds: 5),
+        receiveTimeout: const Duration(seconds: 5),
+      );
       return right(null);
     } on ServerException catch (e) {
       return left(serverFailure(errorMessage: e.modelErrors.errorMessage));
