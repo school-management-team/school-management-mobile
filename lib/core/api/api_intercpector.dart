@@ -7,15 +7,24 @@ class ApiInterceptors extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await CacheHelper().getDataString(key: 'token') ?? '';
+
+    final token = await CacheHelper().getDataString(key: 'user_token') ?? '';
+    
+  
+    print("DEBUG: Interceptor trying to get token with key 'user_token'");
+    print("DEBUG: Retrieved token is: $token");
+
+  
     options.headers['Accept'] = 'application/json';
     options.headers['Content-Type'] = 'application/json';
-handler.next(options);
+
     if (token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
+      print("Authorization header added successfully!");
+    } else {
+      print("WARNING! No token found in CacheHelper!");
     }
-    //super.onRequest(options, handler);
 
-   // handler.next(options);
+    handler.next(options);
   }
 }

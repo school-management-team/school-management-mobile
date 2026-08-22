@@ -4,34 +4,38 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/linearPrecent.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
-import 'package:school/core/widget/Text/text_style.dart';
-
-class CustomCardItem extends StatefulWidget {
+import 'package:school/core/widget/Text/text_style.dart';class CustomCardItem extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icons;
+  final String status;
+
   const CustomCardItem({
     super.key,
     required this.title,
     required this.subtitle,
     required this.icons,
+    required this.status,
   });
 
-  @override
-  State<CustomCardItem> createState() => _CustomCardItemState();
-}
+  bool get isCompleted {
+    final value = status.toLowerCase().trim();
 
-class _CustomCardItemState extends State<CustomCardItem> {
-  bool isSelected = false;
+    return value == 'completed' ||
+        value == 'done' ||
+        value == 'finished';
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
+      margin: EdgeInsets.symmetric(
+        vertical: 8.sp,
+        horizontal: 16.sp,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.sp),
-
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.15),
@@ -46,58 +50,72 @@ class _CustomCardItemState extends State<CustomCardItem> {
           children: [
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.sp),
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isSelected = !isSelected;
-                        });
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        width: 24.sp,
-                        height: 24.sp,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: kcolorOlive, width: 2),
-                          color: isSelected ? kcolorOlive : Colors.transparent,
+                  
+
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      width: 24.sp,
+                      height: 24.sp,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: kcolorOlive,
+                          width: 2,
                         ),
-                        child: isSelected
-                            ? Icon(
-                                Icons.check,
-                                size: 16.sp,
-                                color: Colors.white,
-                              )
-                            : null,
+                        color: isCompleted
+                            ? kcolorOlive
+                            : Colors.transparent,
                       ),
+                      child: isCompleted
+                          ? Icon(
+                              Icons.check,
+                              size: 12.sp,
+                              color: Colors.white,
+                            )
+                          : null,
                     ),
-                    Spacer(),
+
+                    const Spacer(),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.end,
                           children: [
-                            Text(widget.title, style: TextSt.textstyle14),
-                            Text(widget.subtitle, style: TextSt.textstyle12),
+                            Text(
+                              title,
+                              style: TextSt.textstyle12,
+                            ),
+                            SizedBox(height: 4.sp),
+                            Text(
+                              subtitle,
+                              style: TextSt.textstyle12,
+                            ),
                           ],
                         ),
+
                         SizedBox(width: 12.sp),
+
                         Padding(
-                          padding: const EdgeInsets.all(12.0),
+                          padding: EdgeInsets.all(12.sp),
                           child: Container(
                             width: 50.sp,
                             height: 50.sp,
                             decoration: BoxDecoration(
                               color: Colors.green.shade100,
-
-                              border: Border.all(color: Colors.green.shade100),
-                              borderRadius: BorderRadius.circular(40.sp),
+                              border: Border.all(
+                                color: Colors.green.shade100,
+                              ),
+                              borderRadius:
+                                  BorderRadius.circular(40.sp),
                             ),
                             child: Icon(
-                              widget.icons,
+                              icons,
                               size: 25.sp,
                               color: kcolorOlive,
                             ),
@@ -109,8 +127,11 @@ class _CustomCardItemState extends State<CustomCardItem> {
                 ),
               ),
             ),
-
-            Container(width: 15, height: 112, color: kcolorOlive),
+            Container(
+              width: 15.sp,
+              height: 112.sp,
+              color: kcolorOlive,
+            ),
           ],
         ),
       ),

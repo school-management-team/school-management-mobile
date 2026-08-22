@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:school/Feature/auth/login/presentation/view/forgotpass_body_view.dart';
+import 'package:school/Feature/auth/login/presentation/view/res.dart';
 
 import 'package:school/Feature/home/Advisor/presentation/view/management_view.dart';
 import 'package:school/Feature/auth/login/presentation/view/Login_View.dart';
@@ -42,7 +44,7 @@ import 'package:school/Feature/home/Student/presentation/view/tasksandhomework_v
 
 abstract class AppRouter {
   static const klogin = '/LoginView';
-  static const kforgotpass = '/ForgotPassView';
+
   static const kteacherdash = '/teacherdashview';
   static const kadmindashboard = '/AdminDashView';
   static const knewtaskteacher = '/addnewtaskteacherview';
@@ -53,7 +55,8 @@ abstract class AppRouter {
   static const kteacherschedule = '/teacherscheduleview';
   static const kcalendar = '/calendarview';
 
-  //.............................................
+ static const  kforgotpass = '/ForgotPasswordView';
+static const  kresetpass = '/ResetPasswordView';
   static const kOnBoarding = '/';
   static const kOnBoarding1 = '/onboarding1';
   static const kOnBoarding2 = '/onboarding2';
@@ -273,6 +276,18 @@ abstract class AppRouter {
       ),
 
       GoRoute(path: klogin, builder: (context, state) => const LoginView()),
+
+      GoRoute(
+  path: AppRouter.kforgotpass,
+  builder: (context, state) => const ForgotPassView(),
+),
+GoRoute(
+  path: AppRouter.kresetpass,
+  builder: (context, state) {
+    final email = state.extra as String;
+    return ResetPasswordBody(email: email);
+  },
+),
     ],
   );
 }

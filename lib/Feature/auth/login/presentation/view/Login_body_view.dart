@@ -8,6 +8,7 @@ import 'package:school/Feature/home/Teacher/Presentation/Cubit/LoginCubit.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/api/Dio_consumer.dart';
 import 'package:school/core/assest.dart';
+import 'package:school/core/function/showSuccessDialog.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
@@ -34,18 +35,29 @@ class _LoginBodyViewState extends State<LoginBodyView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(DioConsumer(Dio())),
+      create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('تم تسجيل الدخول بنجاح'),
-                backgroundColor: Colors.green,
-              ),
-            );
-            GoRouter.of(context).go(AppRouter.kteacherdash);
+            showSuccessDialog(context);
+
+            Future.delayed(const Duration(seconds: 2), () {
+              if (!context.mounted) return;
+
+              Navigator.of(context).pop();
+
+              if (state.userStatus == 'active') {
+                GoRouter.of(context).go(AppRouter.kDash2Student);
+              } else if (state.userStatus == 'unverified') {
+                GoRouter.of(context).go(AppRouter.kaccountpendeing);
+              }
+            });
           } else if (state is LoginFailure) {
+            if (state.errorMessage.contains('لا يمكن تسجيل الدخول الان')) {
+              GoRouter.of(context).go(AppRouter.kaccountpendeing);
+              return;
+            }
+
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.errorMessage),
@@ -145,7 +157,10 @@ class _LoginBodyViewState extends State<LoginBodyView> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         TextButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                             GoRouter.of(context).push(
+                          AppRouter.kforgotpass);
+                                          },
                                           child: Text(
                                             "نسيت كلمة المرور؟",
                                             style: TextSt.textstyle14.copyWith(

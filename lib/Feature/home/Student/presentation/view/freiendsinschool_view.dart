@@ -49,12 +49,7 @@ class FreiendsinschoolView extends StatelessWidget {
                   fontFamily: 'normal',
                 ),
               ),
-              SizedBox(width: 12.sp),
-              CircleAvatar(
-                radius: 30.sp,
-                backgroundImage: AssetImage(AssestData.studentprofile),
-                backgroundColor: Colors.white,
-              ),
+          
 
               Spacer(),
               Lottie.asset(AssestData.notification, width: 55.sp),

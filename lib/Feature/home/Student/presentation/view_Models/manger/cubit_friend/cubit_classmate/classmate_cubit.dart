@@ -12,11 +12,24 @@ class ClassmateCubit extends Cubit<ClassmateState> {
   ClassmateCubit(this.friendRepo) : super(ClassmateStateInitial());
   final FriendRepo friendRepo;
 
+Future<void> getClassmateData() async {
+  emit(ClassmateStateLoading());
+  
+  var result = await friendRepo.getclassmate();
+  
 
-  Future<void>getClassmateData()async{
-    emit(ClassmateStateLoading());
-    var result=await friendRepo.getclassmate();
-    result.fold((failure)=>emit(ClassmateStateFailuer(errmessage: failure.errorMessage)),
-     (list)=>emit(ClassmateStateSuccess(classmateModel: list)));
-  }
-}
+  if (isClosed) return; 
+
+  result.fold(
+    (failure) {
+      if (!isClosed) {
+        emit(ClassmateStateFailuer(errmessage: failure.errorMessage));
+      }
+    },
+    (list) {
+      if (!isClosed) {
+        emit(ClassmateStateSuccess(classmateModel: list));
+      }
+    },
+  );
+}}

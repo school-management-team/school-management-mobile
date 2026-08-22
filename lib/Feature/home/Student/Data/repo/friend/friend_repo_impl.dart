@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:school/Feature/home/Student/Data/models/classgroup.dart';
 import 'package:school/Feature/home/Student/Data/models/classmate.dart';
 import 'package:school/Feature/home/Student/Data/repo/friend/friend_repo.dart';
+import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_friend/cubit_classgroup/classgroup_state.dart';
 
 import 'package:school/core/api/Dio_consumer.dart';
 import 'package:school/core/api/endpoint.dart';
@@ -17,20 +18,20 @@ class FriendRepoImpl implements FriendRepo {
   });
 
   @override
-  Future<Either<Failure, List<ClassGroupModel>>> getclassfriend() async {
+  Future<Either<Failure, ClassGroupModel>> getclassfriend() async {
     try {
       var data = await dioConsumer.get(
         ApiEndpoint.classgroupStudent,
       );
 
-      List<ClassGroupModel> classgroup = [];
+    
+    ClassGroupModel classgroup = 
 
-      for (var item in data['data']) {
-        classgroup.add(
-          ClassGroupModel.fromJson(item),
-        );
-      }
 
+          ClassGroupModel.fromJson(data['data']);
+        
+      
+    
       return right(classgroup);
     } on ServerException catch (e) {
       return left(

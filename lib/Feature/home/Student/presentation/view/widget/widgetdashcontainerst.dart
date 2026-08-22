@@ -6,14 +6,18 @@ import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
-Row dashcontainerst() {
+Widget dashcontainerst({required double attendanceRate, required double averageGrade}) {
+
+  final double attendancePercent = attendanceRate.clamp(0.0, 100.0);
+  final double gradePercent = averageGrade.clamp(0.0, 100.0);
+
   return Row(
     mainAxisAlignment: MainAxisAlignment.end,
     children: [
+
       Container(
         height: 180.sp,
         width: 160.sp,
-
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.grey.shade300),
@@ -45,10 +49,10 @@ Row dashcontainerst() {
               ),
             ),
             SizedBox(height: 16.sp),
-            Text("94%", style: TextSt.textstyle24),
+            Text("${attendanceRate.toStringAsFixed(0)}%", style: TextSt.textstyle24),
             SizedBox(height: 16.sp),
             Text(
-              "ملتزم جداً",
+              attendanceRate >= 90 ? "ملتزم جداً" : "جيد",
               style: TextSt.textstyle17.copyWith(color: kcolorOlive),
             ),
             SizedBox(height: 12.sp),
@@ -58,16 +62,17 @@ Row dashcontainerst() {
                 isRTL: true,
                 padding: EdgeInsets.zero,
                 lineHeight: 8,
-                percent: 99.toDouble() / 100,
+                percent: attendancePercent / 100,
                 barRadius: Radius.circular(20.sp),
                 backgroundColor: Colors.grey.shade300,
-                progressColor: getProgressColor(99.toDouble()),
+                progressColor: getProgressColor(attendancePercent),
               ),
             ),
           ],
         ),
       ),
       SizedBox(width: 40.sp),
+   
       Container(
         height: 180.sp,
         width: 160.sp,
@@ -98,10 +103,9 @@ Row dashcontainerst() {
               ),
             ),
             SizedBox(height: 16.sp),
-            Text("3.85", style: TextSt.textstyle24),
-            SizedBox(height: 16.sp),
-            Text(
-              "من 4.00",
+            Text(averageGrade.toStringAsFixed(2), style: TextSt.textstyle24),
+            SizedBox(height: 16.sp),Text(
+              "من 100",
               style: TextSt.textstyle17.copyWith(color: kcolorOlive),
             ),
             SizedBox(height: 12.sp),
@@ -111,10 +115,10 @@ Row dashcontainerst() {
                 isRTL: true,
                 padding: EdgeInsets.zero,
                 lineHeight: 8,
-                percent: 99.toDouble() / 100,
+                percent: gradePercent / 100,
                 barRadius: Radius.circular(20.sp),
                 backgroundColor: Colors.grey.shade300,
-                progressColor: getProgressColor(99.toDouble()),
+                progressColor: getProgressColor(gradePercent),
               ),
             ),
           ],
@@ -127,7 +131,7 @@ Row dashcontainerst() {
 Color getProgressColor(double progress) {
   if (progress >= 90) {
     return const Color(0xFF2E7D32);
-  } else if (progress >= 80) {
+  } else if (progress >= 60) {
     return const Color(0xFFF9A825);
   } else {
     return const Color(0xFFC62828);

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:school/core/api/errors/Failure.dart';
 
 abstract class StudentAuthRepository {
-  Future<Either<Failure, void>> registerStudent({
+  Future<Either<Failure, int>> registerStudent({
  required String userName,
     required String fatherName,
     required String motherName,

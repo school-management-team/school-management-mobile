@@ -7,10 +7,14 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/coustumAppBar_teacher.dart';
 import 'package:school/Feature/auth/signup/presentation/view/widget/textfield_teacher.dart';
+import 'package:school/Feature/auth/signup/presentation/view_Models/manger/cubit_Student_signup/sign_up_student_cubit.dart';
 import 'package:school/Feature/auth/signup/presentation/view_Models/manger/cubit_Teacher_signup/sign_up_teacher_cubit.dart';
 import 'package:school/Feature/auth/signup/presentation/view_Models/signup_teacher_textEditing.dart';
 import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/showotpdialog.dart';
 import 'package:school/constant.dart';
+import 'package:school/core/api/endpoint.dart';
+import 'package:school/core/database/cache/cahe_helper.dart';
+import 'package:school/core/function/showSuccessDialog.dart';
 import 'package:school/core/function/showloadingDialog.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/custom_buttom.dart';
@@ -164,9 +168,20 @@ class _SignupTeacherBodyViewState extends State<SignupTeacherBodyView> {
           ),
           SizedBox(height: 16.sp),
           BlocConsumer<SignUpTeacherCubit, SignUpTeacherState>(
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is SignUpTeacherSuccess) {
-                Navigator.of(context, rootNavigator: true).maybePop();
+                await CacheHelper().saveData(
+                  key: ApiKey.userid,
+                  value: state.userId,
+                );
+
+                await CacheHelper().saveData(
+                  key: ApiKey.userStatus,
+                  value: 'unverified',
+                );
+
+                showSuccessDialog(context);
+
                 showOtpDialog(
                   context: context,
                   userEmail: viewModel.emailController.text.trim(),

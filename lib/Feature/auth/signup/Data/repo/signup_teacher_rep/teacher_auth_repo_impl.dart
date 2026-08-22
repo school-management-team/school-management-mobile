@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:school/Feature/auth/signup/Data/repo/signup_teacher_rep/teacher_auth_repository.dart';
+import 'package:school/core/api/Dio_consumer.dart';
 
 import 'package:school/core/api/api_consumer.dart';
 import 'package:school/core/api/endpoint.dart';
@@ -14,12 +15,12 @@ import 'package:school/core/function/upload_image_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TeacherAuthRepoImpl implements TeacherAuthRepository {
-  final ApiConsumer api;
+  final DioConsumer api;
 
   TeacherAuthRepoImpl(this.api);
 
   @override
-  Future<Either<Failure, void>> registerTeacher({
+  Future<Either<Failure, int>> registerTeacher({
     required String email,
     required String password,
     required String passwordConfirmation,
@@ -70,7 +71,18 @@ class TeacherAuthRepoImpl implements TeacherAuthRepository {
           receiveTimeout: const Duration(seconds: 30),
         );
 
-      return right(null);
+final userId = response['data']['user_id'];
+
+if (userId == null) {
+  return left(
+    serverFailure(
+      errorMessage: 'فشل في استخراج معرف المستخدم',
+    ),
+  );
+}
+
+return right(userId as int);
+     
     } on ServerException catch (e) {
       return left(serverFailure(errorMessage: e.modelErrors.errorMessage));
     } catch (e) {

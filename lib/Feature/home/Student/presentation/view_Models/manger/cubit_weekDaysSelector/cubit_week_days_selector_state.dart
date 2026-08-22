@@ -14,9 +14,8 @@ final class CubitWeekDaysSelectorFailure extends CubitWeekDaysSelectorState {
 }
 
 final class CubitWeekDaysSelectorSuccess extends CubitWeekDaysSelectorState {
-  final List<Map<String, dynamic>> sheduleList;
-  final String? remainingHours;
-   final String?completionPercentage;
+  final List<DailyScheduleModel> sheduleList;
 
-  CubitWeekDaysSelectorSuccess({required this.sheduleList, this.remainingHours, this.completionPercentage});
+
+  CubitWeekDaysSelectorSuccess({required this.sheduleList});
 }

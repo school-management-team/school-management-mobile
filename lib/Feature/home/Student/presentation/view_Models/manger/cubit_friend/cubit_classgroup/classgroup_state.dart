@@ -10,7 +10,7 @@ final class ClassgroupStateFailuer extends ClassgroupState {
 ClassgroupStateFailuer({required this.errmessage});
 }
 final class ClassgroupStateSuccess extends ClassgroupState {
-  final List< ClassGroupModel> group;
+  final  ClassGroupModel group;
 
   ClassgroupStateSuccess({required this.group});
 }

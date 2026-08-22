@@ -23,9 +23,9 @@ class _AdvisorAlertsViewState extends State<AdvisorAlertsView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: const Color(0xFFFCF9F3),
+     
         appBar: AppBar(
-          backgroundColor: const Color(0xFFFCF9F3),
+       
           elevation: 0.5,
           title: Text(
             "التنبيهات والاستدعاءات",

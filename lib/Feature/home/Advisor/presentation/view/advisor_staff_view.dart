@@ -14,7 +14,7 @@ class AdvisorStaffView extends StatelessWidget {
         backgroundColor: const Color(0xFFFCF9F3),
         appBar: AppBar(
           elevation: 0.5,
-          backgroundColor: Colors.white,
+       
           automaticallyImplyLeading: false,
           title: Row(
             children: [

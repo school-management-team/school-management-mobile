@@ -5,7 +5,12 @@ sealed class SignUpStudentState {}
 
 final class SignUpStudentInitial extends SignUpStudentState {}
 
-final class SignUpStudentSuccess extends SignUpStudentState {}
+final class SignUpStudentSuccess extends SignUpStudentState {
+
+  final int userId;
+
+  SignUpStudentSuccess({required this.userId});
+}
 
 final class SignUpStudentFailure extends SignUpStudentState {
   final String errorMessage;

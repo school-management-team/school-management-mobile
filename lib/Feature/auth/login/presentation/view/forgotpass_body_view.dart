@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:dio/dio.dart';
 import 'package:school/Feature/home/Teacher/Presentation/Cubit/forgotpasswordcubit.dart';
 import 'package:school/constant.dart';
+import 'package:school/core/api/Dio_consumer.dart';
+import 'package:school/core/router_app.dart';
 
 class ForgotPasswordBody extends StatefulWidget {
   const ForgotPasswordBody({super.key});
@@ -25,9 +28,11 @@ class _ForgotPasswordBodyState extends State<ForgotPasswordBody> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ForgotPasswordCubit(),
+      create: (context) => ForgotPasswordCubit(
+        dioConsumer: DioConsumer(Dio()),
+      ),
       child: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
-        listener: (context, state) {
+      listener: (context, state) {
           if (state is ForgotPasswordSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -35,7 +40,12 @@ class _ForgotPasswordBodyState extends State<ForgotPasswordBody> {
                 backgroundColor: Colors.green,
               ),
             );
-            GoRouter.of(context).pop();
+            
+            GoRouter.of(context).push(
+              AppRouter.kresetpass,
+              extra: inputController.text.trim(),
+            );
+            
           } else if (state is ForgotPasswordFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -94,8 +104,7 @@ class _ForgotPasswordBodyState extends State<ForgotPasswordBody> {
                               color: const Color(0xFFF6F3ED),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Center(
-                              child: Icon(
+                            child: const Center(child: Icon(
                                 Icons.lock_reset_rounded,
                                 size: 23.33,
                                 color: Color(0xFF74777D),
@@ -124,13 +133,13 @@ class _ForgotPasswordBodyState extends State<ForgotPasswordBody> {
                           ),
                           SizedBox(height: 30.h),
                           Container(
-                            width: 171.63.w,
-                            height: 20.h,
+                            width: 300.63.w,
+                            height: 60.h,
                             alignment: Alignment.centerRight,
                             child: Text(
                               "البريد الإلكتروني أو رقم الهاتف",
                               style: TextStyle(
-                                fontSize: 14.sp,
+                                fontSize: 16.sp,
                                 color: const Color(0xFF1C1C18),
                                 fontWeight: FontWeight.w400,
                               ),
@@ -170,8 +179,7 @@ class _ForgotPasswordBodyState extends State<ForgotPasswordBody> {
                                         fontSize: 14.sp,
                                       ),
                                       border: InputBorder.none,
-                                      contentPadding: const EdgeInsets.only(
-                                        right: 16,
+                                      contentPadding: const EdgeInsets.only(right: 16,
                                       ),
                                     ),
                                   ),
@@ -245,10 +253,9 @@ class _ForgotPasswordBodyState extends State<ForgotPasswordBody> {
                           SizedBox(height: 38.h),
                           GestureDetector(
                             onTap: () {
-                              GoRouter.of(context).pop();
-                            },
+                              GoRouter.of(context).pop();},
                             child: SizedBox(
-                              height: 19.59.h,
+                              height: 65.59.h,
                               width: double.infinity,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -256,7 +263,7 @@ class _ForgotPasswordBodyState extends State<ForgotPasswordBody> {
                                   Text(
                                     "العودة لتسجيل الدخول",
                                     style: TextStyle(
-                                      fontSize: 14.sp,
+                                      fontSize: 16.sp,
                                       color: const Color(0xFF74777D),
                                       fontWeight: FontWeight.w500,
                                     ),

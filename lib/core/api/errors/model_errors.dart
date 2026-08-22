@@ -17,7 +17,7 @@ class ModelErrors {
             'حدث خطأ',
         status:
             int.tryParse(
-              jsonData[ApiKey.status]?.toString() ?? '',
+              jsonData[ApiKey.userStatus]?.toString() ?? '',
             ) ??
             0,
       );

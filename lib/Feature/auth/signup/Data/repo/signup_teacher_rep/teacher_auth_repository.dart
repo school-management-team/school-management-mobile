@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:school/core/api/errors/Failure.dart';
 
 abstract class TeacherAuthRepository {
-  Future<Either<Failure, void>> registerTeacher({
+  Future<Either<Failure, int>> registerTeacher({
      required String email,
     required String password,
     required String passwordConfirmation,

@@ -7,8 +7,10 @@ final class SignUpTeacherInitial extends SignUpTeacherState {}
 
 final class SignUpTeacherLoading extends SignUpTeacherState {}
 
-final class SignUpTeacherSuccess extends SignUpTeacherState {}
+final class SignUpTeacherSuccess extends SignUpTeacherState {
+ final int userId;
 
+  SignUpTeacherSuccess({required this.userId});}
 final class SignUpTeacherFailure extends SignUpTeacherState {
   final String errorMessage;
   SignUpTeacherFailure(this.errorMessage);

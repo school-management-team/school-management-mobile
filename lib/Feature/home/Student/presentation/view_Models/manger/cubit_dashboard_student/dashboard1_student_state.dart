@@ -13,4 +13,9 @@ final class Dashboard1StudentFailure extends Dashboard1StudentState {
   Dashboard1StudentFailure({required this.errMessage});
 }
 
-final class Dashboard1StudentSuccess extends Dashboard1StudentState {}
+final class Dashboard1StudentSuccess extends Dashboard1StudentState {
+
+  final StudentDashboardModel studentDashboardModel;
+
+  Dashboard1StudentSuccess({required this.studentDashboardModel});
+}

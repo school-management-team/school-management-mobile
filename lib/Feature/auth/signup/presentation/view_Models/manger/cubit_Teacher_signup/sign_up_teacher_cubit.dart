@@ -49,8 +49,8 @@ class SignUpTeacherCubit extends Cubit<SignUpTeacherState> {
           ),
         );
       },
-      (_) {
-        emit(SignUpTeacherSuccess());
+      (userId) {
+        emit(SignUpTeacherSuccess(userId: userId));
       },
     );
   }

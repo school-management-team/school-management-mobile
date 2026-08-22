@@ -6,8 +6,15 @@ import 'package:school/core/widget/Text/text_style.dart';
 
 class AttendanceAndAbsence extends StatelessWidget {
   final int percentageInt;
+  final int lateCount;
+  final int absentDays; 
 
-  const AttendanceAndAbsence({super.key, required this.percentageInt});
+  const AttendanceAndAbsence({
+    super.key,
+    required this.percentageInt,
+    required this.lateCount,
+    required this.absentDays,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +55,6 @@ class AttendanceAndAbsence extends StatelessWidget {
                   grade: percentageInt.toDouble(),
                   text: "نسبة الحضور",
                 ),
-
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [SizedBox(height: 60.sp)],
@@ -61,6 +67,7 @@ class AttendanceAndAbsence extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 12.sp),
               child: Row(
                 children: [
+                  // بطاقة التأخير الحقيقية
                   Container(
                     height: 70.sp,
                     width: 120.sp,
@@ -73,7 +80,7 @@ class AttendanceAndAbsence extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          "2",
+                          "$lateCount", // عرض القيمة القادمة من الـ API
                           style: TextSt.textstyle14.copyWith(
                             color: Colors.amberAccent,
                           ),
@@ -83,6 +90,7 @@ class AttendanceAndAbsence extends StatelessWidget {
                     ),
                   ),
                   Spacer(),
+                  // بطاقة أيام الغياب الحقيقية
                   Container(
                     height: 70.sp,
                     width: 120.sp,
@@ -94,8 +102,7 @@ class AttendanceAndAbsence extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          "3 ",
+                        Text("$absentDays", // عرض القيمة القادمة من الـ API
                           style: TextSt.textstyle14.copyWith(
                             color: Colors.redAccent,
                           ),

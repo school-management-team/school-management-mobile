@@ -10,6 +10,9 @@ import 'package:school/Feature/auth/signup/presentation/view_Models/signup_stude
 import 'package:school/Feature/home/Teacher/Presentation/widgets/widget/showotpdialog.dart';
 
 import 'package:school/constant.dart';
+import 'package:school/core/api/endpoint.dart';
+import 'package:school/core/database/cache/cahe_helper.dart';
+import 'package:school/core/function/showSuccessDialog.dart';
 import 'package:school/core/function/showloadingDialog.dart';
 import 'package:school/core/router_app.dart';
 import 'package:school/core/widget/Text/text_style.dart';
@@ -50,20 +53,30 @@ class _SignupStudBodyViewState extends State<SignupStudBodyView> {
           TextfieldSignupStud(formKey: formkey, viewModel: viewModel),
           SizedBox(height: 30.h),
           BlocConsumer<SignUpStudentCubit, SignUpStudentState>(
-            listener: (context, state) {
+            listener: (context, state) async{
               if (state is SignUpStudentLoading) {
                 if (!loadingShown) {
                   loadingShown = true;
                   showloadingDialog(context);
                 }
-              } else if (state is SignUpStudentSuccess) {
-                _dismissLoadingDialog();
+              } if (state is SignUpStudentSuccess) {
+  await CacheHelper().saveData(
+    key: ApiKey.userid,
+    value: state.userId,
+  );
 
-                showOtpDialog(
-                  context: context,
-                  userEmail: viewModel.emailController.text.trim(),
-                );
-              } else if (state is SignUpStudentFailure) {
+  await CacheHelper().saveData(
+    key: ApiKey.userStatus,
+    value: 'unverified',
+  );
+
+  showSuccessDialog(context);
+
+  showOtpDialog(
+    context: context,
+    userEmail: viewModel.emailController.text.trim(),
+  );
+} else if (state is SignUpStudentFailure) {
                 _dismissLoadingDialog();
 
                 ScaffoldMessenger.of(context).showSnackBar(

@@ -5,10 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:school/Feature/auth/signup/Data/repo/signup_student_rep/student_auth_repo_impl.dart';
 import 'package:school/Feature/auth/signup/Data/repo/signup_teacher_rep/teacher_auth_repo_impl.dart';
+import 'package:school/Feature/auth/signup/presentation/view/account_peneding.dart';
+import 'package:school/Feature/auth/signup/presentation/view_Models/manger/cubit_Student_signup/pending.dart';
 import 'package:school/Feature/auth/signup/presentation/view_Models/manger/cubit_Student_signup/sign_up_student_cubit.dart';
 import 'package:school/Feature/auth/signup/presentation/view_Models/manger/cubit_Teacher_signup/sign_up_teacher_cubit.dart';
 import 'package:school/Feature/home/Student/Data/repo/Profile/student_profile_repo_impl.dart';
+import 'package:school/Feature/home/Student/Data/repo/dashboard1/student_dashboard_repo_impl.dart';
+import 'package:school/Feature/home/Student/Data/repo/tasksand/tasksend_repo_impl.dart';
+import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_dashboard_student/dashboard1_student_cubit.dart';
 import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_profile_student/profile_student_cubit.dart';
+import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_tasksend/tasksend_cubit.dart';
+import 'package:school/Feature/home/Teacher/Presentation/Cubit/verifyaccountcubit.dart';
 
 import 'package:school/constant.dart';
 import 'package:school/core/api/Dio_consumer.dart';
@@ -34,7 +41,25 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MultiBlocProvider(
+
         providers: [
+
+     BlocProvider(
+      create: (context) => AccountStatusCubit()),
+          BlocProvider(
+      create: (context) => VerifyAccountCubit()),
+           BlocProvider(
+      create: (context) => ProfileStudentCubit(studentProfileRepo: StudentProfileRepoImpl(dioConsumer: DioConsumer(Dio())))),
+   
+          BlocProvider(
+      create: (context) => Dashboard1StudentCubit(StudentDashboardRepoImpl(DioConsumer(Dio())))),
+          BlocProvider(
+
+
+            
+      create: (context) => TasksendCubit(TasksendRepoImpl(DioConsumer(Dio())))),
+
+
           BlocProvider(
             create: (context) =>
                 SignUpTeacherCubit(TeacherAuthRepoImpl(DioConsumer(Dio()))),

@@ -10,7 +10,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(DioConsumer(Dio())),
+      create: (context) => LoginCubit(),
       child: Scaffold(
         backgroundColor: Color(0xFFEBE8E2),
         body: SafeArea(child: LoginBodyView()),

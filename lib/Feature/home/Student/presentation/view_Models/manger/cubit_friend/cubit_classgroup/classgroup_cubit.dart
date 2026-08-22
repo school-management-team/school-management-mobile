@@ -13,7 +13,7 @@ class ClassgroupCubit extends Cubit<ClassgroupState> {
   Future<void>getClassgroupData()async{
     emit(ClassgroupStateLoading());
     var result=await friendRepo.getclassfriend();
-    result.fold((failure)=>emit(ClassgroupStateFailuer(errmessage: failure.errorMessage)),
-     (group)=>emit(ClassgroupStateSuccess(group:group )));
-  }
+    result.fold((failure){  if (!isClosed) {emit(ClassgroupStateFailuer(errmessage: failure.errorMessage));}},
+     (group){  if (!isClosed) {emit(ClassgroupStateSuccess(group:group ));}}
+);  }
 }

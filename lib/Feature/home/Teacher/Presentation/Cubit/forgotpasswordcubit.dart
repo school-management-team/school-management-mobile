@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school/core/api/Dio_consumer.dart';
+import 'package:school/core/api/endpoint.dart';
+import 'package:school/core/api/errors/serverException.dart';
 
 sealed class ForgotPasswordState {}
 
@@ -19,38 +22,31 @@ final class ForgotPasswordFailure extends ForgotPasswordState {
 }
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
-  final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: 'https://api-neo-academy.robooq.com/api',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    ),
-  );
+  final DioConsumer dioConsumer;
 
-  ForgotPasswordCubit() : super(ForgotPasswordInitial());
+  ForgotPasswordCubit({required this.dioConsumer}) : super(ForgotPasswordInitial());
 
   Future<void> sendResetRequest({required String emailOrPhone}) async {
     emit(ForgotPasswordLoading());
-
     try {
-      final response = await _dio.post(
-        '/auth/forgot-password',
-        data: {'email_or_phone': emailOrPhone},
+      final response = await dioConsumer.post(
+        ApiEndpoint.forgotPassword,
+        data: {
+          'email': emailOrPhone,
+        },
       );
 
-      final String message =
-          response.data['message'] ??
-          'تم إرسال كلمة السر الجديدة إلى بريدك الإلكتروني';
-
-      emit(ForgotPasswordSuccess(message: message));
-    } on DioException catch (e) {
-      final errorMsg =
-          e.response?.data['message'] ?? 'حدث خطأ أثناء إرسال الطلب';
-      emit(ForgotPasswordFailure(errorMessage: errorMsg));
+      emit(ForgotPasswordSuccess(
+        message: response['message'] ?? 'تم إرسال تعليمات الاستعادة بنجاح',
+      ));
+    } on ServerException catch (e) {
+      emit(ForgotPasswordFailure(
+        errorMessage: e.modelErrors.errorMessage,
+      ));
     } catch (e) {
-      emit(ForgotPasswordFailure(errorMessage: e.toString()));
+      emit(ForgotPasswordFailure(
+        errorMessage: e.toString(),
+      ));
     }
   }
 }

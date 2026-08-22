@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school/constant.dart';
 import 'package:school/core/assest.dart';
 import 'package:school/core/widget/Text/text_style.dart';
+
 class StudyGroupCardItem extends StatefulWidget {
   final String title;
   final String subtitle;
@@ -20,8 +21,7 @@ class StudyGroupCardItem extends StatefulWidget {
   });
 
   @override
-  State<StudyGroupCardItem> createState() =>
-      _StudyGroupCardItemState();
+  State<StudyGroupCardItem> createState() => _StudyGroupCardItemState();
 }
 
 class _StudyGroupCardItemState extends State<StudyGroupCardItem> {
@@ -53,33 +53,64 @@ class _StudyGroupCardItemState extends State<StudyGroupCardItem> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 14.sp,
-                  vertical: 8.sp,
-                ),
-                decoration: BoxDecoration(
-                  color: widget.color.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(20.sp),
-                ),
-                child: Text(
-                  widget.iconText,
-                  style: TextSt.textstyle16.copyWith(
-                    color: widget.color,
-                  ),
+            
+              SizedBox(
+                width: 120.sp,
+                height: 45.sp,
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 14.sp,
+                      backgroundColor: Colors.grey[200],
+                      child: Text("+8", style: TextStyle(fontSize: 8.sp)),
+                    ),
+                    Positioned(
+                      left: 40,
+                      child: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: Colors.blue,
+                      ),
+                    ),
+                    Positioned(
+                      left: 20,
+                      child: CircleAvatar(
+                        radius: 14,
+                        backgroundImage: AssetImage(AssestData.studentprofile),
+                      ),
+                    ),
+                    Positioned(
+                      left: 60.sp,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 14.sp,
+                          vertical: 8.sp,
+                        ),
+                        decoration: BoxDecoration(
+                          color: widget.color.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(20.sp),
+                        ),
+                        child: Text(
+                          widget.iconText,
+                          style: TextSt.textstyle16.copyWith(
+                            color: widget.color,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
 
-          SizedBox(height: 10.sp),
+          SizedBox(height: 15.sp),
 
           Text(
             widget.title,
             style: TextSt.textstyle16,
           ),
 
-          SizedBox(height: 10.sp),
+          SizedBox(height: 12.sp),
 
           Text(
             widget.subtitle,
@@ -93,9 +124,7 @@ class _StudyGroupCardItemState extends State<StudyGroupCardItem> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    isJoined ? Colors.grey : kcolorOlive,
+              style: ElevatedButton.styleFrom(backgroundColor: isJoined ? Colors.grey : kcolorOlive,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.sp),
                 ),
@@ -105,7 +134,7 @@ class _StudyGroupCardItemState extends State<StudyGroupCardItem> {
                   isJoined = true;
                 });
 
-               
+             
                 widget.onJoinPressed();
               },
               child: Text(

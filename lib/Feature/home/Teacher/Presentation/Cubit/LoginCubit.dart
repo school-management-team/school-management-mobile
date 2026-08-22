@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:school/core/api/Dio_consumer.dart';
-import 'package:school/core/api/endpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 sealed class LoginState {}
@@ -13,58 +11,138 @@ final class LoginLoading extends LoginState {}
 
 final class LoginSuccess extends LoginState {
   final String token;
-  LoginSuccess({required this.token});
+  final String userStatus;
+
+  LoginSuccess({
+    required this.token,
+    required this.userStatus,
+  });
 }
 
 final class LoginFailure extends LoginState {
   final String errorMessage;
-  LoginFailure({required this.errorMessage});
+
+  LoginFailure({
+    required this.errorMessage,
+  });
 }
 
 class LoginCubit extends Cubit<LoginState> {
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: 
+      //  "https://api-neo-academy.robooq.com/api/",
+      
+    "https://reawake-unlighted-scoff.ngrok-free.dev/api/",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    ),
+  );
 
-DioConsumer dio;
-  LoginCubit(this.dio) : super(LoginInitial());
+  LoginCubit() : super(LoginInitial());
 
-  Future<void> login({required String email, required String password}) async {
+  Future<void> login({
+    required String email,
+    required String password,
+  }) async {
     emit(LoginLoading());
 
     try {
-      final response = await dio.post(
-       ApiEndpoint.login,
-        data: {'email': email, 'password': password},
-        
+    
+      final response = await _dio.post(
+        'auth/login',
+        data: {
+          'email': email,
+          'password': password,
+        },
       );
 
-      final String? token =
-          response.data['token'] ?? response.data['data']?['token'];
-
-      if (token != null && token.isNotEmpty) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('user_token', token);
-
-        emit(LoginSuccess(token: token));
-      } else {
-        emit(LoginFailure(errorMessage: 'فشل في استخراج التوكن من السيرفر'));
+      if (kDebugMode) {
+        print('LOGIN RESPONSE = ${response.data}');
       }
+
+    final String? token =
+    response.data['data']?['token'];
+
+final int? userId =
+    response.data['data']?['user']?['id'];
+
+final String? userStatus =
+    response.data['data']?['user']?['status'];
+
+if (token == null || token.isEmpty) {
+  emit(
+    LoginFailure(
+      errorMessage: 'فشل في استخراج التوكن من السيرفر',
+    ),
+  );
+  return;
+}
+
+if (userId == null) {
+  emit(
+    LoginFailure(
+      errorMessage: 'فشل في استخراج معرف المستخدم',
+    ),
+  );
+  return;
+}
+
+if (userStatus == null || userStatus.isEmpty) {
+  emit(
+    LoginFailure(
+      errorMessage: 'فشل في استخراج حالة الحساب',
+    ),
+  );
+  return;
+}
+
+final prefs = await SharedPreferences.getInstance();
+
+await prefs.setString('user_token', token);
+await prefs.setInt('user_id', userId);
+await prefs.setString('user_status', userStatus);
+
+print('USER ID = $userId');
+print('USER STATUS = $userStatus');
+
+emit(
+  LoginSuccess(
+    token: token,
+    userStatus: userStatus,
+  ),
+);
     } on DioException catch (e) {
       if (kDebugMode) {
-        print(' Status Code: ${e.response?.statusCode}');
-        print('Response Body: ${e.response?.data}');
+        print('STATUS CODE = ${e.response?.statusCode}');
+        print('RESPONSE BODY = ${e.response?.data}');
       }
 
-      final serverMessage = e.response?.data is Map
-          ? (e.response?.data['message'] ?? e.response?.data['error'])
-          : null;
+      final serverMessage =
+          e.response?.data is Map
+              ? (e.response?.data['message'] ??
+                  e.response?.data['error'])
+              : null;
 
-      final errorMsg = serverMessage ?? 'حدث خطأ أثناء تسجيل الدخول';
-
-      emit(LoginFailure(errorMessage: errorMsg));
+      emit(
+        LoginFailure(
+          errorMessage:
+              serverMessage?.toString() ??
+              'حدث خطأ أثناء تسجيل الدخول',
+        ),
+      );
     } catch (e) {
       if (kDebugMode) {
-        print('Unexpected Error: $e');
+        print('UNEXPECTED ERROR = $e');
       }
-      emit(LoginFailure(errorMessage: 'حدث خطأ غير متوقع'));
+
+      emit(
+        LoginFailure(
+          errorMessage: 'حدث خطأ غير متوقع',
+        ),
+      );
     }
   }
 }

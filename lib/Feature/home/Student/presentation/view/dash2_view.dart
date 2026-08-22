@@ -1,10 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:school/Feature/home/Student/Data/repo/dash2/dash2_repo_impl.dart';
-import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_dash2_student/dash2_student_cubit.dart';
+
 import 'package:school/Feature/home/Student/presentation/view/dash2_view_body.dart';
+import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_dash2_student/dash2_student_cubit.dart';
+import 'package:school/core/api/Dio_consumer.dart';
 import 'package:school/core/assest.dart';
 import 'package:school/core/themes/themes.dart';
 import 'package:school/core/widget/Text/text_style.dart';
@@ -36,12 +39,7 @@ class _SchoolCalendarScreenState extends State<SchoolCalendarScreen> {
                   fontFamily: 'normal',
                 ),
               ),
-              SizedBox(width: 12.sp),
-              CircleAvatar(
-                radius: 30.sp,
-                backgroundImage: AssetImage(AssestData.studentprofile),
-                backgroundColor: Colors.white,
-              ),
+             
 
               Spacer(),
               Lottie.asset(AssestData.notification, width: 55.sp),
@@ -51,7 +49,7 @@ class _SchoolCalendarScreenState extends State<SchoolCalendarScreen> {
         ),
         bottomNavigationBar: BottomfiveHomeStudent(select: 2),
         body:  BlocProvider<Dash2StudentCubit>(
-      create: (context) => Dash2StudentCubit(Dash2RepoImpl()),child:SafeArea(child: SafeArea(child: Dash2ViewBody())),
+      create: (context) => Dash2StudentCubit(Dash2RepoImpl(api: DioConsumer(Dio()))),child:SafeArea(child: SafeArea(child: Dash2ViewBody())),
       ),
     );
   }

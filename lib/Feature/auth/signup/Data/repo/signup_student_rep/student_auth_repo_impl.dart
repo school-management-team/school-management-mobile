@@ -14,7 +14,7 @@ class StudentAuthRepoImpl implements StudentAuthRepository {
   StudentAuthRepoImpl(this.dioConsume);
 
   @override
-  Future<Either<Failure, void>> registerStudent({
+  Future<Either<Failure, int>> registerStudent({
     required String userName,
     required String fatherName,
     required String motherName,
@@ -28,31 +28,38 @@ class StudentAuthRepoImpl implements StudentAuthRepository {
     required String gender,
   }) async {
     try {
-      final response = await dioConsume.post(
-        ApiEndpoint.signupStudent,
+     final response = await dioConsume.post(
+  ApiEndpoint.signupStudent,
+  options: Options(
+    connectTimeout: const Duration(seconds: 30),
+    sendTimeout: const Duration(seconds: 30),
+    receiveTimeout: const Duration(seconds: 30),
+  ),
+  data: {
+    'email': email,
+    'password': password,
+    'password_confirmation': passwordConfirmation,
+    'user_name': userName,
+    'phone': phone,
+    'gender': gender,
+    'birth_date': birthDate,
+    'father_name': fatherName,
+    'mother_name': motherName,
+    'class_id': classId,
+  },
+);
 
-        options: Options(
-          connectTimeout: const Duration(seconds: 30),
-          sendTimeout: const Duration(seconds: 30),
-          receiveTimeout: const Duration(seconds: 30),
-        ),
+final userId = response['data']['user_id'];
 
-        data: {
-          'email': email,
-          'password': password,
-          'password_confirmation': passwordConfirmation,
-          'user_name': userName,
-          'phone': phone,
-          'gender': gender,
-          'birth_date': birthDate,
-          'father_name': fatherName,
-          'mother_name': motherName,
-          'class_id': classId,
-        },
-      );
-     
+if (userId == null) {
+  return left(
+    serverFailure(
+      errorMessage: 'فشل في استخراج معرف المستخدم',
+    ),
+  );
+}
 
-      return right(null);
+return right(userId as int);
 
     } on ServerException catch (e) {
       return left(

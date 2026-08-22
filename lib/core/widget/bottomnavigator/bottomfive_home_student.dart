@@ -121,13 +121,13 @@ class BottomfiveHomeStudent extends StatelessWidget {
             children: [
               Icon(
                 Icons.dashboard_outlined,
-                color: select == 3 ? Colors.white : KcolorGrey,
+                color: select == 5? Colors.white : KcolorGrey,
               ),
               Text(
                 'الملف',
                 style: TextStyle(
                   fontSize: 10,
-                  color: select == 2 ? Colors.white : KcolorGrey,
+                  color: select == 5 ? Colors.white : KcolorGrey,
                 ),
               ),
             ],

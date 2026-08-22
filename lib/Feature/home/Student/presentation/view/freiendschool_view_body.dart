@@ -22,6 +22,15 @@ class _FreiendschoolViewBodyState extends State<FreiendschoolViewBody> {
   int? selectedGroupIndex;
 
   @override
+  void initState() {
+    super.initState();
+    
+    context.read<ClassgroupCubit>().getClassgroupData();
+    
+    context.read<ClassmateCubit>().getClassmateData(); 
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
@@ -29,11 +38,9 @@ class _FreiendschoolViewBodyState extends State<FreiendschoolViewBody> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            
             Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 10,
-              ),
+              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               padding: EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -54,10 +61,7 @@ class _FreiendschoolViewBodyState extends State<FreiendschoolViewBody> {
                     hintStyle: TextStyle(fontSize: 14.sp),
                     hintTextDirection: TextDirection.ltr,
                     border: InputBorder.none,
-                    icon: const Icon(
-                      Icons.search,
-                      color: Colors.grey,
-                    ),
+                    icon: const Icon(Icons.search, color: Colors.grey),
                   ),
                 ),
               ),
@@ -70,102 +74,78 @@ class _FreiendschoolViewBodyState extends State<FreiendschoolViewBody> {
               children: [
                 Text(
                   "عرض الكل",
-                  style: TextSt.textstyle17.copyWith(
-                    color: kcolorOlive,
-                  ),
+                  style: TextSt.textstyle17.copyWith(color: kcolorOlive),
                 ),
                 const Spacer(),
-                Text(
-                  "مجموعات دراسية",
-                  style: TextSt.textstyle17,
-                ),
+                Text("مجموعات دراسية", style: TextSt.textstyle17),
               ],
             ),
 
             SizedBox(height: 30.sp),
 
-            BlocBuilder<ClassgroupCubit, ClassgroupState>(
+            BlocConsumer<ClassgroupCubit, ClassgroupState>(
+              listener: (context, state) {
+                if (state is ClassgroupStateFailuer) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.errmessage)),
+                  );
+                }
+              },
               builder: (context, state) {
                 if (state is ClassgroupStateLoading) {
-                   showloadingDialog(context);
-                  
-                }
-
-                if (state is ClassgroupStateFailuer) {
-                    ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.errmessage)));
-                }
-
-                if (state is ClassgroupStateSuccess) {
-                  return SizedBox(
-                    height: 260.sp,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: state.group.length,
-                      itemBuilder: (context, index) {
-                        final group = state.group[index];
-
-                        return StudyGroupCardItem(
-                          title: group.groupName ?? '',
-                          subtitle:
-                              "عدد الأعضاء: ${group.membersCount ?? 0}",
-                          iconText: "Σ",
-                          color: Colors.green,
-
-                          onJoinPressed: () {
-                            setState(() {
-                              selectedGroupIndex = index;
-                            });
-                          },
-                        );
-                      },
-                    ),
+                  return const Center(
+                    child: CircularProgressIndicator(color: kcolorOlive),
                   );
                 }
 
-                  return const Center(child: CircularProgressIndicator(),);
+                if (state is ClassgroupStateSuccess) {
+                  final group = state.group;
+
+                  return SizedBox(
+                    height: 260.sp,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        StudyGroupCardItem(
+                          title: group.groupName ?? '',
+                          subtitle: "عدد الأعضاء: ${group.membersCount ?? 0}",
+                          iconText: "Σ",
+                          color: Colors.green,
+                          onJoinPressed: () {
+                            setState(() {
+                              selectedGroupIndex = 0;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                return const Center(child: CircularProgressIndicator());
               },
             ),
+
             if (selectedGroupIndex != null) ...[
               SizedBox(height: 30.sp),
-
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Icon(
-                    Icons.filter_list,
-                    size: 30.sp,
-                    color: Colors.blueGrey,
-                  ),
+                  Icon(Icons.filter_list, size: 30.sp, color: Colors.blueGrey),
                   SizedBox(width: 10.sp),
-                  Icon(
-                    Icons.sort,
-                    size: 30.sp,
-                    color: Colors.blueGrey,
-                  ),
+                  Icon(Icons.sort, size: 30.sp, color: Colors.blueGrey),
                   const Spacer(),
-                  Text(
-                    "زملاء المجموعة",
-                    style: TextSt.textstyle17,
-                  ),
+                  Text("زملاء المجموعة", style: TextSt.textstyle17),
                 ],
               ),
-
               SizedBox(height: 20.sp),
-
               BlocBuilder<ClassmateCubit, ClassmateState>(
                 builder: (context, state) {
                   if (state is ClassmateStateLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   if (state is ClassmateStateFailuer) {
-                    return Center(
-                      child: Text(state.errmessage),
-                    );
+                    return Center(child: Text(state.errmessage));
                   }
 
                   if (state is ClassmateStateSuccess) {
@@ -181,7 +161,7 @@ class _FreiendschoolViewBodyState extends State<FreiendschoolViewBody> {
                     );
                   }
 
-                  return const Center(child: CircularProgressIndicator(),);
+                  return const Center(child: CircularProgressIndicator());
                 },
               ),
             ],

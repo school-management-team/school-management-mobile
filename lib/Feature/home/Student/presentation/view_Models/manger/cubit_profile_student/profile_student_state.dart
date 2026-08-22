@@ -1,39 +1,69 @@
-part of 'profile_student_cubit.dart';
 
-@immutable
+import 'package:image_picker/image_picker.dart';
+import 'package:school/Feature/home/Student/Data/models/AttendanceDataModel.dart';
+import 'package:school/Feature/home/Student/Data/models/StudentPersonalData.dart';
+import 'package:school/Feature/home/Student/Data/models/guardian.dart';
+import 'package:school/Feature/home/Student/Data/models/profile.dart';
+
 sealed class ProfileStudentState {}
 
-final class ProfileStudentInitial extends ProfileStudentState {}
+class ProfileStudentInitial extends ProfileStudentState {}
 
-final class ProfileStudentLoading extends ProfileStudentState {}
+class ProfileStudentLoading extends ProfileStudentState {}
 
-final class ProfileStudentSuccess extends ProfileStudentState {
-  final String nationalty;
-  final String address;
-  final String nationalIa;
-  final String birthDate;
+class ProfileStudentSuccess extends ProfileStudentState {
+  final StudentProfileResponseModel profileResponse;
+  final StudentPersonalResponseModel personResponse;
+  final AttendanceSummaryResponseModel attendanceResponse;
+  final StudentGuardianResponseModel guardianResponse;
+  final XFile? localimage;
 
   ProfileStudentSuccess({
-    required this.nationalty,
-    required this.address,
-    required this.nationalIa,
-    required this.birthDate,
+    required this.profileResponse,
+    required this.personResponse,
+    required this.attendanceResponse,
+    required this.guardianResponse,
+    this.localimage,
   });
 }
 
-final class ProfileStudentFailure extends ProfileStudentState {
-  final String errMessage;
+class ProfileStudentFailure extends ProfileStudentState {
+  final String errorMessage;
 
-  ProfileStudentFailure({required this.errMessage});
+  ProfileStudentFailure({
+    required this.errorMessage,
+  });
 }
 
-final class ProfileStudentEditingState extends ProfileStudentState {}
+class ProfileImageUpdatingState extends ProfileStudentState {
+  final StudentProfileResponseModel profileResponse;
+  final StudentPersonalResponseModel personResponse;
+  final AttendanceSummaryResponseModel attendanceResponse;
+  final StudentGuardianResponseModel guardianResponse;
+  final XFile? localimage;
 
-final class ProfileStudentConactState extends ProfileStudentState {}
-
-final class ProfileStudentUpdate extends ProfileStudentState {
-  final String phone;
-  final String email;
-
-  ProfileStudentUpdate({required this.phone, required this.email});
+  ProfileImageUpdatingState({
+    required this.profileResponse,
+    required this.personResponse,
+    required this.attendanceResponse,
+    required this.guardianResponse,
+    this.localimage,
+  });
 }
+
+class ProfileImageUpdatedState extends ProfileStudentState {
+  final StudentProfileResponseModel profileResponse;
+  final StudentPersonalResponseModel personResponse;
+  final AttendanceSummaryResponseModel attendanceResponse;
+  final StudentGuardianResponseModel guardianResponse;
+  final XFile localimage;
+
+  ProfileImageUpdatedState({
+    required this.profileResponse,
+    required this.personResponse,
+    required this.attendanceResponse,
+    required this.guardianResponse,
+    required this.localimage,
+  });
+}
+

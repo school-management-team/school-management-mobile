@@ -3,250 +3,256 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_flip_builder/page_flip_builder.dart';
-import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_dash2_student/dash2_student_cubit.dart';
+
+import 'package:school/Feature/home/Student/Data/models/ImportantAnnouncementModel.dart';
 import 'package:school/Feature/home/Student/presentation/view/WeekDaysSelector_view.dart';
 import 'package:school/Feature/home/Student/presentation/view/widget/SchoolCalendarScreen.dart';
-import 'package:school/constant.dart';
+import 'package:school/Feature/home/Student/presentation/view_Models/manger/cubit_dash2_student/dash2_student_cubit.dart';
 import 'package:school/core/assest.dart';
-import 'package:school/core/function/showloadingDialog.dart';
 import 'package:school/core/widget/Text/text_style.dart';
 
 class Dash2ViewBody extends StatefulWidget {
-  const Dash2ViewBody({super.key});
+  const Dash2ViewBody({
+    super.key,
+  });
 
   @override
   State<Dash2ViewBody> createState() => _Dash2ViewBodyState();
 }
 
 class _Dash2ViewBodyState extends State<Dash2ViewBody> {
-  final PageFlipKey = GlobalKey<PageFlipBuilderState>();
+  final GlobalKey<PageFlipBuilderState> pageFlipKey =
+      GlobalKey<PageFlipBuilderState>();
+
+  DateTime? selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<Dash2StudentCubit>().fetchCalendarData();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<Dash2StudentCubit, Dash2StudentState>(
-      builder: (context, state) {
-        if (state is Dash2StudentLoading) {
-          showloadingDialog(context);
-        } else if (state is Dash2StudentFailure) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
+    return BlocConsumer<Dash2StudentCubit, Dash2StudentState>(
+      listener: (context, state) {
+        if (state is Dash2StudentFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+            ),
+          );
         }
-
+      },
+      builder: (context, state) {
         return PageFlipBuilder(
-          key: PageFlipKey,
+          key: pageFlipKey,
           interactiveFlipEnabled: true,
           flipAxis: Axis.horizontal,
-
-          frontBuilder: (_) => _buildMainContent(),
-
-          backBuilder: (_) => (WeekdaysselectorView()),
+          frontBuilder: (_) => _buildMainContent(state),
+          backBuilder: (_) =>  WeekdaysselectorView(),
         );
       },
     );
   }
 
-  Widget _buildMainContent() {
-    return Material(
+  Widget _buildMainContent(
+    Dash2StudentState state,
+  ) {
+  
+    if (state is Dash2StudentLoading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+   
+    if (state is Dash2StudentFailure) {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.all(20.sp),
+          child: Text(
+            state.message,
+            style: TextSt.textstyle14,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+
+    
+
+    final Map<DateTime, Map<String, dynamic>> events =
+        state is Dash2StudentSuccess
+            ? state.events
+            : {};
+
+    final List<ImportantAnnouncementModel> announcements =
+        state is Dash2StudentSuccess
+            ? state.announcements
+            : [];
+
+
+    final filteredAnnouncements =
+        selectedDate == null
+            ? announcements
+            : announcements.where(
+                (announcement) {
+                  if (announcement.date == null) {
+                    return false;
+                  }
+
+                  try {
+                    final annDate = DateTime.parse(
+                      announcement.date!,
+                    );
+
+                    return annDate.year ==
+                            selectedDate!.year &&
+                        annDate.month ==
+                            selectedDate!.month &&
+                        annDate.day ==
+                            selectedDate!.day;
+                  } catch (_) {
+                    return false;
+                  }
+                },
+              ).toList();return Material(
       color: Colors.transparent,
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.sp),
-              child: Column(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10.sp,
+          ),
+          child: Column(
+            children: [
+             
+              SchoolCalendarScreen(
+                events: events,
+              ),
+
+              SizedBox(height: 30.sp),
+
+
+              Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.end,
                 children: [
-                  SchoolCalendarScreen(),
-                  SizedBox(height: 30.sp),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        " عرض الكل",
-                        style: TextSt.textstyle17.copyWith(color: kcolorOlive),
-                      ),
-                      Spacer(),
-                      Text("آخر الإعلانات ", style: TextSt.textstyle17),
-                    ],
-                  ),
-                  SizedBox(height: 30.sp),
-
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.sp),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.15),
-                          offset: const Offset(4, 4),
-                          blurRadius: 6,
+                  if (selectedDate != null)
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedDate = null;
+                        });
+                      },
+                      child: Text(
+                        'إلغاء التحديد',
+                        style: TextSt.textstyle14.copyWith(
+                          color: Colors.red,
                         ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0.sp),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Stack(
-                            children: [
-                              Image.asset(
-                                AssestData.schoolTrip,
-                                height: 200,
-                                fit: BoxFit.fill,
-                              ),
-
-                              Positioned(
-                                top: 8,
-                                right: 10,
-                                child: Container(
-                                  height: 40.sp,
-                                  width: 70.sp,
-                                  decoration: BoxDecoration(
-                                    color: kcolorgreen,
-                                    borderRadius: BorderRadius.circular(25.sp),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsGeometry.symmetric(
-                                      horizontal: 12.sp,
-                                      vertical: 4.sp,
-                                    ),
-                                    child: Text(
-                                      "تذكير",
-                                      style: TextSt.textstyle16.copyWith(
-                                        color: Colors.white,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20.sp),
-                          Text(
-                            "رحلة المتحف الوطني للعلوم",
-                            style: TextSt.textstyle16,
-                          ),
-                          SizedBox(height: 16.sp),
-                          Text(
-                            " نذكر أولياء الأمور الكرام بأن آخر موعد لتسليم",
-                            style: TextSt.textstyle14.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            "...موافقات رحلة المتحف هو الخميس القادم",
-                            style: TextSt.textstyle14.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          SizedBox(height: 30.sp),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Icon(
-                                Icons.remove_red_eye_outlined,
-                                size: 16,
-                                color: Colors.grey,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                "1.2k",
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 13,
-                                ),
-                              ),
-                              SizedBox(width: 15),
-                              Icon(
-                                Icons.calendar_today_outlined,
-                                size: 16,
-                                color: Colors.grey,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                "12 مايو",
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 16.sp),
-                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(height: 30.sp),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      buildAnnouncement(
-                        "جدول الاختبارات النهائية",
-                        "    تم رفع الجداول النهائية لجميع  \n      المراحل الدراسية عبر المنصة  ",
-                        "منذ 3 ساعات",
-                        Icons.description,
-                        Colors.green,
-                      ),
-                      buildAnnouncement(
-                        "تحديث سياسة الزي المدرسي",
-                        "يرجى الاطلاع على التحديثات الجديدة  \n                  الخاصة بالزي الرياضي",
-                        "أمس",
-                        Icons.campaign,
-                        Colors.orange,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10.sp),
 
-                  GestureDetector(
-                    onTap: () {
-                      PageFlipKey.currentState?.flip();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "متابعة معلومات جدول الطالب",
-                          style: TextSt.textstyle16,
-                        ),
-                        SizedBox(width: 2.sp),
+                  const Spacer(),
 
-                        Lottie.asset(
-                          AssestData.study,
-                          width: 100,
-                          height: 100,
-                          animate: true,
-                          repeat: true,
-                        ),
-                      ],
-                    ),
+                  Text(
+                    selectedDate == null
+                        ? 'آخر الإعلانات'
+                        : 'إعلانات وتواريخ اليوم',
+                    style: TextSt.textstyle17,
                   ),
-
-                  SizedBox(height: 30.sp),
                 ],
               ),
-            ),
-          ),
 
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: 200.h,
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onHorizontalDragStart: (_) {},
-            ),
+              SizedBox(height: 20.sp),
+
+              filteredAnnouncements.isEmpty
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 20.sp,
+                      ),
+                      child: Text(
+                        selectedDate == null
+                            ? 'لا توجد إعلانات حالياً'
+                            : 'لا توجد إعلانات في هذا التاريخ',
+                        style: TextSt.textstyle14.copyWith(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount:
+                          filteredAnnouncements.length,
+                      shrinkWrap: true,
+                      physics:
+                          const NeverScrollableScrollPhysics(),
+                      itemBuilder: (
+                        context,
+                        index,
+                      ) {
+                        final announcement =
+                            filteredAnnouncements[index];
+
+                        final bool isExam =
+                            announcement.type == 'exam' ||
+                            announcement.type == 'academic';
+
+                        final Color itemColor =
+                            isExam
+                                ? Colors.green
+                                : Colors.orange;
+
+                        return buildAnnouncement(
+                          announcement.title ?? '',
+                          announcement.description ?? '',
+                          announcement.date ?? '',
+                          isExam
+                              ? Icons.description
+                              : Icons.campaign,
+                          itemColor,
+                        );
+                      },
+                    ),
+
+              SizedBox(height: 30.sp),
+
+
+              GestureDetector(
+                onTap: () {
+                  pageFlipKey.currentState?.flip();},
+                child: Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'متابعة معلومات جدول الطالب',
+                      style: TextSt.textstyle16,
+                    ),
+                    SizedBox(width: 2.sp),
+                    Lottie.asset(
+                      AssestData.study,
+                      width: 100,
+                      height: 100,
+                      animate: true,
+                      repeat: true,
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(height: 30.sp),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 }
+
+
 
 Widget buildAnnouncement(
   String title,
@@ -256,11 +262,17 @@ Widget buildAnnouncement(
   Color color,
 ) {
   return Container(
-    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-    padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 16.sp),
+    margin: EdgeInsets.symmetric(
+      vertical: 16.sp,
+      horizontal: 12.sp,
+    ),
+    padding: EdgeInsets.symmetric(
+      horizontal: 12.sp,
+      vertical: 16.sp,
+    ),
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(12.sp),
       boxShadow: [
         BoxShadow(
           color: Colors.black.withOpacity(0.15),
@@ -273,35 +285,55 @@ Widget buildAnnouncement(
       children: [
         Expanded(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment:
+                CrossAxisAlignment.end,
             children: [
-              Text(title, style: TextSt.textstyle16),
+              Text(
+                title,
+                style: TextSt.textstyle16,
+                textAlign: TextAlign.right,
+              ),
+
               SizedBox(height: 4.sp),
+
               Text(
                 subtitle,
                 style: TextSt.textstyle14.copyWith(
-                  color: Colors.grey.shade400,
-                  fontWeight: FontWeight.w200,
+                  color: Colors.grey.shade600,
+                  fontWeight: FontWeight.w400,
                 ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.right,
               ),
+
               SizedBox(height: 8.sp),
+
               Text(
                 time,
-                style: TextSt.textstyle14.copyWith(color: Colors.grey.shade400),
+                style: TextSt.textstyle14.copyWith(
+                  color: Colors.grey.shade400,
+                ),
               ),
             ],
           ),
         ),
+
         SizedBox(width: 16.sp),
+
         Container(
           height: 65.sp,
           width: 65.sp,
-          padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 4.sp),
           decoration: BoxDecoration(
             color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius:
+                BorderRadius.circular(8.sp),
           ),
-          child: Icon(icon, color: color, size: 30.sp),
+          child: Icon(
+            icon,
+            color: color,
+            size: 30.sp,
+          ),
         ),
       ],
     ),
